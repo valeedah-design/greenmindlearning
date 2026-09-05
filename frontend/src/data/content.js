@@ -58,7 +58,7 @@ export const WEBINARS = [
 
 export const FAQS = [
   { q: "Can I change my plan later?", a: "Yes. You can upgrade or downgrade at any time from your account settings. Upgrades apply immediately and are prorated; downgrades take effect at the next billing cycle." },
-  { q: "Is there a free trial available?", a: "Every Trainer and Professional plan starts with a 14-day free trial — full library access, no credit card required. Enterprise pilots are scoped with our sales team." },
+  { q: "Can we get a demo before committing?", a: "Yes — book a guided walkthrough and our team will tailor it to your industry and use case. Enterprise pilots are scoped directly with our sales team." },
   { q: "Do you offer discounts for non-profits?", a: "Yes. Registered non-profits, NGOs, and accredited educational institutions receive 30% off any plan. Contact our team with proof of status to activate it." },
   { q: "What payment methods do you accept?", a: "We accept all major credit cards, SEPA direct debit, and — for annual Enterprise contracts — bank transfer with invoicing." },
 ];
@@ -68,7 +68,7 @@ export const TIERS = [
     name: "Trainer", yearly: 49, monthly: 61, popular: false,
     blurb: "Perfect for independent consultants and small-scale educators.",
     features: ["Up to 50 active students", "Full Learning Material Access", "Topic Explorer Basic Insights", "Standard Resources Hub"],
-    cta: "Start Trainer Trial", to: "/about-contact",
+    cta: "Choose Trainer", to: "/about-contact",
   },
   {
     name: "Professional", yearly: 149, monthly: 186, popular: true,

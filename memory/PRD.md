@@ -43,6 +43,12 @@ Full marketing website for Green Mind Learning, an e-learning platform teaching 
 - P1: Blog/Article template page (seed: Sarah Jenkins icebreakers post); material detail/preview pages; real pagination data
 - P2: Optional JWT auth if user changes mind; webinar playback; downloadable enterprise overview PDF
 
+## ROI Calculator (implemented 2026-09-05)
+- components/site/ROICalculator.jsx inserted on Home directly above final CtaBanner (id="roi-calculator", forest-light bg): 3-step wizard (Your Company → Your Training → Your Results) with checkmark/pill stepper, 4 dropdowns, live "Calculated From Your Inputs" panels (steps 1–2), 5 result tiles (savings range, findings avoided, finding cost savings, payback, ROI multiple), recap chips, visible disclaimer, navy lead-capture card (POSTs to /api/contact with topic "ROI Report Request" + modeled results in message), success state with Talk to Our Team / View Pricing conversion CTAs, "Adjust inputs" preserves state
+- All dollar constants are commented placeholders in one block at the top of ROICalculator.jsx
+- Hero slide 3 replaced: now the ROI pitch ("What could smarter training save your organization?") with Calculate Your ROI → /#roi-calculator scroll
+- Free-trial offers removed site-wide (2026-09-05): tier CTA "Start Trainer Trial" → "Choose Trainer", trial FAQ → demo FAQ, Pricing FAQ subcopy, hero slide 3 trial copy (replaced by ROI slide)
+
 ## Forms → Database (implemented 2026-09-05)
 - POST /api/waitlist {name, email, organization, role} → `waitlist` collection; duplicate email returns existing entry (idempotent), invalid email → 422
 - POST /api/contact {first_name, last_name, email, topic, message} → `contact_messages` collection

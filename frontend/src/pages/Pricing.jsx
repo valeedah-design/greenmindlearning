@@ -200,7 +200,7 @@ export default function Pricing() {
             <SectionHead
               tag="FAQ"
               title={<>Questions, <span className="text-forest">answered.</span></>}
-              sub="Everything trainers and L&D teams usually ask before starting a trial."
+              sub="Everything trainers and L&D teams usually ask before choosing a plan."
             />
           </Reveal>
           <Reveal delay={0.1}>

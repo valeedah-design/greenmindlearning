@@ -10,6 +10,7 @@ import { ButtonLink, ArrowLink, Tag, SoonPill, SectionHead } from "@/components/
 import Marquee from "@/components/site/Marquee";
 import CtaBanner from "@/components/site/CtaBanner";
 import CustomizeJourney from "@/components/site/CustomizeJourney";
+import ROICalculator from "@/components/site/ROICalculator";
 import { IMAGES, TINTS } from "@/data/content";
 
 const PILLARS = [
@@ -138,18 +139,17 @@ const HERO_SLIDES = [
     secondary: { label: "View Pricing", to: "/pricing", testid: "hero-pricing-button" },
   },
   {
-    tag: "Start Today",
+    tag: "ROI Calculator",
     lines: [
-      "Your team could be",
-      <>training <span className="text-leaf">smarter</span></>,
-      "by next week.",
+      "What could smarter training",
+      <>save <span className="text-leaf">your</span> organization?</>,
     ],
-    sub: "Start a 14-day free trial — full library access, no credit card required. Plans from 49€/mo, cancel anytime.",
+    sub: "Answer four quick questions and see the projected annual impact of switching to simulation-based sustainability training — modeled live from your inputs.",
     img: IMAGES.leafSun,
     alt: "Sunlight filtering through fresh green leaves",
-    primary: { label: "Start Free Trial", to: "/pricing", testid: "hero-trial-button" },
+    primary: { label: "Calculate Your ROI", to: "/#roi-calculator", testid: "hero-roi-button" },
     secondary: { label: "Talk to Sales", to: "/about-contact", testid: "hero-sales-button" },
-    proof: "500+ trainers · 50,000+ learners · 24% avg. score lift",
+    proof: "2-minute estimate · Industry benchmarks · Results before any email",
   },
 ];
 
@@ -769,6 +769,8 @@ export default function Home() {
           </Reveal>
         </div>
       </section>
+
+      <ROICalculator />
 
       <CtaBanner
         title="Ready to transform your sustainability training?"
