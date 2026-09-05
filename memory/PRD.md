@@ -18,6 +18,8 @@ Full marketing website for Green Mind Learning, an e-learning platform teaching 
 - Brand: navy #0B1220, forest green #1E8E4A, mist #F6F8F7; Archivo (display) + Manrope (body)
 
 ## Implemented (2026-09-05)
+- Home hero rebuilt as an accessible 2-slide carousel (2026-09-05): Slide 1 = simulation e-learning pitch (forest bg), Slide 2 = advanced e-learning materials (solar bg); auto-advances every 7s, pauses on hover/focus, arrow controls + progress dots + 01/02 indicator, aria labels + aria-live, crossfade + masked-line reveal per slide
+- Green palette deepened (2026-09-05): gradient forest→emerald primary buttons + nav CTA, green-tinted hero overlays, alternating green marquee items, green proof-strip numbers, global green :focus-visible ring
 - Pages: Home, Simulations (coming-soon + waitlist), Learning Materials (working filters/sort/duration slider/search), Resources Hub (tabs, guides, insights, blog, webinars), For Trainers (recharts stat card), For Enterprise, eLearning Services (3 anchored services), Pricing (monthly/yearly toggle, FAQ accordion, compare table), About & Contact (split contact panel + team), Search (grouped results + simulation waitlist surfacing), 404
 - Global: sticky glass nav with Solutions dropdown + mobile menu, spec-exact footer, editorial marquee, lenis smooth scroll, masked-line hero reveals, parallax hero, count-up proof strips
 - Forms (waitlist, contact): front-end success states only, per user decision

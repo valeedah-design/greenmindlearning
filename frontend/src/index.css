@@ -18,6 +18,12 @@ body {
     color: #FFFFFF;
 }
 
+:focus-visible {
+    outline: 2px solid #1E8E4A;
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }

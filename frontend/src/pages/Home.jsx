@@ -1,11 +1,11 @@
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import {
   FlaskConical, MousePointerClick, Blocks, TrendingUp, Presentation, FileText,
   ClipboardCheck, BookOpen, Video, Cpu, Users, GraduationCap, Building2, Leaf,
-  Plug, Wrench, Quote, ChevronDown,
+  Plug, Wrench, Quote, ChevronDown, ChevronLeft, ChevronRight,
 } from "lucide-react";
-import { Reveal, MaskedLines, CountUp } from "@/components/site/Motion";
+import { EASE, Reveal, MaskedLines, CountUp } from "@/components/site/Motion";
 import { ButtonLink, ArrowLink, Tag, SoonPill, SectionHead } from "@/components/site/ui";
 import Marquee from "@/components/site/Marquee";
 import CtaBanner from "@/components/site/CtaBanner";
@@ -60,71 +60,178 @@ const SERVICES = [
   { icon: Plug, title: "LMS Integration", desc: "Configure your LMS to correctly capture participant data.", to: "/solutions/services#lms", testid: "home-service-lms-link" },
 ];
 
-export default function Home() {
+const HERO_SLIDES = [
+  {
+    tag: "Redefining Sustainability Education",
+    lines: [
+      "We're taking sustainability",
+      "learning from slides",
+      <>to <span className="text-emerald-400">simulations.</span></>,
+    ],
+    sub: "Green Mind Learning is building the first simulation-based platform for ESG and sustainability training — turning passive content into hands-on practice. Explore our current library today, and be first in line as simulations launch.",
+    img: IMAGES.heroForest,
+    alt: "Sunlight breaking through a dense forest canopy",
+    primary: { label: "Get Early Access to Simulations", to: "/simulations#waitlist", testid: "hero-early-access-button" },
+    secondary: { label: "Explore Learning Materials", to: "/learning-materials", testid: "hero-explore-materials-button" },
+  },
+  {
+    tag: "The Learning Materials Library",
+    lines: [
+      "Advanced e-learning",
+      <>materials for <span className="text-emerald-400">sustainability</span></>,
+      "professionals.",
+    ],
+    sub: "128+ expert-built modules — slide decks, case studies, workbooks, assessments, and video guides. Peer-reviewed, updated monthly, and ready to plug straight into your curriculum.",
+    img: IMAGES.solarPanels,
+    alt: "Rows of solar panels under a bright sky",
+    primary: { label: "Explore Learning Materials", to: "/learning-materials", testid: "hero-materials-button" },
+    secondary: { label: "View Pricing", to: "/pricing", testid: "hero-pricing-button" },
+  },
+];
+
+function HeroCarousel() {
+  const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
   const heroRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "22%"]);
+  const count = HERO_SLIDES.length;
+  const slide = HERO_SLIDES[index];
+
+  useEffect(() => {
+    if (paused) return;
+    const t = setInterval(() => setIndex((i) => (i + 1) % count), 7000);
+    return () => clearInterval(t);
+  }, [paused, index, count]);
 
   return (
-    <div data-testid="home-page">
-      {/* HERO */}
-      <section ref={heroRef} className="relative flex min-h-[92vh] items-center overflow-hidden bg-navy">
-        <motion.img
-          src={IMAGES.heroForest}
-          alt="Sunlight breaking through a forest canopy"
-          style={{ y: bgY }}
-          className="absolute inset-0 h-[120%] w-full scale-110 object-cover"
-        />
-        <div className="hero-vignette absolute inset-0" />
-        <div className="relative mx-auto w-full max-w-[1400px] px-6 py-32 lg:px-10">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-          >
-            <Tag dark>Redefining Sustainability Education</Tag>
-          </motion.div>
-          <MaskedLines
-            className="mt-6 max-w-5xl font-display text-4xl font-black leading-[1.04] tracking-tight text-white sm:text-5xl lg:text-[4.4rem]"
-            lines={[
-              "We're taking sustainability",
-              "learning from slides",
-              <>to <span className="text-emerald-400">simulations.</span></>,
-            ]}
-          />
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.65 }}
-            className="mt-7 max-w-2xl text-base leading-relaxed text-slate-300 md:text-lg"
-          >
-            Green Mind Learning is building the first simulation-based platform for ESG and sustainability
-            training — turning passive content into hands-on practice. Explore our current library today,
-            and be first in line as simulations launch.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="mt-10 flex flex-wrap items-center gap-4"
-          >
-            <ButtonLink to="/simulations#waitlist" variant="primary" testid="hero-early-access-button" arrow className="px-7 py-3.5">
-              Get Early Access to Simulations
-            </ButtonLink>
-            <ButtonLink to="/learning-materials" variant="glass" testid="hero-explore-materials-button" className="px-7 py-3.5">
-              Explore Learning Materials
-            </ButtonLink>
-          </motion.div>
-        </div>
+    <section
+      ref={heroRef}
+      className="relative flex min-h-[92vh] items-center overflow-hidden bg-navy"
+      aria-roledescription="carousel"
+      aria-label="Featured stories"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+      data-testid="hero-carousel"
+    >
+      <AnimatePresence mode="sync">
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.4, duration: 1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          key={`bg-${index}`}
+          className="absolute inset-0"
+          initial={{ opacity: 0, scale: 1.06 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1.2, ease: EASE }}
         >
-          <ChevronDown className="h-5 w-5 animate-bounce text-white/50" />
+          <motion.img
+            src={slide.img}
+            alt={slide.alt}
+            style={{ y: bgY }}
+            className="absolute inset-0 h-[120%] w-full scale-110 object-cover"
+          />
         </motion.div>
-      </section>
+      </AnimatePresence>
+      <div className="absolute inset-0 bg-gradient-to-br from-navy/95 via-navy/70 to-forest/50" />
+      <div className="absolute inset-0 bg-gradient-to-t from-navy/85 via-transparent to-navy/40" />
+
+      <div className="relative mx-auto w-full max-w-[1400px] px-6 py-32 lg:px-10" aria-live="polite">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={`content-${index}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { duration: 0.3 } }}
+          >
+            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.15 }}>
+              <Tag dark>{slide.tag}</Tag>
+            </motion.div>
+            <MaskedLines
+              className="mt-6 max-w-5xl font-display text-4xl font-black leading-[1.04] tracking-tight text-white sm:text-5xl lg:text-[4.4rem]"
+              lines={slide.lines}
+            />
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.65 }}
+              className="mt-7 max-w-2xl text-base leading-relaxed text-slate-200 md:text-lg"
+            >
+              {slide.sub}
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+              className="mt-10 flex flex-wrap items-center gap-4"
+            >
+              <ButtonLink to={slide.primary.to} variant="primary" testid={slide.primary.testid} arrow className="px-7 py-3.5">
+                {slide.primary.label}
+              </ButtonLink>
+              <ButtonLink to={slide.secondary.to} variant="glass" testid={slide.secondary.testid} className="px-7 py-3.5">
+                {slide.secondary.label}
+              </ButtonLink>
+            </motion.div>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      <div className="absolute bottom-8 left-6 flex items-center gap-2.5 lg:left-10">
+        {HERO_SLIDES.map((s, i) => (
+          <button
+            key={i}
+            type="button"
+            onClick={() => setIndex(i)}
+            aria-label={`Go to slide ${i + 1}: ${s.tag}`}
+            aria-current={i === index}
+            data-testid={`hero-dot-${i}`}
+            className={`h-1.5 rounded-full transition-all duration-500 ${
+              i === index ? "w-12 bg-emerald-400" : "w-6 bg-white/30 hover:bg-white/60"
+            }`}
+          />
+        ))}
+      </div>
+
+      <div className="absolute bottom-6 right-6 flex items-center gap-3 lg:right-10">
+        <span className="mr-1 font-display text-xs font-bold tracking-[0.2em] text-white/60" data-testid="hero-slide-indicator">
+          0{index + 1} / 0{count}
+        </span>
+        <button
+          type="button"
+          onClick={() => setIndex((index - 1 + count) % count)}
+          aria-label="Previous slide"
+          data-testid="hero-prev-button"
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white backdrop-blur transition-all duration-300 hover:border-forest hover:bg-forest"
+        >
+          <ChevronLeft className="h-5 w-5" />
+        </button>
+        <button
+          type="button"
+          onClick={() => setIndex((index + 1) % count)}
+          aria-label="Next slide"
+          data-testid="hero-next-button"
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white backdrop-blur transition-all duration-300 hover:border-forest hover:bg-forest"
+        >
+          <ChevronRight className="h-5 w-5" />
+        </button>
+      </div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.4, duration: 1 }}
+        className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 md:block"
+      >
+        <ChevronDown className="h-5 w-5 animate-bounce text-white/50" />
+      </motion.div>
+    </section>
+  );
+}
+
+export default function Home() {
+  return (
+    <div data-testid="home-page">
+      <HeroCarousel />
 
       <Marquee />
 
@@ -441,11 +548,11 @@ export default function Home() {
       <section className="border-y border-slate-100 bg-white px-6 py-16 lg:px-10" data-testid="proof-strip">
         <div className="mx-auto grid max-w-[1400px] gap-10 text-center sm:grid-cols-2 lg:grid-cols-4">
           <Reveal>
-            <p className="font-display text-4xl font-black tracking-tight text-ink lg:text-5xl"><CountUp to={500} suffix="+" /></p>
+            <p className="font-display text-4xl font-black tracking-tight text-forest lg:text-5xl"><CountUp to={500} suffix="+" /></p>
             <p className="mt-2 text-sm font-semibold text-body">Trainers worldwide</p>
           </Reveal>
           <Reveal delay={0.08}>
-            <p className="font-display text-4xl font-black tracking-tight text-ink lg:text-5xl"><CountUp to={50000} suffix="+" /></p>
+            <p className="font-display text-4xl font-black tracking-tight text-forest lg:text-5xl"><CountUp to={50000} suffix="+" /></p>
             <p className="mt-2 text-sm font-semibold text-body">Learners trained</p>
           </Reveal>
           <Reveal delay={0.16}>

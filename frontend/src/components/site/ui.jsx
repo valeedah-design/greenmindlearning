@@ -19,7 +19,7 @@ const btnBase =
 
 const variants = {
   primary:
-    "bg-forest text-white hover:bg-forest-dark shadow-[0_10px_28px_-10px_rgba(30,142,74,0.55)] hover:-translate-y-0.5",
+    "bg-gradient-to-r from-forest to-emerald-600 text-white hover:from-forest-dark hover:to-forest shadow-[0_10px_28px_-10px_rgba(30,142,74,0.6)] hover:-translate-y-0.5",
   outline:
     "border border-slate-300 text-ink bg-white hover:border-forest hover:text-forest hover:-translate-y-0.5",
   glass:

@@ -110,7 +110,7 @@ export default function Navbar() {
           <Link
             to="/pricing"
             data-testid="nav-get-started-button"
-            className="hidden items-center gap-2 rounded-full bg-forest px-5 py-2.5 text-[13px] font-bold text-white shadow-[0_8px_20px_-8px_rgba(30,142,74,0.6)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-forest-dark sm:inline-flex"
+            className="hidden items-center gap-2 rounded-full bg-gradient-to-r from-forest to-emerald-600 px-5 py-2.5 text-[13px] font-bold text-white shadow-[0_8px_20px_-8px_rgba(30,142,74,0.65)] transition-all duration-300 hover:-translate-y-0.5 hover:from-forest-dark hover:to-forest sm:inline-flex"
           >
             Get Started
           </Link>
@@ -174,7 +174,7 @@ export default function Navbar() {
           <Link
             to="/pricing"
             data-testid="mobile-nav-get-started-button"
-            className="mt-3 inline-flex items-center justify-center rounded-full bg-forest px-5 py-3 text-sm font-bold text-white"
+            className="mt-3 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-forest to-emerald-600 px-5 py-3 text-sm font-bold text-white"
           >
             Get Started
           </Link>

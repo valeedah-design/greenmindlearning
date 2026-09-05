@@ -14,7 +14,7 @@ export default function Marquee({ dark = false }) {
           <span key={i} className="flex items-center gap-10">
             <span
               className={`whitespace-nowrap font-display text-2xl font-extrabold uppercase tracking-tight md:text-3xl ${
-                dark ? "text-white/12" : "text-slate-200"
+                dark ? "text-white/12" : i % 3 === 1 ? "text-forest/40" : "text-slate-200"
               }`}
             >
               {item}
