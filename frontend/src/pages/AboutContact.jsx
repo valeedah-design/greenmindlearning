@@ -14,7 +14,28 @@ const ECOSYSTEM = [
 export default function AboutContact() {
   const [form, setForm] = useState({ first: "", last: "", email: "", topic: "General Question", message: "" });
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
+
+  const submitContact = async (e) => {
+    e.preventDefault();
+    setSending(true);
+    setError("");
+    try {
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/contact`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ first_name: form.first, last_name: form.last, email: form.email, topic: form.topic, message: form.message }),
+      });
+      if (!res.ok) throw new Error("Request failed");
+      setSent(true);
+    } catch {
+      setError("Something went wrong sending your message — please try again.");
+    } finally {
+      setSending(false);
+    }
+  };
 
   return (
     <div data-testid="about-contact-page">
@@ -234,7 +255,7 @@ export default function AboutContact() {
                 ) : (
                   <form
                     data-testid="contact-form"
-                    onSubmit={(e) => { e.preventDefault(); setSent(true); }}
+                    onSubmit={submitContact}
                     className="space-y-5"
                   >
                     <div className="grid gap-5 sm:grid-cols-2">
@@ -265,8 +286,13 @@ export default function AboutContact() {
                       <label htmlFor="ct-message" className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-500">Message</label>
                       <textarea id="ct-message" data-testid="contact-message-input" required rows={4} value={form.message} onChange={set("message")} placeholder="Tell us about your training goals…" className={`${inputCls} resize-none`} />
                     </div>
-                    <ButtonLink type="submit" variant="primary" testid="contact-submit-button" className="w-full py-3.5">
-                      Send Message
+                    {error && (
+                      <p data-testid="contact-error-message" className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-center text-sm font-semibold text-red-600">
+                        {error}
+                      </p>
+                    )}
+                    <ButtonLink type="submit" variant="primary" testid="contact-submit-button" disabled={sending} className="w-full py-3.5">
+                      {sending ? "Sending…" : "Send Message"}
                     </ButtonLink>
                   </form>
                 )}

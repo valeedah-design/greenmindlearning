@@ -42,10 +42,26 @@ const CATEGORIES = [
 export default function Simulations() {
   const [form, setForm] = useState({ name: "", email: "", org: "", role: "Trainer" });
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
-    setSent(true);
+    setSending(true);
+    setError("");
+    try {
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/waitlist`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: form.name, email: form.email, organization: form.org, role: form.role }),
+      });
+      if (!res.ok) throw new Error("Request failed");
+      setSent(true);
+    } catch {
+      setError("Something went wrong — please try again.");
+    } finally {
+      setSending(false);
+    }
   };
 
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
@@ -277,8 +293,13 @@ export default function Simulations() {
                       </select>
                     </div>
                   </div>
-                  <ButtonLink type="submit" variant="primary" testid="waitlist-submit-button" className="w-full py-3.5">
-                    Join the Waitlist
+                  {error && (
+                    <p data-testid="waitlist-error-message" className="rounded-xl border border-red-400/30 bg-red-500/10 px-4 py-3 text-center text-sm font-semibold text-red-300">
+                      {error}
+                    </p>
+                  )}
+                  <ButtonLink type="submit" variant="primary" testid="waitlist-submit-button" disabled={sending} className="w-full py-3.5">
+                    {sending ? "Joining…" : "Join the Waitlist"}
                   </ButtonLink>
                   <p className="text-center text-xs text-slate-500">No spam. One email when early access opens.</p>
                 </form>

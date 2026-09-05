@@ -28,8 +28,8 @@ const variants = {
     "bg-white text-ink hover:bg-forest-light hover:-translate-y-0.5",
 };
 
-export function ButtonLink({ to, onClick, variant = "primary", children, testid, arrow = false, className = "", type = "button" }) {
-  const cls = `${btnBase} ${variants[variant]} ${className} group`;
+export function ButtonLink({ to, onClick, variant = "primary", children, testid, arrow = false, className = "", type = "button", disabled = false }) {
+  const cls = `${btnBase} ${variants[variant]} ${className} group disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0`;
   const inner = (
     <>
       <span>{children}</span>
@@ -44,7 +44,7 @@ export function ButtonLink({ to, onClick, variant = "primary", children, testid,
     );
   }
   return (
-    <button type={type} data-testid={testid} className={cls} onClick={onClick}>
+    <button type={type} data-testid={testid} className={cls} onClick={onClick} disabled={disabled}>
       {inner}
     </button>
   );

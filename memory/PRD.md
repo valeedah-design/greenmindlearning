@@ -41,4 +41,11 @@ Full marketing website for Green Mind Learning, an e-learning platform teaching 
 ## Backlog (second pass)
 - P0: Trainer Dashboard (stat cards, line chart, assigned modules table), Learner Dashboard (progress, library, certificates)
 - P1: Blog/Article template page (seed: Sarah Jenkins icebreakers post); material detail/preview pages; real pagination data
-- P2: Optional JWT auth if user changes mind; persist waitlist/contact to MongoDB; webinar playback; downloadable enterprise overview PDF
+- P2: Optional JWT auth if user changes mind; webinar playback; downloadable enterprise overview PDF
+
+## Forms → Database (implemented 2026-09-05)
+- POST /api/waitlist {name, email, organization, role} → `waitlist` collection; duplicate email returns existing entry (idempotent), invalid email → 422
+- POST /api/contact {first_name, last_name, email, topic, message} → `contact_messages` collection
+- Simulations waitlist + About contact forms POST via REACT_APP_BACKEND_URL; success state only after 200; inline error boxes (waitlist-error-message / contact-error-message); buttons disable while sending
+- No public GET listing (privacy) — view submissions directly in MongoDB collections `waitlist` / `contact_messages`
+- Verified: curl round-trips, duplicate handling, 422 on bad email, UI submit → 200 + success message (test signup maria@ecoteach.io)
