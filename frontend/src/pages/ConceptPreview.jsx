@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Play, MousePointerClick, RefreshCw, FileCheck2, Check } from "lucide-react";
+import { MousePointerClick, RefreshCw, FileCheck2, Check } from "lucide-react";
 import { EASE, Reveal, MaskedLines } from "@/components/site/Motion";
 import { ButtonLink, ArrowLink, Tag, SoonPill, SectionHead } from "@/components/site/ui";
 import CtaBanner from "@/components/site/CtaBanner";
@@ -219,27 +219,27 @@ export default function ConceptPreview() {
             <SectionHead
               center
               tag="The Walkthrough"
-              title={<>A full demo video is <span className="text-forest">on its way.</span></>}
-              sub="This frame is reserved for the Green Mind Simulations walkthrough."
+              title={<>Watch the concept <span className="text-forest">in action.</span></>}
+              sub="A first look at Green Mind Simulations — straight from the studio."
             />
           </Reveal>
           <Reveal delay={0.15}>
             <div
-              className="relative mt-12 flex aspect-video items-center justify-center overflow-hidden rounded-[2rem] border-2 border-dashed border-forest/40 bg-navy"
+              className="relative mt-12 overflow-hidden rounded-[2rem] bg-navy shadow-[0_40px_90px_-40px_rgba(11,18,32,0.55)]"
               data-testid="demo-video-slot"
             >
-              <div className="pointer-events-none absolute -left-20 -top-20 h-64 w-64 rounded-full bg-forest/20 blur-[100px]" />
-              <div className="pointer-events-none absolute -bottom-20 -right-20 h-64 w-64 rounded-full bg-leaf/10 blur-[100px]" />
-              <div className="relative flex flex-col items-center px-6 text-center">
-                <span className="flex h-20 w-20 items-center justify-center rounded-full border border-leaf/40 bg-leaf/10 text-leaf">
-                  <Play className="ml-1 h-9 w-9 fill-leaf" />
-                </span>
-                <div className="mt-5"><SoonPill>Video slot reserved</SoonPill></div>
-                <h3 className="mt-4 font-display text-2xl font-extrabold tracking-tight text-white">Your demo video goes here</h3>
-                <p className="mt-2 max-w-md text-sm leading-relaxed text-slate-400">
-                  Upload your walkthrough and it will play in this exact frame — a 16:9 MP4 will fit perfectly.
-                </p>
-              </div>
+              <video
+                className="aspect-video w-full object-cover"
+                autoPlay
+                muted
+                loop
+                playsInline
+                controls
+                data-testid="demo-video"
+              >
+                <source src="/videos/walkthrough.webm" type="video/webm" />
+                <source src="/videos/walkthrough.mp4" type="video/mp4" />
+              </video>
             </div>
           </Reveal>
         </div>
