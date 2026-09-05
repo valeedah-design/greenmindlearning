@@ -1,0 +1,238 @@
+{
+  "project_name": "Green Mind Learning",
+  "app_type": "marketing_site",
+  "brand_identity": {
+    "name": "GREEN MIND LEARNING",
+    "logo_mark": "Small green graduation cap integrated with leaf icon",
+    "wordmark": "GREEN MIND LEARNING (All caps, bold, tight tracking)",
+    "core_pitch": "Moving sustainability e-learning from static content to simulation-based learning — practicing carbon audits or ESG reporting inside guided simulations.",
+    "tagline": "Practical, simulation-first ESG & sustainability skills for leaders and educators.",
+    "tone": "Credible, practical, mission-driven, professional, authoritative, never preachy."
+  },
+  "colors": {
+    "primary_bg": "#FFFFFF",
+    "secondary_bg": "#F6F8F7",
+    "dark_band_bg": "#0B1220",
+    "dark_band_card_bg": "#111C30",
+    "accent_green": "#1E8E4A",
+    "accent_green_hover": "#17723A",
+    "accent_green_light": "#E8F5EE",
+    "text_primary": "#0B1220",
+    "text_body": "#4B5563",
+    "text_muted": "#6B7280",
+    "text_on_dark": "#F9FAFB",
+    "text_muted_on_dark": "#9CA3AF",
+    "border_light": "#E5E7EB",
+    "border_dark": "#1F293D",
+    "status_coming_soon": "#1E8E4A"
+  },
+  "typography": {
+    "font_family": "Inter, system-ui, -apple-system, sans-serif",
+    "headline_hero": "text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-tight",
+    "headline_section": "text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-slate-900 dark:text-white",
+    "headline_card": "text-lg sm:text-xl font-semibold tracking-tight text-slate-900 dark:text-white",
+    "body_text": "text-base text-slate-600 leading-relaxed",
+    "body_small": "text-sm text-slate-500 leading-normal",
+    "highlight_rule": "In headlines, 1-2 key words must be highlighted using text-[#1E8E4A] or a subtle soft green badge background for dramatic focus."
+  },
+  "components": {
+    "cards": {
+      "border_radius": "rounded-2xl (16px)",
+      "shadow": "shadow-sm hover:shadow-md transition-shadow duration-200 border border-slate-200 bg-white",
+      "dark_card_shadow": "border border-slate-800 bg-[#111C30] text-white"
+    },
+    "buttons": {
+      "primary": "bg-[#1E8E4A] hover:bg-[#17723A] text-white font-medium rounded-full px-6 py-3 shadow-sm hover:shadow transition-all duration-200 flex items-center justify-center gap-2",
+      "secondary": "bg-transparent hover:bg-slate-100 text-slate-800 border border-slate-300 font-medium rounded-full px-6 py-3 transition-all duration-200 flex items-center justify-center gap-2",
+      "dark_section_primary": "bg-[#1E8E4A] hover:bg-[#17723A] text-white font-medium rounded-full px-6 py-3 transition-all duration-200",
+      "dark_section_secondary": "bg-white/10 hover:bg-white/20 text-white border border-white/20 font-medium rounded-full px-6 py-3 transition-all duration-200"
+    },
+    "badges": {
+      "pill": "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wide uppercase",
+      "coming_soon": "bg-[#1E8E4A]/10 text-[#1E8E4A] border border-[#1E8E4A]/20 px-2.5 py-0.5 rounded-full text-xs font-semibold"
+    },
+    "forms": {
+      "input": "w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#1E8E4A] focus:border-transparent text-slate-800 placeholder:text-slate-400 text-sm transition-all",
+      "success_message": "bg-[#E8F5EE] border border-[#1E8E4A]/30 text-[#17723A] p-4 rounded-xl font-medium text-sm text-center animate-fade-in"
+    }
+  },
+  "navigation": {
+    "header": "Sticky header with backdrop-blur-md bg-white/90 border-b border-slate-100 z-50 py-4 px-6 md:px-12 flex items-center justify-between",
+    "logo": "Flex items-center gap-2.5 text-[#0B1220] font-black tracking-tighter text-lg uppercase",
+    "menu_items": [
+      { "label": "Home", "path": "/" },
+      { "label": "Learning Materials", "path": "/learning-materials" },
+      { "label": "Simulations", "path": "/simulations", "badge": "Coming Soon" },
+      { "label": "Resources Hub", "path": "/resources" },
+      { 
+        "label": "Solutions",
+        "type": "dropdown",
+        "children": [
+          { "label": "For Trainers", "path": "/solutions/trainers" },
+          { "label": "For Enterprise", "path": "/solutions/enterprise" },
+          { "label": "eLearning Services", "path": "/solutions/services" }
+        ]
+      },
+      { "label": "Pricing", "path": "/pricing" },
+      { "label": "About & Contact", "path": "/about-contact" }
+    ],
+    "action_buttons": [
+      { "type": "search_icon", "action": "open_search_modal" },
+      { "type": "cta_button", "label": "Get Started", "path": "/pricing", "style": "primary" }
+    ]
+  },
+  "footer": {
+    "background": "bg-[#0B1220] text-slate-300 py-16 px-6 md:px-12 border-t border-slate-800",
+    "columns": [
+      {
+        "title": "Brand & Mission",
+        "content": "GREEN MIND LEARNING — Transforming ESG & sustainability education through simulation-based interactive learning."
+      },
+      {
+        "title": "Platform",
+        "links": [
+          { "label": "Simulations (Coming Soon)", "path": "/simulations" },
+          { "label": "Learning Materials", "path": "/learning-materials" },
+          { "label": "Resources Hub", "path": "/resources" },
+          { "label": "Pricing & Plans", "path": "/pricing" }
+        ]
+      },
+      {
+        "title": "Solutions",
+        "links": [
+          { "label": "For Corporate Trainers", "path": "/solutions/trainers" },
+          { "label": "For Enterprise & HR", "path": "/solutions/enterprise" },
+          { "label": "PPT to eLearning", "path": "/solutions/services#ppt" },
+          { "label": "LMS Implementation", "path": "/solutions/services#lms" }
+        ]
+      },
+      {
+        "title": "Company",
+        "links": [
+          { "label": "About Us", "path": "/about-contact" },
+          { "label": "Contact & Support", "path": "/about-contact" },
+          { "label": "Privacy Policy", "path": "#" },
+          { "label": "Terms of Service", "path": "#" }
+        ]
+      }
+    ],
+    "bottom_bar": "© 2026 Green Mind Learning. All rights reserved. Empowering ESG excellence worldwide."
+  },
+  "pages": {
+    "home": {
+      "route": "/",
+      "sections": [
+        {
+          "name": "Hero Section",
+          "description": "Dark forest photo background with navy overlay (#0B1220/80). Kinetic masked line-by-line reveal animation. Eyebrow tag: 'THE NEXT EVOLUTION OF ESG EDUCATION'. Headline with highlighted green word ('Master ESG Skills Through Guided Simulations'). Two CTAs: 'Join Simulation Waitlist' (green pill) & 'Explore Materials' (ghost).",
+          "bg_image_url": "https://images.pexels.com/photos/433308/pexels-photo-433308.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+        },
+        {
+          "name": "Our Vision Manifesto",
+          "description": "Dark navy (#0B1220) section with 3 numbered manifesto chapters: 01 Concrete, 02 Active, 03 Actionable. Highlight how simulation beats static PDFs. Prominent 'Get Early Access' waitlist form embedded.",
+          "badge": "VISION 2026"
+        },
+        {
+          "name": "Why Choose Us",
+          "description": "4-card bento grid with soft shadows on light grey background (#F6F8F7). Cards: 1. Real-World Carbon Audits, 2. Regulatory Compliance (CSRD/GRI), 3. Instant Performance Analytics, 4. Scalable B2B LMS Modules."
+        },
+        {
+          "name": "Designed for Those Who Lead Change",
+          "description": "Audience selector & pull quote with executive office photo. Highlighting L&D Leaders, Corporate Sustainability Officers, University Lecturers.",
+          "image_url": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2MzR8MHwxfHNlYXJjaHw0fHxjb3Jwb3JhdGUlMjBFU0clMjBtZWV0aW5nJTIwdGVhbSUyMG9mZmljZXxlbnwwfHx8fDE3ODg2MDkxMjd8MA&ixlib=rb-4.1.0&q=85"
+        },
+        {
+          "name": "See It In Action (Before vs After)",
+          "description": "Interactive slider/toggle showing 'Old Way: 60-slide static PPT (12% retention)' vs 'Green Mind Way: 15-min Interactive Carbon Audit Simulation (89% retention)'. Marked with 'Coming Soon'."
+        },
+        {
+          "name": "Diverse Learning Formats",
+          "description": "Icon row of formats: Interactive Simulations, SCORM Packages, Micro-learning Cards, Case Study Workshops, Video Explainers."
+        },
+        {
+          "name": "Explore the Knowledge Hub",
+          "description": "Dark navy section with 4 topic tiles: Carbon Accounting, CSRD Readiness, Supply Chain ESG, Biodiversity Risk Assessment."
+        },
+        {
+          "name": "How It All Connects",
+          "description": "4-step timeline strip: 1. Assess Skill Gaps -> 2. Deploy Simulations -> 3. Track Learner Audit Reports -> 4. Certify Competency."
+        },
+        {
+          "name": "eLearning Services Teaser",
+          "description": "3 compact cards linking to B2B Services: PPT-to-eLearning Conversion, eLearning Troubleshooting & Fixes, LMS Integration."
+        },
+        {
+          "name": "Proof & Metric Strip",
+          "description": "High impact counter strip: 500+ Certified Trainers | 50,000+ Learners Trained | 24% Average Score Improvement | 98% Completion Rate."
+        },
+        {
+          "name": "Final CTA Banner",
+          "description": "Dark navy container with green CTA button and email newsletter input for early access."
+        }
+      ]
+    },
+    "simulations": {
+      "route": "/simulations",
+      "description": "Flagship 'Coming Soon' vision page. Hero showcasing interactive simulation preview mockups. Includes: Concept preview cards (Corporate Scope 3 Audit Simulator, ESG Board Presentation Lab, CSRD Compliance Trial), early access waitlist form, feature teardown, and FAQ.",
+      "badge": "EARLY ACCESS"
+    },
+    "learning_materials": {
+      "route": "/learning-materials",
+      "description": "Filterable library grid with sidebar controls (Topic: Carbon, CSRD, GRI; Format: SCORM, Workbooks, Quiz, Slides; Level: Beginner, Executive). Cards feature progress badges, download CTAs, and preview modals."
+    },
+    "resources_hub": {
+      "route": "/resources",
+      "description": "Tabs bar (Articles, Whitepapers, Case Studies, Checklists). Feature grid with search filter and downloadable PDF preview cards."
+    },
+    "for_trainers": {
+      "route": "/solutions/trainers",
+      "description": "Tailored landing page for corporate & independent trainers. Highlights course delivery toolkits, slide decks, facilitator guides, and SCORM export options."
+    },
+    "for_enterprise": {
+      "route": "/solutions/enterprise",
+      "description": "Targeted page for HR, L&D, and CSOs. Features team seat management specs, custom branding, enterprise SSO/LMS integration, and ROI calculator snippet."
+    },
+    "elearning_services": {
+      "route": "/solutions/services",
+      "description": "Deep-dive page for 3 core B2B services: (1) PPT-to-eLearning Conversion, (2) eLearning Troubleshooting & Fixes, (3) LMS Integration & Implementation. Features process steps, before/after examples, and consultation request form."
+    },
+    "pricing": {
+      "route": "/pricing",
+      "description": "3 tier pricing cards (Trainer, Team, Enterprise) with Monthly / Yearly toggle (20% discount badge). Full comparison matrix table below, and expandable FAQ accordion."
+    },
+    "about_contact": {
+      "route": "/about-contact",
+      "description": "Combined mission & contact page. Split contact layout: Dark navy left panel with office info, email, direct lines, and founder's note; White right panel with interactive contact & demo request form."
+    },
+    "not_found": {
+      "route": "/404",
+      "description": "Custom 404 page styled with green leaf graphic, helpful quick links, and a search input."
+    }
+  },
+  "image_urls": {
+    "hero_background": "https://images.pexels.com/photos/433308/pexels-photo-433308.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "renewable_landscape": "https://images.pexels.com/photos/35105428/pexels-photo-35105428.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "workshop_team": "https://images.unsplash.com/photo-1758873269117-d5845126928a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTZ8MHwxfHNlYXJjaHwyfHxzdXN0YWluYWJpbGl0eSUyMGJ1c2luZXNzJTIwd29ya3Nob3AlMjB0cmFpbmluZ3xlbnwwfHx8fDE3ODg2MDkxMjd8MA&ixlib=rb-4.1.0&q=85",
+    "executive_meeting": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2MzR8MHwxfHNlYXJjaHw0fHxjb3Jwb3JhdGUlMjBFU0clMjBtZWV0aW5nJTIwdGVhbSUyMG9mZmljZXxlbnwwfHx8fDE3ODg2MDkxMjd8MA&ixlib=rb-4.1.0&q=85",
+    "office_discussion": "https://images.unsplash.com/photo-1517048676732-d65bc937f952?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2MzR8MHwxfHNlYXJjaHwyfHxjb3Jwb3JhdGUlMjBFU0clMjBtZWV0aW5nJTIwdGVhbSUyMG9mZmljZXxlbnwwfHx8fDE3ODg2MDkxMjd8MA&ixlib=rb-4.1.0&q=85",
+    "presentation_speaker": "https://images.unsplash.com/photo-1664382953481-141e97ad9825?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTZ8MHwxfHNlYXJjaHwxfHxzdXN0YWluYWJpbGl0eSUyMGJ1c2luZXNzJTIwd29ya3Nob3AlMjB0cmFpbmluZ3xlbnwwfHx8fDE3ODg2MDkxMjd8MA&ixlib=rb-4.1.0&q=85"
+  },
+  "motion_and_effects": {
+    "scrolling": "Lenis smooth scroll integration for weighted momentum",
+    "framer_motion": "Page transitions, scroll-triggered fade-in-up animations for cards, and masked line-by-line hero headline text reveals",
+    "marquee": "Slow editorial marquee for client trust & partner logos: 'ISO 14001 • CSRD READY • GRI ALIGNED • SCORM 2004 • SEC COMPLIANT'",
+    "interactive": "Before/After interactive comparison toggle, pricing monthly/annual toggle, filter search, contact submission feedback states"
+  },
+  "testing_requirements": {
+    "data_testid_rules": "All interactive elements (buttons, inputs, filters, tabs, links, toggles, form submits) MUST have clear kebab-case data-testid attributes (e.g. data-testid='nav-simulations-link', data-testid='pricing-toggle-annual', data-testid='waitlist-submit-button')."
+  },
+  "instructions_to_main_agent": [
+    "Build a complete multi-page React router setup for all specified 9 pages + 404.",
+    "Follow the exact color palette: Primary BG (#FFFFFF), Secondary BG (#F6F8F7), Dark Navy bands (#0B1220), Forest Green accent (#1E8E4A).",
+    "Ensure all waitlist and contact forms display interactive success messages upon submission.",
+    "Implement the global header with sticky glassmorphism and the interactive search modal.",
+    "Implement all 'Coming Soon' badges on simulation features prominently.",
+    "Use Framer Motion for scroll reveals and Lenis for smooth scrolling.",
+    "Ensure data-testid attributes are present on every interactive element."
+  ]
+}

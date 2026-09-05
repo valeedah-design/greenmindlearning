@@ -1,0 +1,474 @@
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import {
+  FlaskConical, MousePointerClick, Blocks, TrendingUp, Presentation, FileText,
+  ClipboardCheck, BookOpen, Video, Cpu, Users, GraduationCap, Building2, Leaf,
+  Plug, Wrench, Quote, ChevronDown,
+} from "lucide-react";
+import { Reveal, MaskedLines, CountUp } from "@/components/site/Motion";
+import { ButtonLink, ArrowLink, Tag, SoonPill, SectionHead } from "@/components/site/ui";
+import Marquee from "@/components/site/Marquee";
+import CtaBanner from "@/components/site/CtaBanner";
+import { IMAGES } from "@/data/content";
+
+const PILLARS = [
+  { n: "01", title: "Concrete", desc: "Grounded in real regulatory frameworks and industry data, not abstract theory." },
+  { n: "02", title: "Active", desc: "Learners make decisions and see consequences — productive struggle beats passive reading." },
+  { n: "03", title: "Actionable", desc: "Every module ends in a real deliverable: a draft report, an audit checklist, a mitigation plan." },
+];
+
+const WHY = [
+  { icon: FlaskConical, title: "Science-Backed Content", desc: "Every module is peer-reviewed and updated monthly to reflect the latest climate data and ESG regulations.", soon: false },
+  { icon: MousePointerClick, title: "Learn by Doing", desc: "Soon you'll practice real scenarios — carbon audits, ESG reports, circular-economy decisions — inside guided simulations, not just slides.", soon: true },
+  { icon: Blocks, title: "Modular Framework", desc: "Plug-and-play materials that fit seamlessly into your existing curriculum or internal training programs.", soon: false },
+  { icon: TrendingUp, title: "Built for Scalability", desc: "From individual trainers to global enterprises, our platform scales to your team's needs.", soon: false },
+];
+
+const AUDIENCES = [
+  { icon: Users, title: "Professional Trainers", desc: "Access ready-to-use slide decks, workshop guides, and assessment tools to deliver premium sustainability training." },
+  { icon: TrendingUp, title: "ESG & HR Leaders", desc: "Upskill your workforce with consistent, high-quality learning paths that align with your sustainability goals." },
+  { icon: GraduationCap, title: "Education Institutions", desc: "Integrate modern climate science and circular-economy modules into your academic programs." },
+  { icon: Building2, title: "Corporate Sustainability Teams", desc: "Run compliance and reporting training at scale with our growing content library." },
+];
+
+const FORMATS = [
+  { icon: Presentation, label: "Slide Decks" },
+  { icon: FileText, label: "Case Studies" },
+  { icon: ClipboardCheck, label: "Assessments" },
+  { icon: BookOpen, label: "Workbooks" },
+  { icon: Video, label: "Video Guides" },
+  { icon: Cpu, label: "Interactive Simulations", soon: true },
+];
+
+const HUB_TILES = [
+  { title: "Climate & Energy", sub: "Net Zero, Renewables, Carbon Accounting", img: IMAGES.windTurbines },
+  { title: "Circular Economy", sub: "Waste Reduction, Life Cycle Assessment", img: IMAGES.greenAerial },
+  { title: "ESG Governance", sub: "Ethics, Reporting, Policy, Disclosure", img: IMAGES.paperwork },
+  { title: "Biodiversity", sub: "Ecosystem Services, Nature Positive", img: IMAGES.forestSun },
+];
+
+const STEPS = [
+  { n: "1", title: "Explore Hub", desc: "Discover topics and materials in our library." },
+  { n: "2", title: "Preview & Select", desc: "Review materials before choosing." },
+  { n: "3", title: "Trainer Prep", desc: "Use guides and templates to customize delivery." },
+  { n: "4", title: "Deliver & Impact", desc: "Train your audience and track engagement." },
+];
+
+const SERVICES = [
+  { icon: Presentation, title: "PPT to eLearning", desc: "Turn your slide decks into interactive, trackable courses.", to: "/solutions/services#ppt", testid: "home-service-ppt-link" },
+  { icon: Wrench, title: "eLearning Troubleshooting", desc: "Fix broken courses, tracking issues, and SCORM errors.", to: "/solutions/services#troubleshooting", testid: "home-service-fix-link" },
+  { icon: Plug, title: "LMS Integration", desc: "Configure your LMS to correctly capture participant data.", to: "/solutions/services#lms", testid: "home-service-lms-link" },
+];
+
+export default function Home() {
+  const heroRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "22%"]);
+
+  return (
+    <div data-testid="home-page">
+      {/* HERO */}
+      <section ref={heroRef} className="relative flex min-h-[92vh] items-center overflow-hidden bg-navy">
+        <motion.img
+          src={IMAGES.heroForest}
+          alt="Sunlight breaking through a forest canopy"
+          style={{ y: bgY }}
+          className="absolute inset-0 h-[120%] w-full scale-110 object-cover"
+        />
+        <div className="hero-vignette absolute inset-0" />
+        <div className="relative mx-auto w-full max-w-[1400px] px-6 py-32 lg:px-10">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+          >
+            <Tag dark>Redefining Sustainability Education</Tag>
+          </motion.div>
+          <MaskedLines
+            className="mt-6 max-w-5xl font-display text-4xl font-black leading-[1.04] tracking-tight text-white sm:text-5xl lg:text-[4.4rem]"
+            lines={[
+              "We're taking sustainability",
+              "learning from slides",
+              <>to <span className="text-emerald-400">simulations.</span></>,
+            ]}
+          />
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.65 }}
+            className="mt-7 max-w-2xl text-base leading-relaxed text-slate-300 md:text-lg"
+          >
+            Green Mind Learning is building the first simulation-based platform for ESG and sustainability
+            training — turning passive content into hands-on practice. Explore our current library today,
+            and be first in line as simulations launch.
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+            className="mt-10 flex flex-wrap items-center gap-4"
+          >
+            <ButtonLink to="/simulations#waitlist" variant="primary" testid="hero-early-access-button" arrow className="px-7 py-3.5">
+              Get Early Access to Simulations
+            </ButtonLink>
+            <ButtonLink to="/learning-materials" variant="glass" testid="hero-explore-materials-button" className="px-7 py-3.5">
+              Explore Learning Materials
+            </ButtonLink>
+          </motion.div>
+        </div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.4, duration: 1 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        >
+          <ChevronDown className="h-5 w-5 animate-bounce text-white/50" />
+        </motion.div>
+      </section>
+
+      <Marquee />
+
+      {/* VISION — manifesto */}
+      <section className="bg-navy px-6 py-24 lg:px-10 lg:py-32" data-testid="vision-section">
+        <div className="mx-auto max-w-[1400px]">
+          <div className="grid gap-14 lg:grid-cols-[1.1fr_1fr] lg:gap-20">
+            <div>
+              <Reveal>
+                <Tag dark>The Future of Sustainability Training</Tag>
+                <MaskedLines
+                  inView
+                  as="h2"
+                  className="mt-5 font-display text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl lg:text-[2.9rem]"
+                  lines={[
+                    <>Static content taught people</>,
+                    <><span className="text-emerald-400">about</span> sustainability.</>,
+                    <>We're teaching them to <span className="text-emerald-400">practice</span> it.</>,
+                  ]}
+                />
+                <p className="mt-6 max-w-xl text-base leading-relaxed text-slate-400">
+                  Most ESG and sustainability training today is a slide deck or a PDF. Green Mind Learning is
+                  building simulation-based modules where learners run a real carbon audit, draft an ESG
+                  disclosure, or redesign a supply chain — and see the consequences of their decisions immediately.
+                </p>
+              </Reveal>
+              <Reveal delay={0.15} className="mt-9">
+                <div className="flex flex-wrap items-center gap-4">
+                  <ButtonLink to="/simulations#waitlist" variant="primary" testid="vision-waitlist-button" arrow>
+                    Join the Simulation Waitlist
+                  </ButtonLink>
+                  <ButtonLink to="/simulations#preview" variant="glass" testid="vision-preview-button">
+                    See a Concept Preview
+                  </ButtonLink>
+                </div>
+                <p className="mt-4 text-xs font-semibold text-slate-500">
+                  Simulations are in development — join now to get early access.
+                </p>
+              </Reveal>
+            </div>
+            <div className="flex flex-col justify-center gap-4">
+              {PILLARS.map((p, i) => (
+                <Reveal key={p.n} delay={i * 0.12}>
+                  <div className="group flex gap-6 rounded-2xl border border-navy-line bg-navy-card p-6 transition-colors duration-300 hover:border-forest/50 md:p-7">
+                    <span className="font-display text-3xl font-black text-forest/60 transition-colors group-hover:text-emerald-400">
+                      {p.n}
+                    </span>
+                    <div>
+                      <h3 className="font-display text-xl font-bold tracking-tight text-white">{p.title}</h3>
+                      <p className="mt-1.5 text-sm leading-relaxed text-slate-400">{p.desc}</p>
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* WHY CHOOSE US */}
+      <section className="bg-mist px-6 py-24 lg:px-10 lg:py-28">
+        <div className="mx-auto max-w-[1400px]">
+          <Reveal>
+            <SectionHead
+              center
+              tag="Why Choose Us"
+              title={<>Built for outcomes, not <span className="text-forest">attendance.</span></>}
+            />
+          </Reveal>
+          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {WHY.map((w, i) => (
+              <Reveal key={w.title} delay={i * 0.1} className="h-full">
+                <div className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_-24px_rgba(11,18,32,0.2)]">
+                  <div className="flex items-center justify-between">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-forest-light text-forest">
+                      <w.icon className="h-6 w-6" />
+                    </span>
+                    {w.soon && <SoonPill />}
+                  </div>
+                  <h3 className="mt-5 font-display text-lg font-bold tracking-tight text-ink">{w.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-body">{w.desc}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* DESIGNED FOR THOSE WHO LEAD CHANGE */}
+      <section className="bg-white px-6 py-24 lg:px-10 lg:py-32">
+        <div className="mx-auto max-w-[1400px]">
+          <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
+            <div>
+              <Reveal>
+                <SectionHead
+                  tag="Who It's For"
+                  title={<>Designed for those who lead <span className="text-forest">change.</span></>}
+                />
+              </Reveal>
+              <div className="mt-10 space-y-7">
+                {AUDIENCES.map((a, i) => (
+                  <Reveal key={a.title} delay={i * 0.08}>
+                    <div className="group flex gap-5">
+                      <span className="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-mist text-forest transition-colors duration-300 group-hover:bg-forest group-hover:text-white">
+                        <a.icon className="h-5 w-5" />
+                      </span>
+                      <div>
+                        <h3 className="font-display text-base font-bold tracking-tight text-ink">{a.title}</h3>
+                        <p className="mt-1 text-sm leading-relaxed text-body">{a.desc}</p>
+                      </div>
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
+            <Reveal delay={0.15}>
+              <div className="relative">
+                <div className="clip-frame overflow-hidden">
+                  <img src={IMAGES.workshop} alt="Sustainability workshop in progress" className="h-[520px] w-full object-cover" loading="lazy" />
+                </div>
+                <div className="absolute -bottom-8 -left-4 max-w-md rounded-2xl bg-navy p-7 shadow-2xl md:-left-10">
+                  <Quote className="h-6 w-6 text-emerald-400" />
+                  <p className="mt-3 text-sm leading-relaxed text-slate-200">
+                    "Green Mind Learning cut our curriculum development time by 70%. The quality of the case
+                    studies is unparalleled."
+                  </p>
+                  <p className="mt-4 text-xs font-bold uppercase tracking-wider text-white">Marcus Thorne</p>
+                  <p className="text-xs text-slate-400">Director of Sustainability, Global Corp</p>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* SEE IT IN ACTION — before/after */}
+      <section className="bg-mist px-6 py-24 lg:px-10 lg:py-28" data-testid="before-after-section">
+        <div className="mx-auto max-w-[1400px]">
+          <Reveal>
+            <SectionHead
+              center
+              tag="See It In Action — Coming Soon"
+              title={<>The same lesson. A completely different <span className="text-forest">result.</span></>}
+            />
+          </Reveal>
+          <div className="mt-14 grid gap-6 lg:grid-cols-2">
+            <Reveal>
+              <div className="h-full rounded-2xl border border-slate-200 bg-white p-8 md:p-10">
+                <p className="text-[11px] font-extrabold uppercase tracking-[0.22em] text-slate-400">The Old Way</p>
+                <div className="mt-6 flex items-start gap-4">
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-mist text-slate-400">
+                    <FileText className="h-6 w-6" />
+                  </span>
+                  <p className="font-display text-xl font-bold leading-snug tracking-tight text-slate-500 md:text-2xl">
+                    A 40-page PDF on greenhouse gas accounting that half your trainees skim and forget.
+                  </p>
+                </div>
+              </div>
+            </Reveal>
+            <Reveal delay={0.12}>
+              <div className="relative h-full overflow-hidden rounded-2xl bg-navy p-8 md:p-10">
+                <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-forest/25 blur-[90px]" />
+                <div className="flex items-center gap-3">
+                  <p className="text-[11px] font-extrabold uppercase tracking-[0.22em] text-emerald-400">The Green Mind Way</p>
+                  <SoonPill />
+                </div>
+                <div className="mt-6 flex items-start gap-4">
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-forest/15 text-emerald-400">
+                    <Cpu className="h-6 w-6" />
+                  </span>
+                  <p className="font-display text-xl font-bold leading-snug tracking-tight text-white md:text-2xl">
+                    An interactive carbon-audit simulation where learners classify real emissions data, make
+                    trade-off decisions, and see the impact in real time.
+                  </p>
+                </div>
+                <div className="mt-8">
+                  <ArrowLink to="/simulations#waitlist" dark testid="before-after-waitlist-link">
+                    Join the Waitlist
+                  </ArrowLink>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* DIVERSE LEARNING FORMATS */}
+      <section className="bg-white px-6 py-24 lg:px-10 lg:py-28">
+        <div className="mx-auto max-w-[1400px]">
+          <Reveal>
+            <SectionHead
+              tag="Diverse Learning Formats"
+              title={<>One library. Every format your session <span className="text-forest">needs.</span></>}
+            />
+          </Reveal>
+          <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+            {FORMATS.map((f, i) => (
+              <Reveal key={f.label} delay={i * 0.06}>
+                <div className="flex h-full flex-col items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-7 text-center transition-all duration-300 hover:-translate-y-1 hover:border-forest/40 hover:shadow-lg">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-forest-light text-forest">
+                    <f.icon className="h-6 w-6" />
+                  </span>
+                  <span className="text-sm font-bold text-ink">{f.label}</span>
+                  {f.soon && <SoonPill />}
+                </div>
+              </Reveal>
+            ))}
+          </div>
+          <Reveal className="mt-10 text-center">
+            <ArrowLink to="/learning-materials" testid="formats-view-all-link">View All Materials</ArrowLink>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* KNOWLEDGE HUB */}
+      <section className="bg-navy px-6 py-24 lg:px-10 lg:py-32">
+        <div className="mx-auto max-w-[1400px]">
+          <div className="grid gap-12 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
+            <div className="flex flex-col justify-center">
+              <Reveal>
+                <SectionHead
+                  dark
+                  tag="Explore the Knowledge Hub"
+                  title={<>Four domains. One <span className="text-emerald-400">growing</span> library.</>}
+                  sub="Deep, expert-built coverage across the topics that define modern sustainability work — from carbon accounting to nature-positive strategy."
+                />
+                <div className="mt-8">
+                  <ButtonLink to="/learning-materials" variant="glass" testid="hub-topic-explorer-button" arrow>
+                    Topic Explorer
+                  </ButtonLink>
+                </div>
+              </Reveal>
+            </div>
+            <div className="grid gap-5 sm:grid-cols-2">
+              {HUB_TILES.map((t, i) => (
+                <Reveal key={t.title} delay={i * 0.08}>
+                  <div className="group relative h-52 overflow-hidden rounded-2xl" data-testid={`hub-tile-${i}`}>
+                    <img src={t.img} alt={t.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/30 to-transparent" />
+                    <div className="absolute bottom-0 p-5">
+                      <h3 className="font-display text-lg font-bold tracking-tight text-white">{t.title}</h3>
+                      <p className="mt-1 text-xs font-medium text-slate-300">{t.sub}</p>
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* HOW IT ALL CONNECTS */}
+      <section className="bg-white px-6 py-24 lg:px-10 lg:py-28">
+        <div className="mx-auto max-w-[1400px]">
+          <Reveal>
+            <SectionHead
+              center
+              tag="How It All Connects"
+              title={<>From discovery to delivery in <span className="text-forest">four steps.</span></>}
+            />
+          </Reveal>
+          <div className="relative mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="absolute left-0 right-0 top-9 hidden border-t-2 border-dashed border-slate-200 lg:block" />
+            {STEPS.map((s, i) => (
+              <Reveal key={s.n} delay={i * 0.1}>
+                <div className="relative rounded-2xl border border-slate-200 bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                  <span className="relative z-10 flex h-[4.5rem] w-[4.5rem] items-center justify-center rounded-2xl bg-forest font-display text-2xl font-black text-white shadow-[0_10px_24px_-8px_rgba(30,142,74,0.6)]">
+                    {s.n}
+                  </span>
+                  <h3 className="mt-5 font-display text-lg font-bold tracking-tight text-ink">{s.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-body">{s.desc}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SERVICES TEASER */}
+      <section className="bg-mist px-6 py-24 lg:px-10 lg:py-28" data-testid="services-teaser-section">
+        <div className="mx-auto max-w-[1400px]">
+          <Reveal>
+            <SectionHead
+              tag="Already have your own training content?"
+              title={<>We don't just build our own learning — we help you build <span className="text-forest">yours.</span></>}
+              sub="Beyond our library and simulations, our studio team helps organizations turn existing content into working eLearning."
+            />
+          </Reveal>
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {SERVICES.map((s, i) => (
+              <Reveal key={s.title} delay={i * 0.1} className="h-full">
+                <div className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_-24px_rgba(11,18,32,0.2)]">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-navy text-emerald-400">
+                    <s.icon className="h-6 w-6" />
+                  </span>
+                  <h3 className="mt-5 font-display text-lg font-bold tracking-tight text-ink">{s.title}</h3>
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-body">{s.desc}</p>
+                  <div className="mt-5">
+                    <ArrowLink to={s.to} testid={s.testid}>Learn more</ArrowLink>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+          <Reveal className="mt-10">
+            <ButtonLink to="/solutions/services" variant="outline" testid="services-teaser-cta" arrow>
+              Explore eLearning Services
+            </ButtonLink>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* PROOF STRIP */}
+      <section className="border-y border-slate-100 bg-white px-6 py-16 lg:px-10" data-testid="proof-strip">
+        <div className="mx-auto grid max-w-[1400px] gap-10 text-center sm:grid-cols-2 lg:grid-cols-4">
+          <Reveal>
+            <p className="font-display text-4xl font-black tracking-tight text-ink lg:text-5xl"><CountUp to={500} suffix="+" /></p>
+            <p className="mt-2 text-sm font-semibold text-body">Trainers worldwide</p>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <p className="font-display text-4xl font-black tracking-tight text-ink lg:text-5xl"><CountUp to={50000} suffix="+" /></p>
+            <p className="mt-2 text-sm font-semibold text-body">Learners trained</p>
+          </Reveal>
+          <Reveal delay={0.16}>
+            <p className="font-display text-4xl font-black tracking-tight text-forest lg:text-5xl"><CountUp to={24} suffix="%" /></p>
+            <p className="mt-2 text-sm font-semibold text-body">Average score improvement</p>
+          </Reveal>
+          <Reveal delay={0.24}>
+            <div className="flex h-full flex-col items-center justify-center">
+              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-forest-light text-forest">
+                <Leaf className="h-6 w-6" />
+              </span>
+              <p className="mt-3 text-sm font-semibold text-body">Backed by peer-reviewed ESG research</p>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <CtaBanner
+        title="Ready to transform your sustainability training?"
+        primary={{ label: "Get Started", to: "/pricing", testid: "home-final-cta-start-button" }}
+        secondary={{ label: "View Pricing", to: "/pricing", testid: "home-final-cta-pricing-button" }}
+        testid="home-final-cta"
+      />
+    </div>
+  );
+}

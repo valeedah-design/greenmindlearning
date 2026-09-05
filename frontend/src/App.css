@@ -1,0 +1,14 @@
+/* Green Mind Learning — app-level styles */
+
+.hero-vignette {
+  background:
+    linear-gradient(180deg, rgba(11, 18, 32, 0.82) 0%, rgba(11, 18, 32, 0.68) 45%, rgba(11, 18, 32, 0.92) 100%);
+}
+
+.clip-frame {
+  clip-path: inset(0 round 24px);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
