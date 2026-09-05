@@ -2,7 +2,7 @@ import { useState } from "react";
 import { BookOpen, Check, Play, PenLine, CalendarDays } from "lucide-react";
 import { Reveal, MaskedLines } from "@/components/site/Motion";
 import { ButtonLink, Tag, SectionHead, scrollToId } from "@/components/site/ui";
-import { GUIDES, INSIGHTS, BLOG_POSTS, WEBINARS } from "@/data/content";
+import { GUIDES, INSIGHTS, BLOG_POSTS, WEBINARS, TINTS } from "@/data/content";
 
 const TABS = [
   { label: "Trainer Guides", target: "guides", testid: "resources-tab-guides" },
@@ -109,7 +109,7 @@ export default function ResourcesHub() {
             {GUIDES.map((g, i) => (
               <Reveal key={g.title} delay={i * 0.1} className="h-full">
                 <div className="group flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_-24px_rgba(11,18,32,0.2)]" data-testid={`guide-card-${i}`}>
-                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-forest-light text-forest transition-colors group-hover:bg-forest group-hover:text-white">
+                  <span className={`flex h-12 w-12 items-center justify-center rounded-xl ${TINTS[i % TINTS.length].soft} ${TINTS[i % TINTS.length].text} transition-transform duration-300 group-hover:scale-110`}>
                     <BookOpen className="h-6 w-6" />
                   </span>
                   <h3 className="mt-5 font-display text-lg font-bold tracking-tight text-ink">{g.title}</h3>

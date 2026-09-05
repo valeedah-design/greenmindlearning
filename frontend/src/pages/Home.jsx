@@ -9,7 +9,7 @@ import { EASE, Reveal, MaskedLines, CountUp } from "@/components/site/Motion";
 import { ButtonLink, ArrowLink, Tag, SoonPill, SectionHead } from "@/components/site/ui";
 import Marquee from "@/components/site/Marquee";
 import CtaBanner from "@/components/site/CtaBanner";
-import { IMAGES } from "@/data/content";
+import { IMAGES, TINTS } from "@/data/content";
 
 const PILLARS = [
   { n: "01", title: "Concrete", desc: "Grounded in real regulatory frameworks and industry data, not abstract theory." },
@@ -63,14 +63,13 @@ const SERVICES = [
 const HERO_SLIDES = [
   {
     tag: "Redefining Sustainability Education",
+    visual: "sim",
     lines: [
       "We're taking sustainability",
       "learning from slides",
       <>to <span className="text-emerald-400">simulations.</span></>,
     ],
     sub: "Green Mind Learning is building the first simulation-based platform for ESG and sustainability training — turning passive content into hands-on practice. Explore our current library today, and be first in line as simulations launch.",
-    img: IMAGES.heroForest,
-    alt: "Sunlight breaking through a dense forest canopy",
     primary: { label: "Get Early Access to Simulations", to: "/simulations#waitlist", testid: "hero-early-access-button" },
     secondary: { label: "Explore Learning Materials", to: "/learning-materials", testid: "hero-explore-materials-button" },
   },
@@ -87,7 +86,95 @@ const HERO_SLIDES = [
     primary: { label: "Explore Learning Materials", to: "/learning-materials", testid: "hero-materials-button" },
     secondary: { label: "View Pricing", to: "/pricing", testid: "hero-pricing-button" },
   },
+  {
+    tag: "Start Today",
+    lines: [
+      "Your team could be",
+      <>training <span className="text-emerald-400">smarter</span></>,
+      "by next week.",
+    ],
+    sub: "Start a 14-day free trial — full library access, no credit card required. Plans from 49€/mo, cancel anytime.",
+    img: IMAGES.leafSun,
+    alt: "Sunlight filtering through fresh green leaves",
+    primary: { label: "Start Free Trial", to: "/pricing", testid: "hero-trial-button" },
+    secondary: { label: "Talk to Sales", to: "/about-contact", testid: "hero-sales-button" },
+    proof: "500+ trainers · 50,000+ learners · 24% avg. score lift",
+  },
 ];
+
+const SIM_CHIPS = [
+  { label: "Delivery Fleet", scope: 1, delay: 1.2 },
+  { label: "Office Electricity", scope: 2, delay: 2.4 },
+  { label: "Purchased Steel", scope: 3, delay: 3.6 },
+  { label: "Business Flights", scope: 3, delay: 4.8 },
+];
+
+function SimVisual() {
+  return (
+    <motion.div
+      animate={{ y: [0, -10, 0] }}
+      transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+      className="relative rounded-2xl border border-forest/30 bg-navy-card/90 p-6 shadow-[0_40px_90px_-30px_rgba(30,142,74,0.45)] backdrop-blur"
+      data-testid="hero-sim-visual"
+    >
+      <motion.div
+        className="absolute -right-3 -top-3 z-10 rounded-full bg-forest px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-wide text-white shadow-lg"
+        animate={{ opacity: [0, 1, 1, 0], y: [6, 0, 0, -6] }}
+        transition={{ duration: 2.2, delay: 2.4, repeat: Infinity, repeatDelay: 4.2 }}
+      >
+        +10 Correctly classified
+      </motion.div>
+
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2.5">
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
+          </span>
+          <p className="font-display text-sm font-extrabold tracking-tight text-white">Scope Sort</p>
+        </div>
+        <span className="rounded-full border border-forest/40 bg-forest/15 px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-emerald-400">
+          Concept Preview
+        </span>
+      </div>
+      <p className="mt-1.5 text-xs text-slate-400">Classify each emissions source into the right scope.</p>
+
+      <div className="mt-5 grid grid-cols-3 gap-3">
+        {["Scope 1", "Scope 2", "Scope 3"].map((s, ci) => (
+          <div key={s} className="min-h-[132px] rounded-xl border border-dashed border-white/15 bg-white/5 p-2.5">
+            <p className="text-[10px] font-extrabold uppercase tracking-widest text-emerald-400/80">{s}</p>
+            <div className="mt-2 space-y-2">
+              {SIM_CHIPS.filter((c) => c.scope === ci + 1).map((chip) => (
+                <motion.div
+                  key={chip.label}
+                  className="rounded-lg border border-forest/40 bg-forest/20 px-2.5 py-2 text-[11px] font-bold leading-tight text-emerald-300"
+                  animate={{ x: [-140, 0], opacity: [0, 1] }}
+                  transition={{ duration: 0.7, delay: chip.delay, repeat: Infinity, repeatDelay: 3.8, ease: EASE }}
+                >
+                  {chip.label}
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-5">
+        <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-widest text-slate-400">
+          <span>Audit accuracy</span>
+          <span className="text-emerald-400">92%</span>
+        </div>
+        <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-white/10">
+          <motion.div
+            className="h-full rounded-full bg-gradient-to-r from-forest to-emerald-400"
+            animate={{ width: ["4%", "92%"] }}
+            transition={{ duration: 2.4, delay: 1.4, repeat: Infinity, repeatDelay: 3.2, ease: EASE }}
+          />
+        </div>
+      </div>
+    </motion.div>
+  );
+}
 
 function HeroCarousel() {
   const [index, setIndex] = useState(0);
@@ -125,12 +212,19 @@ function HeroCarousel() {
           exit={{ opacity: 0 }}
           transition={{ duration: 1.2, ease: EASE }}
         >
-          <motion.img
-            src={slide.img}
-            alt={slide.alt}
-            style={{ y: bgY }}
-            className="absolute inset-0 h-[120%] w-full scale-110 object-cover"
-          />
+          {slide.visual === "sim" ? (
+            <div className="absolute inset-0 bg-gradient-to-br from-navy via-[#0d1b2e] to-forest-dark/50">
+              <div className="absolute -left-24 top-1/4 h-96 w-96 rounded-full bg-forest/25 blur-[130px]" />
+              <div className="absolute -right-24 bottom-0 h-96 w-96 rounded-full bg-emerald-500/15 blur-[130px]" />
+            </div>
+          ) : (
+            <motion.img
+              src={slide.img}
+              alt={slide.alt}
+              style={{ y: bgY }}
+              className="absolute inset-0 h-[120%] w-full scale-110 object-cover"
+            />
+          )}
         </motion.div>
       </AnimatePresence>
       <div className="absolute inset-0 bg-gradient-to-br from-navy/95 via-navy/70 to-forest/50" />
@@ -143,35 +237,60 @@ function HeroCarousel() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, transition: { duration: 0.3 } }}
+            className={slide.visual === "sim" ? "grid items-center gap-12 lg:grid-cols-[1.15fr_1fr]" : ""}
           >
-            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.15 }}>
-              <Tag dark>{slide.tag}</Tag>
-            </motion.div>
-            <MaskedLines
-              className="mt-6 max-w-5xl font-display text-4xl font-black leading-[1.04] tracking-tight text-white sm:text-5xl lg:text-[4.4rem]"
-              lines={slide.lines}
-            />
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.65 }}
-              className="mt-7 max-w-2xl text-base leading-relaxed text-slate-200 md:text-lg"
-            >
-              {slide.sub}
-            </motion.p>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-              className="mt-10 flex flex-wrap items-center gap-4"
-            >
-              <ButtonLink to={slide.primary.to} variant="primary" testid={slide.primary.testid} arrow className="px-7 py-3.5">
-                {slide.primary.label}
-              </ButtonLink>
-              <ButtonLink to={slide.secondary.to} variant="glass" testid={slide.secondary.testid} className="px-7 py-3.5">
-                {slide.secondary.label}
-              </ButtonLink>
-            </motion.div>
+            <div>
+              <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.15 }}>
+                <Tag dark>{slide.tag}</Tag>
+              </motion.div>
+              <MaskedLines
+                className="mt-6 max-w-5xl font-display text-4xl font-black leading-[1.04] tracking-tight text-white sm:text-5xl lg:text-[4.4rem]"
+                lines={slide.lines}
+              />
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.65 }}
+                className="mt-7 max-w-2xl text-base leading-relaxed text-slate-200 md:text-lg"
+              >
+                {slide.sub}
+              </motion.p>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.8 }}
+                className="mt-10 flex flex-wrap items-center gap-4"
+              >
+                <ButtonLink to={slide.primary.to} variant="primary" testid={slide.primary.testid} arrow className="px-7 py-3.5">
+                  {slide.primary.label}
+                </ButtonLink>
+                <ButtonLink to={slide.secondary.to} variant="glass" testid={slide.secondary.testid} className="px-7 py-3.5">
+                  {slide.secondary.label}
+                </ButtonLink>
+              </motion.div>
+              {slide.proof && (
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 1 }}
+                  className="mt-7 flex items-center gap-2.5 text-xs font-bold uppercase tracking-wider text-emerald-300/90"
+                  data-testid="hero-proof-strip"
+                >
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                  {slide.proof}
+                </motion.p>
+              )}
+            </div>
+            {slide.visual === "sim" && (
+              <motion.div
+                initial={{ opacity: 0, x: 48 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.9, delay: 0.55, ease: EASE }}
+                className="hidden lg:block"
+              >
+                <SimVisual />
+              </motion.div>
+            )}
           </motion.div>
         </AnimatePresence>
       </div>
@@ -306,7 +425,7 @@ export default function Home() {
               <Reveal key={w.title} delay={i * 0.1} className="h-full">
                 <div className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_-24px_rgba(11,18,32,0.2)]">
                   <div className="flex items-center justify-between">
-                    <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-forest-light text-forest">
+                    <span className={`flex h-12 w-12 items-center justify-center rounded-xl ${TINTS[i % TINTS.length].soft} ${TINTS[i % TINTS.length].text}`}>
                       <w.icon className="h-6 w-6" />
                     </span>
                     {w.soon && <SoonPill />}
@@ -431,7 +550,7 @@ export default function Home() {
             {FORMATS.map((f, i) => (
               <Reveal key={f.label} delay={i * 0.06}>
                 <div className="flex h-full flex-col items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-7 text-center transition-all duration-300 hover:-translate-y-1 hover:border-forest/40 hover:shadow-lg">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-forest-light text-forest">
+                  <span className={`flex h-12 w-12 items-center justify-center rounded-xl ${TINTS[i % TINTS.length].soft} ${TINTS[i % TINTS.length].text}`}>
                     <f.icon className="h-6 w-6" />
                   </span>
                   <span className="text-sm font-bold text-ink">{f.label}</span>

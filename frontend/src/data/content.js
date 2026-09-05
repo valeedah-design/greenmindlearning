@@ -109,3 +109,28 @@ export const MARQUEE_ITEMS = ["Net Zero", "Carbon Accounting", "CSRD Ready", "GR
 export const TOPICS = ["Climate & Energy", "Circular Economy", "ESG Reporting", "Biodiversity", "Social"];
 export const MATERIAL_TYPES = ["Slide Deck", "Case Study", "Assessment", "Workbook", "Video Guide"];
 export const LEVELS = ["Foundational", "Intermediate", "Advanced"];
+
+export const TOPIC_COLORS = {
+  "Climate & Energy": "bg-sky-100 text-sky-700",
+  "Circular Economy": "bg-emerald-100 text-emerald-700",
+  "ESG Reporting": "bg-violet-100 text-violet-700",
+  "Biodiversity": "bg-lime-100 text-lime-700",
+  "Social": "bg-rose-100 text-rose-700",
+};
+
+export const TOPIC_DOTS = {
+  "Climate & Energy": "bg-sky-500",
+  "Circular Economy": "bg-emerald-500",
+  "ESG Reporting": "bg-violet-500",
+  "Biodiversity": "bg-lime-500",
+  "Social": "bg-rose-500",
+};
+
+export const TINTS = [
+  { soft: "bg-forest-light", text: "text-forest" },
+  { soft: "bg-sky-100", text: "text-sky-600" },
+  { soft: "bg-amber-100", text: "text-amber-600" },
+  { soft: "bg-violet-100", text: "text-violet-600" },
+  { soft: "bg-rose-100", text: "text-rose-600" },
+  { soft: "bg-teal-100", text: "text-teal-600" },
+];

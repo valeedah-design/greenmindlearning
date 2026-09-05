@@ -1,5 +1,6 @@
 import { Clock, Star } from "lucide-react";
 import { Reveal } from "@/components/site/Motion";
+import { TOPIC_COLORS } from "@/data/content";
 
 export default function MaterialCard({ m, delay = 0 }) {
   return (
@@ -28,7 +29,7 @@ export default function MaterialCard({ m, delay = 0 }) {
           <h3 className="font-display text-lg font-bold leading-snug tracking-tight text-ink">{m.title}</h3>
           <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-body">{m.desc}</p>
           <div className="mt-auto flex items-center gap-3 pt-5 text-xs font-semibold text-slate-500">
-            <span className="rounded-full bg-forest-light px-2.5 py-1 text-forest-dark">{m.topic}</span>
+            <span className={`rounded-full px-2.5 py-1 ${TOPIC_COLORS[m.topic] || "bg-forest-light text-forest-dark"}`}>{m.topic}</span>
             <span>{m.level}</span>
             <span className="flex items-center gap-1">
               <Clock className="h-3.5 w-3.5" />

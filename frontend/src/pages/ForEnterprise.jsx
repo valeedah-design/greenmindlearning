@@ -3,7 +3,7 @@ import { Users, UserCheck, PenTool, ShieldCheck, Palette, Plug, Headphones, Tren
 import { Reveal, MaskedLines } from "@/components/site/Motion";
 import { ButtonLink, Tag, SectionHead } from "@/components/site/ui";
 import CtaBanner from "@/components/site/CtaBanner";
-import { IMAGES } from "@/data/content";
+import { IMAGES, TINTS } from "@/data/content";
 
 const CAPABILITIES = [
   { icon: Users, title: "Unlimited Students & Trainers", desc: "No seat ceilings — grow the program as fast as the organization does." },
@@ -148,7 +148,7 @@ function CapabilityCard({ c, i }) {
   return (
     <Reveal delay={i * 0.07} className="h-full">
       <div className="h-full rounded-2xl border border-slate-200 bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_-24px_rgba(11,18,32,0.2)]">
-        <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-forest-light text-forest">
+        <span className={`flex h-12 w-12 items-center justify-center rounded-xl ${TINTS[i % TINTS.length].soft} ${TINTS[i % TINTS.length].text}`}>
           <c.icon className="h-6 w-6" />
         </span>
         <h3 className="mt-5 font-display text-base font-bold tracking-tight text-ink">{c.title}</h3>

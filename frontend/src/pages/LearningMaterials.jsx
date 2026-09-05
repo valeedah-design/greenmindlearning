@@ -3,7 +3,7 @@ import { Search, SlidersHorizontal, RotateCcw, Leaf } from "lucide-react";
 import { Reveal } from "@/components/site/Motion";
 import { ButtonLink, Tag, inputCls } from "@/components/site/ui";
 import MaterialCard from "@/components/site/MaterialCard";
-import { MATERIALS, TOPICS, MATERIAL_TYPES, LEVELS } from "@/data/content";
+import { MATERIALS, TOPICS, MATERIAL_TYPES, LEVELS, TOPIC_DOTS } from "@/data/content";
 
 const SORTS = ["Latest Arrivals", "Most Popular", "Highest Rated"];
 
@@ -139,6 +139,7 @@ export default function LearningMaterials() {
                     onChange={() => toggle(topics, setTopics, t)}
                     className={checkCls}
                   />
+                  <span className={`h-2.5 w-2.5 rounded-full ${TOPIC_DOTS[t] || "bg-forest"}`} />
                   {t}
                 </label>
               ))}

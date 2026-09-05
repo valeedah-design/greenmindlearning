@@ -4,7 +4,7 @@ import { LineChart, Line, ResponsiveContainer } from "recharts";
 import { Reveal, MaskedLines } from "@/components/site/Motion";
 import { ButtonLink, ArrowLink, Tag, SectionHead } from "@/components/site/ui";
 import CtaBanner from "@/components/site/CtaBanner";
-import { IMAGES, TESTIMONIALS } from "@/data/content";
+import { IMAGES, TESTIMONIALS, TINTS } from "@/data/content";
 
 const CHART = [
   { x: "W1", y: 58 }, { x: "W2", y: 61 }, { x: "W3", y: 66 }, { x: "W4", y: 64 },
@@ -141,7 +141,7 @@ export default function ForTrainers() {
               {FEATURES.map((f, i) => (
                 <Reveal key={f.title} delay={i * 0.08}>
                   <div className="rounded-2xl border border-slate-200 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
-                    <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-forest-light text-forest">
+                    <span className={`flex h-11 w-11 items-center justify-center rounded-xl ${TINTS[i % TINTS.length].soft} ${TINTS[i % TINTS.length].text}`}>
                       <f.icon className="h-5 w-5" />
                     </span>
                     <h3 className="mt-4 font-display text-base font-bold tracking-tight text-ink">{f.title}</h3>
