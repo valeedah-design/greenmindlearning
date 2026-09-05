@@ -12,3 +12,17 @@
 .text-balance {
   text-wrap: balance;
 }
+
+@keyframes fx-spin { to { transform: rotate(360deg); } }
+@keyframes fx-wiggle { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-16deg); } 60% { transform: rotate(12deg); } }
+@keyframes fx-ripple { 0% { transform: scale(1); opacity: 0.5; } 100% { transform: scale(1.8); opacity: 0; } }
+@keyframes fx-bar-pulse { 0%, 100% { width: 16%; opacity: 0.5; } 50% { width: 45%; opacity: 1; } }
+@keyframes fx-junction { 0% { transform: translate(-50%, -50%) scale(1); opacity: 0.7; } 100% { transform: translate(-50%, -50%) scale(2.6); opacity: 0; } }
+
+.fx-radar { animation: fx-spin 3.4s linear infinite; }
+.fx-ripple { animation: fx-ripple 2.6s ease-out infinite; }
+.group:hover .fx-ripple { animation-duration: 0.9s; }
+.group:hover .fx-wiggle-target { animation: fx-wiggle 0.5s ease-in-out 2; }
+.fx-bar { animation: fx-bar-pulse 3.2s ease-in-out infinite; }
+.group:hover .fx-bar { animation: none; width: 100%; opacity: 1; transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+.fx-junction { animation: fx-junction 2.2s ease-out infinite; }
