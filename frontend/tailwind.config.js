@@ -20,9 +20,14 @@ module.exports = {
       },
       colors: {
         forest: {
-          DEFAULT: '#1E8E4A',
-          dark: '#17723A',
-          light: '#E8F5EE'
+          DEFAULT: '#177A3B',
+          dark: '#0C4A28',
+          mid: '#2E8540',
+          light: '#EAF6EC'
+        },
+        leaf: {
+          DEFAULT: '#9CD24B',
+          light: '#CBE89C'
         },
         navy: {
           DEFAULT: '#0B1220',

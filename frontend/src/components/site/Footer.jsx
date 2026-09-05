@@ -73,7 +73,7 @@ export default function Footer() {
                     <Link
                       to={l.to}
                       data-testid={l.testid}
-                      className="text-sm text-slate-400 transition-colors duration-200 hover:text-emerald-400"
+                      className="text-sm text-slate-400 transition-colors duration-200 hover:text-leaf"
                     >
                       {l.label}
                     </Link>
@@ -87,9 +87,9 @@ export default function Footer() {
         <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-navy-line pt-7 text-xs text-slate-500 sm:flex-row">
           <p data-testid="footer-copyright">© 2026 Green Mind Learning. All rights reserved.</p>
           <div className="flex items-center gap-6">
-            <a href="#" data-testid="footer-privacy-link" className="transition-colors hover:text-emerald-400">Privacy Policy</a>
-            <a href="#" data-testid="footer-terms-link" className="transition-colors hover:text-emerald-400">Terms of Service</a>
-            <a href="#" data-testid="footer-cookies-link" className="transition-colors hover:text-emerald-400">Cookie Settings</a>
+            <a href="#" data-testid="footer-privacy-link" className="transition-colors hover:text-leaf">Privacy Policy</a>
+            <a href="#" data-testid="footer-terms-link" className="transition-colors hover:text-leaf">Terms of Service</a>
+            <a href="#" data-testid="footer-cookies-link" className="transition-colors hover:text-leaf">Cookie Settings</a>
           </div>
         </div>
       </div>

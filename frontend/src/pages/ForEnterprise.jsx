@@ -39,7 +39,7 @@ export default function ForEnterprise() {
             className="mt-5 max-w-4xl font-display text-4xl font-black leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl"
             lines={[
               "Sustainability training that",
-              <><span className="text-emerald-400">scales</span> with your</>,
+              <><span className="text-leaf">scales</span> with your</>,
               "organization.",
             ]}
           />
@@ -104,7 +104,7 @@ export default function ForEnterprise() {
             {USE_CASES.map((u, i) => (
               <Reveal key={u.title} delay={i * 0.1} className="h-full">
                 <div className="h-full rounded-2xl border border-slate-200 bg-white p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_-24px_rgba(11,18,32,0.2)]">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-navy text-emerald-400">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-navy text-leaf">
                     <u.icon className="h-6 w-6" />
                   </span>
                   <h3 className="mt-5 font-display text-lg font-bold tracking-tight text-ink">{u.title}</h3>

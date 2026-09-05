@@ -10,10 +10,10 @@ export default function CtaBanner({ eyebrow, title, sub, primary, secondary, tes
           className="relative overflow-hidden rounded-[2rem] bg-navy px-8 py-16 text-center md:px-16 lg:py-20"
         >
           <div className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-forest/25 blur-[110px]" />
-          <div className="pointer-events-none absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-emerald-500/15 blur-[110px]" />
+          <div className="pointer-events-none absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-leaf/15 blur-[110px]" />
           <div className="relative">
             {eyebrow && (
-              <p className="text-[11px] font-extrabold uppercase tracking-[0.24em] text-emerald-400">{eyebrow}</p>
+              <p className="text-[11px] font-extrabold uppercase tracking-[0.24em] text-leaf">{eyebrow}</p>
             )}
             <h2 className="mx-auto mt-4 max-w-2xl font-display text-3xl font-extrabold tracking-tight text-white md:text-4xl lg:text-5xl text-balance">
               {title}

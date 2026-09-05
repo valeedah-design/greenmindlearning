@@ -67,7 +67,7 @@ const HERO_SLIDES = [
     lines: [
       "We're taking sustainability",
       "learning from slides",
-      <>to <span className="text-emerald-400">simulations.</span></>,
+      <>to <span className="text-leaf">simulations.</span></>,
     ],
     sub: "Green Mind Learning is building the first simulation-based platform for ESG and sustainability training — turning passive content into hands-on practice. Explore our current library today, and be first in line as simulations launch.",
     primary: { label: "Get Early Access to Simulations", to: "/simulations#waitlist", testid: "hero-early-access-button" },
@@ -77,7 +77,7 @@ const HERO_SLIDES = [
     tag: "The Learning Materials Library",
     lines: [
       "Advanced e-learning",
-      <>materials for <span className="text-emerald-400">sustainability</span></>,
+      <>materials for <span className="text-leaf">sustainability</span></>,
       "professionals.",
     ],
     sub: "128+ expert-built modules — slide decks, case studies, workbooks, assessments, and video guides. Peer-reviewed, updated monthly, and ready to plug straight into your curriculum.",
@@ -90,7 +90,7 @@ const HERO_SLIDES = [
     tag: "Start Today",
     lines: [
       "Your team could be",
-      <>training <span className="text-emerald-400">smarter</span></>,
+      <>training <span className="text-leaf">smarter</span></>,
       "by next week.",
     ],
     sub: "Start a 14-day free trial — full library access, no credit card required. Plans from 49€/mo, cancel anytime.",
@@ -128,12 +128,12 @@ function SimVisual() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2.5">
           <span className="relative flex h-2.5 w-2.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
-            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-leaf opacity-60" />
+            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-leaf" />
           </span>
           <p className="font-display text-sm font-extrabold tracking-tight text-white">Scope Sort</p>
         </div>
-        <span className="rounded-full border border-forest/40 bg-forest/15 px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-emerald-400">
+        <span className="rounded-full border border-forest/40 bg-forest/15 px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-leaf">
           Concept Preview
         </span>
       </div>
@@ -142,12 +142,12 @@ function SimVisual() {
       <div className="mt-5 grid grid-cols-3 gap-3">
         {["Scope 1", "Scope 2", "Scope 3"].map((s, ci) => (
           <div key={s} className="min-h-[132px] rounded-xl border border-dashed border-white/15 bg-white/5 p-2.5">
-            <p className="text-[10px] font-extrabold uppercase tracking-widest text-emerald-400/80">{s}</p>
+            <p className="text-[10px] font-extrabold uppercase tracking-widest text-leaf/80">{s}</p>
             <div className="mt-2 space-y-2">
               {SIM_CHIPS.filter((c) => c.scope === ci + 1).map((chip) => (
                 <motion.div
                   key={chip.label}
-                  className="rounded-lg border border-forest/40 bg-forest/20 px-2.5 py-2 text-[11px] font-bold leading-tight text-emerald-300"
+                  className="rounded-lg border border-forest/40 bg-forest/20 px-2.5 py-2 text-[11px] font-bold leading-tight text-leaf-light"
                   animate={{ x: [-140, 0], opacity: [0, 1] }}
                   transition={{ duration: 0.7, delay: chip.delay, repeat: Infinity, repeatDelay: 3.8, ease: EASE }}
                 >
@@ -162,11 +162,11 @@ function SimVisual() {
       <div className="mt-5">
         <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-widest text-slate-400">
           <span>Audit accuracy</span>
-          <span className="text-emerald-400">92%</span>
+          <span className="text-leaf">92%</span>
         </div>
         <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-white/10">
           <motion.div
-            className="h-full rounded-full bg-gradient-to-r from-forest to-emerald-400"
+            className="h-full rounded-full bg-gradient-to-r from-forest to-leaf"
             animate={{ width: ["4%", "92%"] }}
             transition={{ duration: 2.4, delay: 1.4, repeat: Infinity, repeatDelay: 3.2, ease: EASE }}
           />
@@ -213,9 +213,15 @@ function HeroCarousel() {
           transition={{ duration: 1.2, ease: EASE }}
         >
           {slide.visual === "sim" ? (
-            <div className="absolute inset-0 bg-gradient-to-br from-navy via-[#0d1b2e] to-forest-dark/50">
+            <div className="absolute inset-0 bg-navy">
+              <img
+                src="https://media.giphy.com/media/9tA6H1madRvUc/giphy.gif"
+                alt=""
+                aria-hidden="true"
+                className="h-full w-full object-cover opacity-60"
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-navy/85 via-navy/55 to-forest-dark/50" />
               <div className="absolute -left-24 top-1/4 h-96 w-96 rounded-full bg-forest/25 blur-[130px]" />
-              <div className="absolute -right-24 bottom-0 h-96 w-96 rounded-full bg-emerald-500/15 blur-[130px]" />
             </div>
           ) : (
             <motion.img
@@ -273,10 +279,10 @@ function HeroCarousel() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.8, delay: 1 }}
-                  className="mt-7 flex items-center gap-2.5 text-xs font-bold uppercase tracking-wider text-emerald-300/90"
+                  className="mt-7 flex items-center gap-2.5 text-xs font-bold uppercase tracking-wider text-leaf-light/90"
                   data-testid="hero-proof-strip"
                 >
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-leaf" />
                   {slide.proof}
                 </motion.p>
               )}
@@ -305,7 +311,7 @@ function HeroCarousel() {
             aria-current={i === index}
             data-testid={`hero-dot-${i}`}
             className={`h-1.5 rounded-full transition-all duration-500 ${
-              i === index ? "w-12 bg-emerald-400" : "w-6 bg-white/30 hover:bg-white/60"
+              i === index ? "w-12 bg-leaf" : "w-6 bg-white/30 hover:bg-white/60"
             }`}
           />
         ))}
@@ -367,8 +373,8 @@ export default function Home() {
                   className="mt-5 font-display text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl lg:text-[2.9rem]"
                   lines={[
                     <>Static content taught people</>,
-                    <><span className="text-emerald-400">about</span> sustainability.</>,
-                    <>We're teaching them to <span className="text-emerald-400">practice</span> it.</>,
+                    <><span className="text-leaf">about</span> sustainability.</>,
+                    <>We're teaching them to <span className="text-leaf">practice</span> it.</>,
                   ]}
                 />
                 <p className="mt-6 max-w-xl text-base leading-relaxed text-slate-400">
@@ -395,7 +401,7 @@ export default function Home() {
               {PILLARS.map((p, i) => (
                 <Reveal key={p.n} delay={i * 0.12}>
                   <div className="group flex gap-6 rounded-2xl border border-navy-line bg-navy-card p-6 transition-colors duration-300 hover:border-forest/50 md:p-7">
-                    <span className="font-display text-3xl font-black text-forest/60 transition-colors group-hover:text-emerald-400">
+                    <span className="font-display text-3xl font-black text-forest/60 transition-colors group-hover:text-leaf">
                       {p.n}
                     </span>
                     <div>
@@ -472,7 +478,7 @@ export default function Home() {
                   <img src={IMAGES.workshop} alt="Sustainability workshop in progress" className="h-[520px] w-full object-cover" loading="lazy" />
                 </div>
                 <div className="absolute -bottom-8 -left-4 max-w-md rounded-2xl bg-navy p-7 shadow-2xl md:-left-10">
-                  <Quote className="h-6 w-6 text-emerald-400" />
+                  <Quote className="h-6 w-6 text-leaf" />
                   <p className="mt-3 text-sm leading-relaxed text-slate-200">
                     "Green Mind Learning cut our curriculum development time by 70%. The quality of the case
                     studies is unparalleled."
@@ -514,11 +520,11 @@ export default function Home() {
               <div className="relative h-full overflow-hidden rounded-2xl bg-navy p-8 md:p-10">
                 <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-forest/25 blur-[90px]" />
                 <div className="flex items-center gap-3">
-                  <p className="text-[11px] font-extrabold uppercase tracking-[0.22em] text-emerald-400">The Green Mind Way</p>
+                  <p className="text-[11px] font-extrabold uppercase tracking-[0.22em] text-leaf">The Green Mind Way</p>
                   <SoonPill />
                 </div>
                 <div className="mt-6 flex items-start gap-4">
-                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-forest/15 text-emerald-400">
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-forest/15 text-leaf">
                     <Cpu className="h-6 w-6" />
                   </span>
                   <p className="font-display text-xl font-bold leading-snug tracking-tight text-white md:text-2xl">
@@ -574,7 +580,7 @@ export default function Home() {
                 <SectionHead
                   dark
                   tag="Explore the Knowledge Hub"
-                  title={<>Four domains. One <span className="text-emerald-400">growing</span> library.</>}
+                  title={<>Four domains. One <span className="text-leaf">growing</span> library.</>}
                   sub="Deep, expert-built coverage across the topics that define modern sustainability work — from carbon accounting to nature-positive strategy."
                 />
                 <div className="mt-8">
@@ -643,7 +649,7 @@ export default function Home() {
             {SERVICES.map((s, i) => (
               <Reveal key={s.title} delay={i * 0.1} className="h-full">
                 <div className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_-24px_rgba(11,18,32,0.2)]">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-navy text-emerald-400">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-navy text-leaf">
                     <s.icon className="h-6 w-6" />
                   </span>
                   <h3 className="mt-5 font-display text-lg font-bold tracking-tight text-ink">{s.title}</h3>

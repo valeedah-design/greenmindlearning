@@ -102,7 +102,7 @@ export default function Services() {
               <div className="clip-frame relative overflow-hidden">
                 <img src={s.img} alt={s.title} loading="lazy" className="h-[420px] w-full object-cover" />
                 <div className="absolute left-5 top-5 flex items-center gap-2 rounded-full bg-navy/85 px-4 py-2 text-xs font-bold text-white backdrop-blur">
-                  <s.icon className="h-4 w-4 text-emerald-400" />
+                  <s.icon className="h-4 w-4 text-leaf" />
                   {s.title}
                 </div>
               </div>
@@ -133,7 +133,7 @@ export default function Services() {
                   {s.steps.map((step, i) => (
                     <li key={step} className="flex items-center gap-2">
                       <span className="flex items-center gap-2 rounded-full bg-navy px-4 py-2 text-xs font-bold text-white">
-                        <span className="text-emerald-400">{i + 1}</span> {step}
+                        <span className="text-leaf">{i + 1}</span> {step}
                       </span>
                       {i < s.steps.length - 1 && <ArrowRight className="h-3.5 w-3.5 text-slate-300" />}
                     </li>

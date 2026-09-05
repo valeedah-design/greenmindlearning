@@ -19,7 +19,7 @@ const btnBase =
 
 const variants = {
   primary:
-    "bg-gradient-to-r from-forest to-emerald-600 text-white hover:from-forest-dark hover:to-forest shadow-[0_10px_28px_-10px_rgba(30,142,74,0.6)] hover:-translate-y-0.5",
+    "bg-gradient-to-r from-forest to-forest-mid text-white hover:from-forest-dark hover:to-forest shadow-[0_10px_28px_-10px_rgba(30,142,74,0.6)] hover:-translate-y-0.5",
   outline:
     "border border-slate-300 text-ink bg-white hover:border-forest hover:text-forest hover:-translate-y-0.5",
   glass:
@@ -51,7 +51,7 @@ export function ButtonLink({ to, onClick, variant = "primary", children, testid,
 }
 
 export function ArrowLink({ to, onClick, children, dark = false, testid }) {
-  const cls = `inline-flex items-center gap-1.5 text-sm font-bold group ${dark ? "text-emerald-400 hover:text-emerald-300" : "text-forest hover:text-forest-dark"} transition-colors`;
+  const cls = `inline-flex items-center gap-1.5 text-sm font-bold group ${dark ? "text-leaf hover:text-leaf-light" : "text-forest hover:text-forest-dark"} transition-colors`;
   const icon = <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />;
   if (to) {
     return (
@@ -71,10 +71,10 @@ export function Tag({ children, dark = false, className = "" }) {
   return (
     <span
       className={`inline-flex items-center gap-2.5 text-[11px] font-extrabold tracking-[0.24em] uppercase ${
-        dark ? "text-emerald-400" : "text-forest"
+        dark ? "text-leaf" : "text-forest"
       } ${className}`}
     >
-      <span className={`h-1.5 w-1.5 rounded-full ${dark ? "bg-emerald-400" : "bg-forest"}`} />
+      <span className={`h-1.5 w-1.5 rounded-full ${dark ? "bg-leaf" : "bg-forest"}`} />
       {children}
     </span>
   );

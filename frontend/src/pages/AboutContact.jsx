@@ -88,7 +88,7 @@ export default function AboutContact() {
           <Reveal>
             <Tag dark>Why Now</Tag>
             <h2 className="mt-4 font-display text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl text-balance">
-              A platform built for the <span className="text-emerald-400">Decisive Decade.</span>
+              A platform built for the <span className="text-leaf">Decisive Decade.</span>
             </h2>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-slate-400">
               The "why" is simple: we are running out of time. Traditional education cycles are too slow for
@@ -101,7 +101,7 @@ export default function AboutContact() {
                 ["Actionable Frameworks", "every module ends in something a professional can use on Monday."],
               ].map(([t, d]) => (
                 <li key={t} className="flex gap-4">
-                  <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-forest/15 text-emerald-400">
+                  <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-forest/15 text-leaf">
                     <Check className="h-4 w-4" />
                   </span>
                   <p className="text-sm leading-relaxed text-slate-300">
@@ -194,21 +194,21 @@ export default function AboutContact() {
                   </p>
                   <ul className="mt-10 space-y-6">
                     <li className="flex items-center gap-4">
-                      <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/8 text-emerald-400"><Mail className="h-5 w-5" /></span>
+                      <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/8 text-leaf"><Mail className="h-5 w-5" /></span>
                       <div>
                         <p className="text-[10px] font-extrabold uppercase tracking-widest text-slate-500">Email Support</p>
                         <p className="text-sm font-bold text-white">hello@greenmindlearning.edu</p>
                       </div>
                     </li>
                     <li className="flex items-center gap-4">
-                      <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/8 text-emerald-400"><MapPin className="h-5 w-5" /></span>
+                      <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/8 text-leaf"><MapPin className="h-5 w-5" /></span>
                       <div>
                         <p className="text-[10px] font-extrabold uppercase tracking-widest text-slate-500">Global HQ</p>
                         <p className="text-sm font-bold text-white">12 Sustainability Way, Berlin, Germany</p>
                       </div>
                     </li>
                     <li className="flex items-center gap-4">
-                      <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/8 text-emerald-400"><Clock className="h-5 w-5" /></span>
+                      <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/8 text-leaf"><Clock className="h-5 w-5" /></span>
                       <div>
                         <p className="text-[10px] font-extrabold uppercase tracking-widest text-slate-500">Hours</p>
                         <p className="text-sm font-bold text-white">Mon–Fri, 08:00–19:00 CET</p>

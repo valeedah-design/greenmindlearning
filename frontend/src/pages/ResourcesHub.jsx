@@ -82,7 +82,7 @@ export default function ResourcesHub() {
                   ["Action-Ready", "templates are pre-filled with industry data from our Topic Explorer."],
                 ].map(([t, d]) => (
                   <li key={t} className="flex gap-4">
-                    <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-forest/15 text-emerald-400">
+                    <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-forest/15 text-leaf">
                       <Check className="h-4 w-4" />
                     </span>
                     <p className="text-sm leading-relaxed text-slate-300">

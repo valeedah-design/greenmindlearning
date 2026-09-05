@@ -65,7 +65,7 @@ export default function Simulations() {
             className="mt-6 max-w-5xl font-display text-4xl font-black leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-[4.2rem]"
             lines={[
               "We're rebuilding sustainability",
-              <>training around <span className="text-emerald-400">simulation,</span></>,
+              <>training around <span className="text-leaf">simulation,</span></>,
               "not slides.",
             ]}
           />
@@ -145,7 +145,7 @@ export default function Simulations() {
                   <div className="relative h-44 overflow-hidden">
                     <img src={c.img} alt={c.title} loading="lazy" className="h-full w-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t from-navy/50 to-transparent" />
-                    <span className="absolute left-4 top-4 rounded-full bg-navy/80 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-400 backdrop-blur">
+                    <span className="absolute left-4 top-4 rounded-full bg-navy/80 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-leaf backdrop-blur">
                       Concept
                     </span>
                   </div>
@@ -218,7 +218,7 @@ export default function Simulations() {
                 inView
                 as="h2"
                 className="mt-5 font-display text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl lg:text-5xl"
-                lines={["Be first", <>in <span className="text-emerald-400">line.</span></>]}
+                lines={["Be first", <>in <span className="text-leaf">line.</span></>]}
               />
               <p className="mt-6 max-w-md text-base leading-relaxed text-slate-400">
                 Simulations are in active development. Join the waitlist and you'll be the first to know when
@@ -227,7 +227,7 @@ export default function Simulations() {
               <ul className="mt-8 space-y-3 text-sm text-slate-300">
                 {["First access to the Scope Sort pilot", "Founding-member pricing when we launch", "A say in which simulations we build next"].map((item) => (
                   <li key={item} className="flex items-center gap-3">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-leaf" />
                     {item}
                   </li>
                 ))}
@@ -238,7 +238,7 @@ export default function Simulations() {
             <div className="rounded-2xl border border-navy-line bg-navy-card p-8 md:p-10">
               {sent ? (
                 <div className="flex h-full min-h-[380px] flex-col items-center justify-center text-center">
-                  <span className="flex h-16 w-16 items-center justify-center rounded-full bg-forest/15 text-emerald-400">
+                  <span className="flex h-16 w-16 items-center justify-center rounded-full bg-forest/15 text-leaf">
                     <FileCheck2 className="h-8 w-8" />
                   </span>
                   <h3 className="mt-6 font-display text-2xl font-extrabold text-white">You're on the list.</h3>

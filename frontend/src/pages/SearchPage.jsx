@@ -103,7 +103,7 @@ export default function SearchPage() {
                   <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-forest/25 blur-[80px]" />
                   <div className="relative flex flex-wrap items-center justify-between gap-6">
                     <div className="flex items-start gap-4">
-                      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-forest/15 text-emerald-400">
+                      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-forest/15 text-leaf">
                         <Cpu className="h-6 w-6" />
                       </span>
                       <div>

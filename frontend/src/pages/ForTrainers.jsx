@@ -41,7 +41,7 @@ export default function ForTrainers() {
             </motion.div>
             <MaskedLines
               className="mt-5 font-display text-4xl font-black leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl"
-              lines={["Elevate Your Training.", <><span className="text-emerald-400">Scale Your Impact.</span></>]}
+              lines={["Elevate Your Training.", <><span className="text-leaf">Scale Your Impact.</span></>]}
             />
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -111,7 +111,7 @@ export default function ForTrainers() {
                   s.hot ? "border-forest/40 bg-forest-light" : "border-slate-200 bg-white"
                 }`}>
                   <span className={`flex h-11 w-11 items-center justify-center rounded-xl font-display text-lg font-black ${
-                    s.hot ? "bg-forest text-white" : "bg-navy text-emerald-400"
+                    s.hot ? "bg-forest text-white" : "bg-navy text-leaf"
                   }`}>
                     {s.n}
                   </span>
@@ -160,7 +160,7 @@ export default function ForTrainers() {
               <ul className="mt-8 space-y-4">
                 {SEGMENTS.map((s) => (
                   <li key={s} className="flex items-center gap-4 rounded-xl border border-navy-line bg-navy-card px-5 py-4">
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-forest/15 text-emerald-400">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-forest/15 text-leaf">
                       <Check className="h-4 w-4" />
                     </span>
                     <span className="text-sm font-bold text-white">{s}</span>
@@ -189,7 +189,7 @@ export default function ForTrainers() {
                   <Quote className="h-7 w-7 text-forest/40" />
                   <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-body">"{t.quote}"</blockquote>
                   <figcaption className="mt-6 flex items-center gap-3 border-t border-slate-100 pt-5">
-                    <span className="flex h-11 w-11 items-center justify-center rounded-full bg-navy font-display text-sm font-bold text-emerald-400">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-full bg-navy font-display text-sm font-bold text-leaf">
                       {t.initials}
                     </span>
                     <span>

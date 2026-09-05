@@ -114,7 +114,7 @@ export default function Pricing() {
                   <ul className="mt-7 flex-1 space-y-3.5">
                     {t.features.map((f) => (
                       <li key={f} className={`flex items-start gap-3 text-sm font-medium ${dark ? "text-slate-300" : "text-body"}`}>
-                        <span className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${dark ? "bg-forest/20 text-emerald-400" : "bg-forest-light text-forest"}`}>
+                        <span className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${dark ? "bg-forest/20 text-leaf" : "bg-forest-light text-forest"}`}>
                           <Check className="h-3 w-3" />
                         </span>
                         {f}
@@ -171,7 +171,7 @@ export default function Pricing() {
                   <tr className="bg-navy text-white">
                     <th className="px-6 py-4 text-xs font-extrabold uppercase tracking-wider">Feature</th>
                     <th className="px-6 py-4 text-center text-xs font-extrabold uppercase tracking-wider">Trainer</th>
-                    <th className="px-6 py-4 text-center text-xs font-extrabold uppercase tracking-wider text-emerald-400">Professional</th>
+                    <th className="px-6 py-4 text-center text-xs font-extrabold uppercase tracking-wider text-leaf">Professional</th>
                     <th className="px-6 py-4 text-center text-xs font-extrabold uppercase tracking-wider">Enterprise</th>
                   </tr>
                 </thead>

@@ -14,12 +14,12 @@ body {
 }
 
 ::selection {
-    background: #1E8E4A;
+    background: #177A3B;
     color: #FFFFFF;
 }
 
 :focus-visible {
-    outline: 2px solid #1E8E4A;
+    outline: 2px solid #177A3B;
     outline-offset: 3px;
     border-radius: 4px;
 }
@@ -32,7 +32,7 @@ html.lenis, html.lenis body { height: auto; }
 ::-webkit-scrollbar { width: 10px; }
 ::-webkit-scrollbar-track { background: #F6F8F7; }
 ::-webkit-scrollbar-thumb { background: #C7CFCB; border-radius: 8px; }
-::-webkit-scrollbar-thumb:hover { background: #1E8E4A; }
+::-webkit-scrollbar-thumb:hover { background: #177A3B; }
 
 @layer base {
     :root {
