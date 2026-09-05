@@ -388,7 +388,7 @@ export default function Home() {
                   <ButtonLink to="/simulations#waitlist" variant="primary" testid="vision-waitlist-button" arrow>
                     Join the Simulation Waitlist
                   </ButtonLink>
-                  <ButtonLink to="/simulations#preview" variant="glass" testid="vision-preview-button">
+                  <ButtonLink to="/simulations/preview" variant="glass" testid="vision-preview-button">
                     See a Concept Preview
                   </ButtonLink>
                 </div>

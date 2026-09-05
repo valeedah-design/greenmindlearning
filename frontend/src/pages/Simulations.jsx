@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { FileText, ArrowDown, MousePointerClick, RefreshCw, FileCheck2, Bell, Wind, Recycle, Scale, Sprout } from "lucide-react";
 import { Reveal, MaskedLines } from "@/components/site/Motion";
-import { ButtonLink, Tag, SoonPill, SectionHead, FormSuccess, inputDarkCls, scrollToId } from "@/components/site/ui";
+import { ButtonLink, ArrowLink, Tag, SoonPill, SectionHead, FormSuccess, inputDarkCls, scrollToId } from "@/components/site/ui";
 import { IMAGES } from "@/data/content";
 
 const APPROACH = [
@@ -87,7 +87,7 @@ export default function Simulations() {
             <ButtonLink onClick={() => scrollToId("waitlist")} variant="primary" testid="sim-hero-waitlist-button" arrow className="px-7 py-3.5">
               Join the Waitlist
             </ButtonLink>
-            <ButtonLink onClick={() => scrollToId("preview")} variant="glass" testid="sim-hero-preview-button" className="px-7 py-3.5">
+            <ButtonLink to="/simulations/preview" variant="glass" testid="sim-hero-preview-button" className="px-7 py-3.5">
               See a Concept Preview
             </ButtonLink>
           </motion.div>
@@ -165,6 +165,9 @@ export default function Simulations() {
                         </h3>
                       </div>
                       <p className="mt-2 text-sm leading-relaxed text-body">{c.desc}</p>
+                    </div>
+                    <div className="mt-5">
+                      <ArrowLink to="/simulations/preview" testid={`concept-card-link-${i}`}>See the work in motion</ArrowLink>
                     </div>
                   </div>
                 </div>

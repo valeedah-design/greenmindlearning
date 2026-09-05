@@ -6,6 +6,7 @@ import Navbar from "@/components/site/Navbar";
 import Footer from "@/components/site/Footer";
 import Home from "@/pages/Home";
 import Simulations from "@/pages/Simulations";
+import ConceptPreview from "@/pages/ConceptPreview";
 import LearningMaterials from "@/pages/LearningMaterials";
 import ResourcesHub from "@/pages/ResourcesHub";
 import ForTrainers from "@/pages/ForTrainers";
@@ -60,6 +61,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/simulations" element={<Simulations />} />
+            <Route path="/simulations/preview" element={<ConceptPreview />} />
             <Route path="/learning-materials" element={<LearningMaterials />} />
             <Route path="/resources" element={<ResourcesHub />} />
             <Route path="/solutions/trainers" element={<ForTrainers />} />
