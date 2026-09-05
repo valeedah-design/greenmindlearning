@@ -65,9 +65,9 @@ const HERO_SLIDES = [
     tag: "Redefining Sustainability Education",
     visual: "sim",
     lines: [
-      "We're taking sustainability",
+      <>We're taking <span className="text-leaf">sustainability</span></>,
       "learning from slides",
-      <>to <span className="text-leaf">simulations.</span></>,
+      <>to <span className="text-amber-300">simulations.</span></>,
     ],
     sub: "Green Mind Learning is building the first simulation-based platform for ESG and sustainability training — turning passive content into hands-on practice. Explore our current library today, and be first in line as simulations launch.",
     primary: { label: "Get Early Access to Simulations", to: "/simulations#waitlist", testid: "hero-early-access-button" },
