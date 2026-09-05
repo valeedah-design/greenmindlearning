@@ -67,7 +67,7 @@ const HERO_SLIDES = [
     lines: [
       <>We're taking <span className="text-leaf">sustainability</span></>,
       "learning from slides",
-      <>to <span className="text-amber-300">simulations.</span></>,
+      <>to <span className="bg-gradient-to-r from-cyan-300 via-sky-400 to-violet-400 bg-clip-text text-transparent drop-shadow-[0_0_22px_rgba(56,189,248,0.45)]">simulations.</span></>,
     ],
     sub: "Green Mind Learning is building the first simulation-based platform for ESG and sustainability training — turning passive content into hands-on practice. Explore our current library today, and be first in line as simulations launch.",
     primary: { label: "Get Early Access to Simulations", to: "/simulations#waitlist", testid: "hero-early-access-button" },
