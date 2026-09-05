@@ -43,11 +43,13 @@ Full marketing website for Green Mind Learning, an e-learning platform teaching 
 - P1: Blog/Article template page (seed: Sarah Jenkins icebreakers post); material detail/preview pages; real pagination data
 - P2: Optional JWT auth if user changes mind; webinar playback; downloadable enterprise overview PDF
 
-## ROI Calculator (implemented 2026-09-05)
-- components/site/ROICalculator.jsx inserted on Home directly above final CtaBanner (id="roi-calculator", forest-light bg): 3-step wizard (Your Company → Your Training → Your Results) with checkmark/pill stepper, 4 dropdowns, live "Calculated From Your Inputs" panels (steps 1–2), 5 result tiles (savings range, findings avoided, finding cost savings, payback, ROI multiple), recap chips, visible disclaimer, navy lead-capture card (POSTs to /api/contact with topic "ROI Report Request" + modeled results in message), success state with Talk to Our Team / View Pricing conversion CTAs, "Adjust inputs" preserves state
-- All dollar constants are commented placeholders in one block at the top of ROICalculator.jsx
-- Hero slide 3 replaced: now the ROI pitch ("What could smarter training save your organization?") with Calculate Your ROI → /#roi-calculator scroll
-- Free-trial offers removed site-wide (2026-09-05): tier CTA "Start Trainer Trial" → "Choose Trainer", trial FAQ → demo FAQ, Pricing FAQ subcopy, hero slide 3 trial copy (replaced by ROI slide)
+## ESG & CO2 Impact Calculator (2026-09-05, evolved from ROI Calculator)
+- The calculator section on Home (above final CTA banner) was UPGRADED IN PLACE to the ESG & CO2 Impact Calculator — not stacked as a second section (same placement, same wizard, extended with carbon). id now "esg-co2-calculator"
+- Step 1 adds live Est. Annual Carbon Footprint tile (CO2_INTENSITY_PER_EMPLOYEE per sector × workforce). Step 2 scope field now carries framework count + CO2 scopes (Scope 1 only / 1+2 / 1+2+3). Step 3: 7 tiles incl. twin headline stats (savings range + CO2e Reporting Corrected with car-equivalency line labeled illustrative), footprint baseline context bar, carbon-aware disclaimer
+- Wording guardrail honored: CO2 framed as "reporting corrected / misreporting risk addressed", never "emissions reduced"
+- Lead card POSTs topic "ESG & CO2 Report Request" with carbon numbers in message
+- Hero slide 3 reworded: eyebrow "ESG & CO2 Impact Calculator", headline "What could accurate carbon reporting save you?", CTA "Calculate Your ESG & CO2 Impact" → /#esg-co2-calculator
+- Verified live: Oil&Gas + 15k workforce → 675,000 tCO2e footprint, 23,625 tCO2e corrected, ≈5,136 cars, $2.7M–$3.6M, 8.4x, report submit success
 
 ## Forms → Database (implemented 2026-09-05)
 - POST /api/waitlist {name, email, organization, role} → `waitlist` collection; duplicate email returns existing entry (idempotent), invalid email → 422
