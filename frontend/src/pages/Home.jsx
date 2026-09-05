@@ -9,6 +9,7 @@ import { EASE, Reveal, MaskedLines, CountUp } from "@/components/site/Motion";
 import { ButtonLink, ArrowLink, Tag, SoonPill, SectionHead } from "@/components/site/ui";
 import Marquee from "@/components/site/Marquee";
 import CtaBanner from "@/components/site/CtaBanner";
+import CustomizeJourney from "@/components/site/CustomizeJourney";
 import { IMAGES, TINTS } from "@/data/content";
 
 const PILLARS = [
@@ -634,6 +635,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <CustomizeJourney />
 
       {/* SERVICES TEASER */}
       <section className="bg-mist px-6 py-24 lg:px-10 lg:py-28" data-testid="services-teaser-section">
