@@ -1,7 +1,8 @@
 {
   "services": {
     "frontend": {
-      "root": "frontend/"
+      "root": "frontend/",
+      "installCommand": "npm install --legacy-peer-deps"
     },
     "backend": {
       "root": "backend/",
