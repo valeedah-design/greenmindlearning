@@ -20,7 +20,7 @@ function ScopeSortMini() {
         </span>
         <p className="text-[10px] font-extrabold uppercase tracking-widest text-slate-400">Live concept motion</p>
       </div>
-      <div className="mt-4 grid grid-cols-3 gap-2.5">
+      <div className="mt-4 grid grid-cols-1 gap-2.5 sm:grid-cols-3">
         {["Scope 1", "Scope 2", "Scope 3"].map((s, ci) => (
           <div key={s} className="min-h-[104px] rounded-xl border border-dashed border-white/15 bg-white/5 p-2">
             <p className="text-[9px] font-extrabold uppercase tracking-widest text-leaf/80">{s}</p>
@@ -62,7 +62,7 @@ function LoopMini() {
   const R = 52;
   const C = 2 * Math.PI * R;
   return (
-    <div className="flex items-center gap-6 rounded-2xl border border-navy-line bg-navy-card/90 p-5" data-testid="work-mock-closing-loop">
+    <div className="flex flex-col items-center gap-6 rounded-2xl border border-navy-line bg-navy-card/90 p-5 sm:flex-row" data-testid="work-mock-closing-loop">
       <div className="relative shrink-0">
         <svg viewBox="0 0 120 120" className="h-28 w-28">
           <defs>
