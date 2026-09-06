@@ -577,7 +577,7 @@ export default function Home() {
                 <div className="clip-frame overflow-hidden">
                   <img src={IMAGES.workshop} alt="Sustainability workshop in progress" className="h-[520px] w-full object-cover" loading="lazy" />
                 </div>
-                <div className="absolute -bottom-8 -left-4 max-w-md rounded-2xl bg-navy p-7 shadow-2xl md:-left-10">
+                <div className="absolute -bottom-8 left-4 max-w-[85%] rounded-2xl bg-navy p-7 shadow-2xl md:-left-10 md:max-w-md">
                   <Quote className="h-6 w-6 text-leaf" />
                   <p className="mt-3 text-sm leading-relaxed text-slate-200">
                     "Green Mind Learning cut our curriculum development time by 70%. The quality of the case
