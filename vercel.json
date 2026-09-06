@@ -2,7 +2,7 @@
   "services": {
     "frontend": {
       "root": "frontend/",
-      "installCommand": "npm install --legacy-peer-deps"
+      "installCommand": "yarn install"
     },
     "backend": {
       "root": "backend/",
