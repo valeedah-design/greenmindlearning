@@ -39,7 +39,7 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-100 bg-white/85 backdrop-blur-md" data-testid="main-nav">
-      <div className="mx-auto flex h-[72px] max-w-[1400px] items-center justify-between px-5 lg:px-10">
+      <div className="mx-auto flex h-20 max-w-[1400px] items-center justify-between px-5 sm:h-24 lg:h-28 lg:px-10">
         <Link to="/" data-testid="nav-logo-link" aria-label="Green Mind Learning home">
           <Logo />
         </Link>
