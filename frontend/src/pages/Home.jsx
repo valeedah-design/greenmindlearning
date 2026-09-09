@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import {
   FlaskConical, MousePointerClick, Blocks, TrendingUp, Presentation, FileText,
-  ClipboardCheck, BookOpen, Video, Cpu, Users, GraduationCap, Building2, Leaf,
+  ClipboardCheck, BookOpen, Video, Cpu, Users, GraduationCap, Building2,
   Plug, Wrench, Quote, ChevronDown, ChevronLeft, ChevronRight, Search, Radio,
 } from "lucide-react";
-import { EASE, Reveal, MaskedLines, CountUp } from "@/components/site/Motion";
+import { EASE, Reveal, MaskedLines } from "@/components/site/Motion";
 import { ButtonLink, ArrowLink, Tag, SoonPill, SectionHead } from "@/components/site/ui";
 import Marquee from "@/components/site/Marquee";
 import CtaBanner from "@/components/site/CtaBanner";
@@ -411,6 +411,8 @@ export default function Home() {
 
       <Marquee />
 
+      <CustomizeJourney />
+
       {/* VISION — manifesto */}
       <section className="bg-navy px-6 py-24 lg:px-10 lg:py-32" data-testid="vision-section">
         <div className="mx-auto max-w-[1400px]">
@@ -708,8 +710,6 @@ export default function Home() {
         </div>
       </section>
 
-      <CustomizeJourney />
-
       {/* SERVICES TEASER */}
       <section className="bg-mist px-6 py-24 lg:px-10 lg:py-28" data-testid="services-teaser-section">
         <div className="mx-auto max-w-[1400px]">
@@ -740,32 +740,6 @@ export default function Home() {
             <ButtonLink to="/solutions/services" variant="outline" testid="services-teaser-cta" arrow>
               Explore eLearning Services
             </ButtonLink>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* PROOF STRIP */}
-      <section className="border-y border-slate-100 bg-white px-6 py-16 lg:px-10" data-testid="proof-strip">
-        <div className="mx-auto grid max-w-[1400px] gap-10 text-center sm:grid-cols-2 lg:grid-cols-4">
-          <Reveal>
-            <p className="font-display text-4xl font-black tracking-tight text-forest lg:text-5xl"><CountUp to={500} suffix="+" /></p>
-            <p className="mt-2 text-sm font-semibold text-body">Trainers worldwide</p>
-          </Reveal>
-          <Reveal delay={0.08}>
-            <p className="font-display text-4xl font-black tracking-tight text-forest lg:text-5xl"><CountUp to={50000} suffix="+" /></p>
-            <p className="mt-2 text-sm font-semibold text-body">Learners trained</p>
-          </Reveal>
-          <Reveal delay={0.16}>
-            <p className="font-display text-4xl font-black tracking-tight text-forest lg:text-5xl"><CountUp to={24} suffix="%" /></p>
-            <p className="mt-2 text-sm font-semibold text-body">Average score improvement</p>
-          </Reveal>
-          <Reveal delay={0.24}>
-            <div className="flex h-full flex-col items-center justify-center">
-              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-forest-light text-forest">
-                <Leaf className="h-6 w-6" />
-              </span>
-              <p className="mt-3 text-sm font-semibold text-body">Backed by peer-reviewed ESG research</p>
-            </div>
           </Reveal>
         </div>
       </section>

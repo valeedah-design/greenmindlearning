@@ -1,16 +1,13 @@
 import { useState } from "react";
-import { BookOpen, Check, Play, PenLine, CalendarDays } from "lucide-react";
+import { BookOpen, Check, CalendarDays } from "lucide-react";
 import { Reveal, MaskedLines } from "@/components/site/Motion";
 import { ButtonLink, Tag, SectionHead, scrollToId } from "@/components/site/ui";
-import { GUIDES, INSIGHTS, BLOG_POSTS, WEBINARS, TINTS } from "@/data/content";
+import { GUIDES, INSIGHTS, TINTS } from "@/data/content";
 
 const TABS = [
   { label: "Trainer Guides", target: "guides", testid: "resources-tab-guides" },
   { label: "Templates & Kits", target: "guides", testid: "resources-tab-templates" },
-  { label: "Digital Tools", target: "webinars", testid: "resources-tab-tools" },
   { label: "Industry Insights", target: "insights", testid: "resources-tab-insights" },
-  { label: "On-Demand Webinars", target: "webinars", testid: "resources-tab-webinars" },
-  { label: "Trainer Blog", target: "blog", testid: "resources-tab-blog" },
 ];
 
 export default function ResourcesHub() {
@@ -125,9 +122,9 @@ export default function ResourcesHub() {
         </div>
       </section>
 
-      {/* INSIGHTS + BLOG */}
+      {/* INSIGHTS */}
       <section className="bg-white px-6 py-20 lg:px-10 lg:py-24">
-        <div className="mx-auto grid max-w-[1400px] gap-12 lg:grid-cols-[1.5fr_1fr] lg:gap-16">
+        <div className="mx-auto max-w-[1400px]">
           <div id="insights">
             <Reveal>
               <SectionHead tag="Industry Insights" title={<>What's shifting in <span className="text-forest">ESG.</span></>} />
@@ -153,60 +150,6 @@ export default function ResourcesHub() {
                 </Reveal>
               ))}
             </div>
-          </div>
-
-          <aside id="blog">
-            <Reveal>
-              <SectionHead tag="Trainer Blog" title={<>From the <span className="text-forest">classroom.</span></>} />
-            </Reveal>
-            <div className="mt-10 space-y-5">
-              {BLOG_POSTS.map((p, i) => (
-                <Reveal key={p.title} delay={i * 0.1}>
-                  <article className="rounded-2xl border border-slate-200 bg-mist p-6 transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-lg" data-testid={`blog-card-${i}`}>
-                    <h3 className="font-display text-base font-bold leading-snug tracking-tight text-ink">{p.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-body">{p.desc}</p>
-                    <p className="mt-4 text-xs font-bold uppercase tracking-wider text-forest">{p.author}</p>
-                    <p className="text-xs text-slate-400">{p.role}</p>
-                  </article>
-                </Reveal>
-              ))}
-              <Reveal delay={0.2}>
-                <ButtonLink variant="outline" testid="blog-write-post-button" className="w-full">
-                  <PenLine className="h-4 w-4" /> Write a Post
-                </ButtonLink>
-              </Reveal>
-            </div>
-          </aside>
-        </div>
-      </section>
-
-      {/* WEBINARS */}
-      <section id="webinars" className="bg-mist px-6 py-20 lg:px-10 lg:py-24">
-        <div className="mx-auto max-w-[1400px]">
-          <Reveal>
-            <SectionHead
-              tag="Webinar Library"
-              title={<>Watch. Learn. <span className="text-forest">Deliver.</span></>}
-            />
-          </Reveal>
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {WEBINARS.map((w, i) => (
-              <Reveal key={w.title} delay={i * 0.07}>
-                <div className="group overflow-hidden rounded-2xl border border-slate-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_-24px_rgba(11,18,32,0.2)]" data-testid={`webinar-card-${i}`}>
-                  <div className="relative h-36 overflow-hidden">
-                    <img src={w.img} alt={w.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                    <div className="absolute inset-0 bg-navy/30 transition-colors group-hover:bg-navy/10" />
-                    <span className="absolute left-1/2 top-1/2 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 text-forest shadow-lg transition-transform duration-300 group-hover:scale-110">
-                      <Play className="ml-0.5 h-5 w-5 fill-forest" />
-                    </span>
-                    <span className="absolute bottom-3 right-3 rounded-md bg-navy/85 px-2 py-0.5 text-[11px] font-bold text-white">{w.duration}</span>
-                  </div>
-                  <div className="p-5">
-                    <h3 className="font-display text-sm font-bold leading-snug tracking-tight text-ink">{w.title}</h3>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
           </div>
         </div>
       </section>

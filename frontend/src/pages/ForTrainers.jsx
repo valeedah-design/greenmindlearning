@@ -4,11 +4,17 @@ import { LineChart, Line, ResponsiveContainer } from "recharts";
 import { Reveal, MaskedLines } from "@/components/site/Motion";
 import { ButtonLink, ArrowLink, Tag, SectionHead } from "@/components/site/ui";
 import CtaBanner from "@/components/site/CtaBanner";
-import { IMAGES, TESTIMONIALS, TINTS } from "@/data/content";
+import { IMAGES, TINTS } from "@/data/content";
 
 const CHART = [
   { x: "W1", y: 58 }, { x: "W2", y: 61 }, { x: "W3", y: 66 }, { x: "W4", y: 64 },
   { x: "W5", y: 71 }, { x: "W6", y: 75 }, { x: "W7", y: 79 }, { x: "W8", y: 84 },
+];
+
+const TESTIMONIAL_INVITES = [
+  { title: "Yours could be here.", desc: "We're just getting started — and so is our wall of trainer stories. Work with us, and we'd love to feature yours." },
+  { title: "Be one of the first.", desc: "No canned quotes here yet — just an open invitation. Tell us how Green Mind Learning changed your sessions." },
+  { title: "This spot is reserved.", desc: "For the trainer who tries us next. Share your experience and we'll showcase it right here." },
 ];
 
 const WORKFLOW = [
@@ -153,7 +159,7 @@ export default function ForTrainers() {
           </div>
           <Reveal delay={0.15} className="flex items-center">
             <div className="w-full rounded-[2rem] bg-navy p-9 md:p-12">
-              <Tag dark>Who Trains With Us</Tag>
+              <Tag dark>Who Can Train With Us</Tag>
               <h3 className="mt-4 font-display text-2xl font-extrabold tracking-tight text-white md:text-3xl">
                 From solo consultants to university faculties.
               </h3>
@@ -179,28 +185,23 @@ export default function ForTrainers() {
             <SectionHead
               center
               tag="Testimonials"
-              title={<>Trainers who made the <span className="text-forest">switch.</span></>}
+              title={<>Your story could be <span className="text-forest">next.</span></>}
             />
           </Reveal>
           <div className="mt-14 grid gap-6 md:grid-cols-3">
-            {TESTIMONIALS.map((t, i) => (
-              <Reveal key={t.name} delay={i * 0.1} className="h-full">
-                <figure className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg" data-testid={`testimonial-card-${i}`}>
+            {TESTIMONIAL_INVITES.map((c, i) => (
+              <Reveal key={c.title} delay={i * 0.1} className="h-full">
+                <div className="flex h-full flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-mist p-8 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg" data-testid={`testimonial-invite-card-${i}`}>
                   <Quote className="h-7 w-7 text-forest/40" />
-                  <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-body">"{t.quote}"</blockquote>
-                  <figcaption className="mt-6 flex items-center gap-3 border-t border-slate-100 pt-5">
-                    <span className="flex h-11 w-11 items-center justify-center rounded-full bg-navy font-display text-sm font-bold text-leaf">
-                      {t.initials}
-                    </span>
-                    <span>
-                      <span className="block text-sm font-bold text-ink">{t.name}</span>
-                      <span className="block text-xs text-slate-500">{t.role}</span>
-                    </span>
-                  </figcaption>
-                </figure>
+                  <h3 className="mt-4 font-display text-base font-bold tracking-tight text-ink">{c.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-body">{c.desc}</p>
+                </div>
               </Reveal>
             ))}
           </div>
+          <Reveal className="mt-10 text-center">
+            <ArrowLink to="/about-contact" testid="testimonials-share-story-link">Share your story with us</ArrowLink>
+          </Reveal>
         </div>
       </section>
 
