@@ -154,10 +154,23 @@ app.include_router(uploads.router)
 # Serve uploaded admin images
 app.mount("/uploads", StaticFiles(directory=str(UPLOAD_DIR)), name="uploads")
 
+# Origins that must always be allowed, regardless of what (if anything) is set
+# in the CORS_ORIGINS env var on Vercel — this way the live site keeps working
+# even if that env var is missing or out of date. Any origins from CORS_ORIGINS
+# are added on top of these, not used instead of them.
+_default_cors_origins = [
+    "https://greenmindlearning.eu",
+    "https://www.greenmindlearning.eu",
+    "https://greenmindlearning.vercel.app",
+    "http://localhost:3000",
+]
+_env_cors_origins = [o.strip() for o in os.environ.get('CORS_ORIGINS', '').split(',') if o.strip()]
+_cors_origins = list(dict.fromkeys(_default_cors_origins + _env_cors_origins))
+
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
-    allow_origins=os.environ.get('CORS_ORIGINS', '*').split(','),
+    allow_origins=_cors_origins,
     allow_methods=["*"],
     allow_headers=["*"],
 )
