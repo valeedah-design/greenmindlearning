@@ -1,12 +1,8 @@
 export default function Logo({ dark = false }) {
   return (
-    <span
-      className={`inline-flex items-center ${
-        dark ? "rounded-lg bg-white px-4 py-3 sm:px-5 sm:py-4" : ""
-      }`}
-    >
+    <span className="inline-flex items-center">
       <img
-        src="/Frame1.png"
+        src={dark ? "/Frame1-dark.png" : "/Frame1.png"}
         alt="Green Mind Learning"
         className={
           dark

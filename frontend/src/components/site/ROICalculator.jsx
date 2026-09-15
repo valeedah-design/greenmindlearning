@@ -6,7 +6,9 @@ import { ButtonLink, Tag, inputCls, inputDarkCls, FormSuccess } from "@/componen
 
 // ─── Configurable model assumptions (PLACEHOLDER constants — update in one place) ───
 const WORKFORCE_MIDPOINT = {
-  "Under 1,000 employees": 500,
+  "50–100 employees": 75,
+  "100–500 employees": 300,
+  "500–1,000 employees": 750,
   "1,000–5,000 employees": 3000,
   "5,000–10,000 employees": 7500,
   "10,000–20,000 employees": 15000,
