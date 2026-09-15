@@ -29,6 +29,12 @@ class LoginResponse(BaseModel):
     username: str
 
 
+class ChangeCredentialsRequest(BaseModel):
+    current_password: str
+    new_username: Optional[str] = None
+    new_password: Optional[str] = None
+
+
 # ---------- Taxonomy (Material Types / Topics) ----------
 class Category(BaseModel):
     model_config = ConfigDict(extra="ignore")

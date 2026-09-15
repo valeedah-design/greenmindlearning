@@ -8,6 +8,7 @@ import Insights from "./pages/Insights";
 import Testimonials from "./pages/Testimonials";
 import TrustedBy from "./pages/TrustedBy";
 import Faq from "./pages/Faq";
+import Account from "./pages/Account";
 
 // Mounted by the parent router at "/admin/*" — every route below is relative
 // to that prefix (e.g. "materials" resolves to "/admin/materials").
@@ -24,6 +25,7 @@ export default function AdminApp() {
           <Route path="testimonials" element={<Testimonials />} />
           <Route path="trusted-by" element={<TrustedBy />} />
           <Route path="faq" element={<Faq />} />
+          <Route path="account" element={<Account />} />
         </Route>
 
         <Route path="*" element={<Navigate to="" replace />} />

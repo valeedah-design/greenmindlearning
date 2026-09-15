@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { LogOut, LayoutDashboard, Menu, X } from "lucide-react";
+import { LogOut, LayoutDashboard, Menu, X, UserCog } from "lucide-react";
 import { useAuth } from "../AuthContext";
 import { NAV_SECTIONS } from "../navConfig";
 
@@ -50,6 +50,14 @@ export default function Layout({ children }) {
       <div className="p-4 border-t border-navy-line">
         <div className="text-xs text-slate-400 mb-1">Signed in as</div>
         <div className="text-sm font-semibold text-white mb-3 truncate">{name || "Admin"}</div>
+        <NavLink
+          to="account"
+          className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-white/5 text-slate-200 hover:bg-white/10 transition-colors mb-2"
+          onClick={() => setMobileOpen(false)}
+        >
+          <UserCog className="h-4 w-4" />
+          Account settings
+        </NavLink>
         <button
           type="button"
           onClick={logout}

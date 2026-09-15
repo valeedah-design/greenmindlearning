@@ -88,6 +88,29 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
+  // Change the signed-in admin's own username and/or password. Either field
+  // is optional — pass only what should change. On success this rotates the
+  // token (it's tied to the username) so the session stays valid.
+  const changeCredentials = useCallback(async ({ currentPassword, newUsername, newPassword }) => {
+    try {
+      const res = await api.patch("/auth/change-credentials", {
+        current_password: currentPassword,
+        new_username: newUsername || undefined,
+        new_password: newPassword || undefined,
+      });
+      const { access_token, name: n, username: u } = res.data || {};
+      setToken(access_token || "");
+      setName(n || "");
+      setUsername(u || "");
+      writeStorage(TOKEN_KEY, access_token || "");
+      writeStorage(NAME_KEY, n || "");
+      writeStorage(USERNAME_KEY, u || "");
+      return { ok: true };
+    } catch (err) {
+      return { ok: false, error: getErrorMessage(err, "Could not update your account. Please try again.") };
+    }
+  }, []);
+
   const value = {
     token,
     name,
@@ -96,6 +119,7 @@ export function AuthProvider({ children }) {
     checking,
     login,
     logout,
+    changeCredentials,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

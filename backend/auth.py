@@ -51,33 +51,61 @@ async def get_current_admin(credentials: HTTPAuthorizationCredentials = Depends(
 async def seed_admins():
     """Seed the 3 admin accounts if they don't already exist.
     Usernames/passwords can be overridden via env vars; otherwise sensible
-    defaults are created and should be changed on first login.
+    defaults are created and should be changed on first login (see the
+    Account page in the admin panel, or POST /api/auth/change-credentials).
+
+    Slots track a `legacy_username` so that if this ran before under the
+    old admin1/admin2/admin3 names, the existing account is renamed in
+    place (keeping its data) instead of leaving stale duplicate accounts
+    behind when the default usernames change.
     """
-    defaults = [
+    slots = [
         {
-            "username": os.environ.get("ADMIN1_USERNAME", "admin1"),
-            "password": os.environ.get("ADMIN1_PASSWORD", "GreenMind#2026!"),
-            "name": os.environ.get("ADMIN1_NAME", "Admin One"),
+            "legacy_username": "admin1",
+            "username": os.environ.get("ADMIN1_USERNAME", "Rabeehgm"),
+            "password": os.environ.get("ADMIN1_PASSWORD", "Willow20@"),
+            "name": os.environ.get("ADMIN1_NAME", "Rabeeh"),
         },
         {
-            "username": os.environ.get("ADMIN2_USERNAME", "admin2"),
-            "password": os.environ.get("ADMIN2_PASSWORD", "GreenMind#2026!"),
-            "name": os.environ.get("ADMIN2_NAME", "Admin Two"),
+            "legacy_username": "admin2",
+            "username": os.environ.get("ADMIN2_USERNAME", "Valeedgm"),
+            "password": os.environ.get("ADMIN2_PASSWORD", "Willow85$"),
+            "name": os.environ.get("ADMIN2_NAME", "Valeed"),
         },
         {
-            "username": os.environ.get("ADMIN3_USERNAME", "admin3"),
-            "password": os.environ.get("ADMIN3_PASSWORD", "GreenMind#2026!"),
-            "name": os.environ.get("ADMIN3_NAME", "Admin Three"),
+            "legacy_username": "admin3",
+            "username": os.environ.get("ADMIN3_USERNAME", "Razingm"),
+            "password": os.environ.get("ADMIN3_PASSWORD", "Falcon76@"),
+            "name": os.environ.get("ADMIN3_NAME", "Razin"),
         },
     ]
-    for d in defaults:
-        existing = await db.admins.find_one({"username": d["username"]})
-        if not existing:
+    for slot in slots:
+        already = await db.admins.find_one({"username": slot["username"]})
+        if already:
+            continue  # already set up under the target username — leave it alone
+
+        legacy = None
+        if slot["legacy_username"] != slot["username"]:
+            legacy = await db.admins.find_one({"username": slot["legacy_username"]})
+
+        if legacy:
+            await db.admins.update_one(
+                {"_id": legacy["_id"]},
+                {
+                    "$set": {
+                        "username": slot["username"],
+                        "password_hash": hash_password(slot["password"]),
+                        "name": slot["name"],
+                        "updated_at": datetime.now(timezone.utc),
+                    }
+                },
+            )
+        else:
             await db.admins.insert_one(
                 {
-                    "username": d["username"],
-                    "password_hash": hash_password(d["password"]),
-                    "name": d["name"],
+                    "username": slot["username"],
+                    "password_hash": hash_password(slot["password"]),
+                    "name": slot["name"],
                     "created_at": datetime.now(timezone.utc),
                 }
             )
