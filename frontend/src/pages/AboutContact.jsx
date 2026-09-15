@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Search, BookOpen, Users, Target, Check, Mail, MapPin, Clock, Quote } from "lucide-react";
-import { Reveal, MaskedLines, CountUp } from "@/components/site/Motion";
+import { Reveal, MaskedLines } from "@/components/site/Motion";
 import { ButtonLink, Tag, SectionHead, FormSuccess, inputCls } from "@/components/site/ui";
 import { IMAGES } from "@/data/content";
 
@@ -142,25 +142,6 @@ export default function AboutContact() {
               ))}
             </ul>
           </Reveal>
-        </div>
-      </section>
-
-      {/* IMPACT NUMBERS */}
-      <section className="border-b border-slate-100 bg-white px-6 py-16 lg:px-10" data-testid="about-impact-strip">
-        <div className="mx-auto grid max-w-[1400px] gap-10 text-center sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            { to: 500, suffix: "K+", label: "Learners trained" },
-            { to: 500, suffix: "+", label: "Trainers worldwide" },
-            { to: 128, suffix: "", label: "Learning modules" },
-            { to: 24, suffix: "%", label: "Average performance lift" },
-          ].map((s, i) => (
-            <Reveal key={s.label} delay={i * 0.08}>
-              <p className="font-display text-4xl font-black tracking-tight text-ink lg:text-5xl">
-                <CountUp to={s.to} suffix={s.suffix} />
-              </p>
-              <p className="mt-2 text-sm font-semibold text-body">{s.label}</p>
-            </Reveal>
-          ))}
         </div>
       </section>
 
