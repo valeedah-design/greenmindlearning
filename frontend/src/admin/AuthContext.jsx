@@ -111,6 +111,25 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
+
+  // Reset a forgotten password using the shared recovery code, without
+  // needing the old password. Does NOT sign the user in on success — they
+  // land back on the login form with their new password so they can log
+  // in normally (keeps this consistent with a "did that actually work?"
+  // flow rather than silently swapping sessions).
+  const recoverPassword = useCallback(async ({ username: usernameInput, recoveryCode, newPassword }) => {
+    try {
+      await api.post("/auth/recover-password", {
+        username: usernameInput,
+        recovery_code: recoveryCode,
+        new_password: newPassword,
+      });
+      return { ok: true };
+    } catch (err) {
+      return { ok: false, error: getErrorMessage(err, "Could not reset the password. Please try again.") };
+    }
+  }, []);
+
   const value = {
     token,
     name,
@@ -120,6 +139,7 @@ export function AuthProvider({ children }) {
     login,
     logout,
     changeCredentials,
+    recoverPassword,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

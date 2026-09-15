@@ -35,6 +35,12 @@ class ChangeCredentialsRequest(BaseModel):
     new_password: Optional[str] = None
 
 
+class RecoverPasswordRequest(BaseModel):
+    username: str
+    recovery_code: str
+    new_password: str
+
+
 # ---------- Taxonomy (Material Types / Topics) ----------
 class Category(BaseModel):
     model_config = ConfigDict(extra="ignore")

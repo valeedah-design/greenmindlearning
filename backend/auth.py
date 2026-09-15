@@ -12,6 +12,12 @@ JWT_SECRET = os.environ.get("JWT_SECRET", "green-mind-learning-dev-secret-change
 JWT_ALGORITHM = "HS256"
 JWT_EXPIRE_HOURS = 24 * 14  # 2 weeks
 
+# A shared "master key" that lets any admin reset a forgotten password without
+# knowing the old one (see POST /api/auth/recover-password). Set a real value
+# via the RECOVERY_CODE env var on Vercel and keep it private — anyone with
+# this code can reset any admin's password.
+RECOVERY_CODE = os.environ.get("RECOVERY_CODE", "green-mind-recovery-2026")
+
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 security = HTTPBearer()
 

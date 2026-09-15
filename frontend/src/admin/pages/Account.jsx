@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { ErrorBanner } from "../components/Feedback";
+import PasswordInput from "../components/PasswordInput";
 
 export default function Account() {
   const { username, changeCredentials } = useAuth();
@@ -86,9 +87,8 @@ export default function Account() {
 
         <div>
           <Label htmlFor="account-new-password">New password</Label>
-          <Input
+          <PasswordInput
             id="account-new-password"
-            type="password"
             autoComplete="new-password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
@@ -98,27 +98,24 @@ export default function Account() {
           />
         </div>
 
-        {newPassword && (
-          <div>
-            <Label htmlFor="account-confirm-password">Confirm new password</Label>
-            <Input
-              id="account-confirm-password"
-              type="password"
-              autoComplete="new-password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              className="mt-1.5"
-              placeholder="••••••••"
-              data-testid="account-confirm-password-input"
-            />
-          </div>
-        )}
+        <div>
+          <Label htmlFor="account-confirm-password">Confirm new password</Label>
+          <PasswordInput
+            id="account-confirm-password"
+            autoComplete="new-password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            className="mt-1.5"
+            placeholder="Repeat the new password"
+            data-testid="account-confirm-password-input"
+          />
+          <p className="mt-1 text-xs text-slate-400">Only checked if you're setting a new password above.</p>
+        </div>
 
         <div className="border-t border-slate-100 pt-5">
           <Label htmlFor="account-current-password">Current password</Label>
-          <Input
+          <PasswordInput
             id="account-current-password"
-            type="password"
             autoComplete="current-password"
             value={currentPassword}
             onChange={(e) => setCurrentPassword(e.target.value)}
