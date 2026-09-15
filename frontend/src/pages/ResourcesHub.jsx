@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { BookOpen, Check, CalendarDays } from "lucide-react";
+import { useEffect, useState } from "react";
+import { BookOpen, Check, CalendarDays, ExternalLink } from "lucide-react";
 import { Reveal, MaskedLines } from "@/components/site/Motion";
-import { ButtonLink, Tag, SectionHead, scrollToId } from "@/components/site/ui";
-import { GUIDES, INSIGHTS, TINTS } from "@/data/content";
+import { ButtonLink, ArrowLink, Tag, SectionHead, scrollToId } from "@/components/site/ui";
+import { GUIDES, TINTS } from "@/data/content";
 
 const TABS = [
   { label: "Trainer Guides", target: "guides", testid: "resources-tab-guides" },
@@ -12,6 +12,16 @@ const TABS = [
 
 export default function ResourcesHub() {
   const [active, setActive] = useState("Trainer Guides");
+  const [insights, setInsights] = useState([]);
+  const [insightsLoading, setInsightsLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/api/insights`)
+      .then((r) => (r.ok ? r.json() : []))
+      .then(setInsights)
+      .catch(() => {})
+      .finally(() => setInsightsLoading(false));
+  }, []);
 
   return (
     <div data-testid="resources-page">
@@ -130,26 +140,45 @@ export default function ResourcesHub() {
               <SectionHead tag="Industry Insights" title={<>What's shifting in <span className="text-forest">ESG.</span></>} />
             </Reveal>
             <div className="mt-10 space-y-6">
-              {INSIGHTS.map((a, i) => (
-                <Reveal key={a.title} delay={i * 0.1}>
-                  <article className="group flex flex-col gap-6 rounded-2xl border border-slate-200 bg-white p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_-24px_rgba(11,18,32,0.2)] sm:flex-row" data-testid={`insight-card-${i}`}>
-                    <div className="h-36 w-full shrink-0 overflow-hidden rounded-xl sm:w-44">
-                      <img src={a.img} alt={a.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                    </div>
-                    <div className="py-1">
-                      <div className="flex items-center gap-3">
-                        <span className="rounded-full bg-forest-light px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-forest-dark">{a.tag}</span>
+              {insightsLoading && <p className="text-sm font-semibold text-slate-400">Loading…</p>}
+              {!insightsLoading && insights.length === 0 && (
+                <p className="text-sm font-semibold text-slate-400" data-testid="insights-empty-state">
+                  New industry insights are on the way — check back soon.
+                </p>
+              )}
+              {insights.map((a, i) => (
+                <Reveal key={a.id} delay={i * 0.1}>
+                  <article className="group flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_-24px_rgba(11,18,32,0.2)]" data-testid={`insight-card-${i}`}>
+                    <div className="flex items-center gap-3">
+                      <span className="rounded-full bg-forest-light px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-forest-dark">{a.category}</span>
+                      {a.date && (
                         <span className="flex items-center gap-1.5 text-xs font-semibold text-slate-400">
                           <CalendarDays className="h-3.5 w-3.5" /> {a.date}
                         </span>
-                      </div>
-                      <h3 className="mt-3 font-display text-lg font-bold leading-snug tracking-tight text-ink">{a.title}</h3>
-                      <p className="mt-2 text-sm leading-relaxed text-body">{a.desc}</p>
+                      )}
                     </div>
+                    <h3 className="font-display text-lg font-bold leading-snug tracking-tight text-ink">{a.title}</h3>
+                    <p className="text-sm leading-relaxed text-body">{a.description}</p>
+                    {a.url && (
+                      <a
+                        href={a.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1.5 text-sm font-bold text-forest hover:text-forest-dark"
+                        data-testid={`insight-link-${i}`}
+                      >
+                        Read the full story <ExternalLink className="h-3.5 w-3.5" />
+                      </a>
+                    )}
                   </article>
                 </Reveal>
               ))}
             </div>
+            <Reveal className="mt-8">
+              <ArrowLink to="/about-contact#contact" testid="insights-ask-us-link">
+                Have a question about one of these? Ask our team
+              </ArrowLink>
+            </Reveal>
           </div>
         </div>
       </section>

@@ -1,11 +1,12 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Search, SlidersHorizontal, RotateCcw, Leaf } from "lucide-react";
 import { Reveal } from "@/components/site/Motion";
 import { ButtonLink, Tag, inputCls } from "@/components/site/ui";
 import MaterialCard from "@/components/site/MaterialCard";
-import { MATERIALS, TOPICS, MATERIAL_TYPES, LEVELS, TOPIC_DOTS } from "@/data/content";
+import MaterialDetailModal from "@/components/site/MaterialDetailModal";
 
-const SORTS = ["Latest Arrivals", "Most Popular", "Highest Rated"];
+const SORTS = ["Latest Arrivals", "Title A–Z"];
+const LEVELS = ["Foundational", "Intermediate", "Advanced"];
 
 function FilterGroup({ title, children, testid }) {
   return (
@@ -17,35 +18,66 @@ function FilterGroup({ title, children, testid }) {
 }
 
 export default function LearningMaterials() {
+  const [materials, setMaterials] = useState([]);
+  const [materialTypes, setMaterialTypes] = useState([]);
+  const [topics, setTopicsList] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState("Latest Arrivals");
   const [types, setTypes] = useState([]);
-  const [topics, setTopics] = useState([]);
+  const [selectedTopics, setSelectedTopics] = useState([]);
   const [levels, setLevels] = useState([]);
   const [maxMinutes, setMaxMinutes] = useState(240);
+  const [openMaterial, setOpenMaterial] = useState(null);
+
+  useEffect(() => {
+    const base = process.env.REACT_APP_BACKEND_URL;
+    Promise.all([
+      fetch(`${base}/api/materials`).then((r) => (r.ok ? r.json() : [])),
+      fetch(`${base}/api/materials/taxonomy/types`).then((r) => (r.ok ? r.json() : [])),
+      fetch(`${base}/api/materials/taxonomy/topics`).then((r) => (r.ok ? r.json() : [])),
+    ])
+      .then(([m, t, tp]) => {
+        setMaterials(
+          m.map((item) => ({
+            ...item,
+            thumbnail: item.thumbnail ? `${base}${item.thumbnail}` : null,
+            images: (item.images || []).map((u) => `${base}${u}`),
+          }))
+        );
+        setMaterialTypes(t);
+        setTopicsList(tp);
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
+
+  const typeColorMap = useMemo(() => Object.fromEntries(materialTypes.map((t) => [t.name, t.color])), [materialTypes]);
+  const topicColorMap = useMemo(() => Object.fromEntries(topics.map((t) => [t.name, t.color])), [topics]);
 
   const toggle = (list, setList, val) =>
     setList(list.includes(val) ? list.filter((v) => v !== val) : [...list, val]);
 
   const reset = () => {
-    setQuery(""); setSort("Latest Arrivals"); setTypes([]); setTopics([]); setLevels([]); setMaxMinutes(240);
+    setQuery(""); setSort("Latest Arrivals"); setTypes([]); setSelectedTopics([]); setLevels([]); setMaxMinutes(240);
   };
 
   const results = useMemo(() => {
-    let r = MATERIALS.filter(
+    let r = materials.filter(
       (m) =>
         m.title.toLowerCase().includes(query.toLowerCase()) &&
         (types.length === 0 || types.includes(m.type)) &&
-        (topics.length === 0 || topics.includes(m.topic)) &&
+        (selectedTopics.length === 0 || selectedTopics.includes(m.topic)) &&
         (levels.length === 0 || levels.includes(m.level)) &&
         m.minutes <= maxMinutes
     );
-    if (sort === "Most Popular") r = [...r].sort((a, b) => b.popularity - a.popularity);
-    if (sort === "Highest Rated") r = [...r].sort((a, b) => b.rating - a.rating);
+    if (sort === "Title A–Z") r = [...r].sort((a, b) => a.title.localeCompare(b.title));
+    else r = [...r].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
     return r;
-  }, [query, sort, types, topics, levels, maxMinutes]);
+  }, [materials, query, sort, types, selectedTopics, levels, maxMinutes]);
 
-  const filtered = query || types.length || topics.length || levels.length || maxMinutes < 240;
+  const filtered = query || types.length || selectedTopics.length || levels.length || maxMinutes < 240;
 
   const checkCls = "h-4 w-4 rounded border-slate-300 text-forest accent-[#1E8E4A]";
 
@@ -115,32 +147,33 @@ export default function LearningMaterials() {
             </FilterGroup>
 
             <FilterGroup title="Material Type" testid="filter-type">
-              {MATERIAL_TYPES.map((t) => (
-                <label key={t} className="flex cursor-pointer items-center gap-2.5 text-sm font-medium text-body">
+              {materialTypes.map((t) => (
+                <label key={t.id} className="flex cursor-pointer items-center gap-2.5 text-sm font-medium text-body">
                   <input
                     type="checkbox"
-                    data-testid={`filter-type-${t.toLowerCase().replace(/ /g, "-")}`}
-                    checked={types.includes(t)}
-                    onChange={() => toggle(types, setTypes, t)}
+                    data-testid={`filter-type-${t.name.toLowerCase().replace(/ /g, "-")}`}
+                    checked={types.includes(t.name)}
+                    onChange={() => toggle(types, setTypes, t.name)}
                     className={checkCls}
                   />
-                  {t}
+                  <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: t.color }} />
+                  {t.name}
                 </label>
               ))}
             </FilterGroup>
 
             <FilterGroup title="Topic" testid="filter-topic">
-              {TOPICS.map((t) => (
-                <label key={t} className="flex cursor-pointer items-center gap-2.5 text-sm font-medium text-body">
+              {topics.map((t) => (
+                <label key={t.id} className="flex cursor-pointer items-center gap-2.5 text-sm font-medium text-body">
                   <input
                     type="checkbox"
-                    data-testid={`filter-topic-${t.toLowerCase().replace(/ & | /g, "-")}`}
-                    checked={topics.includes(t)}
-                    onChange={() => toggle(topics, setTopics, t)}
+                    data-testid={`filter-topic-${t.name.toLowerCase().replace(/ & | /g, "-")}`}
+                    checked={selectedTopics.includes(t.name)}
+                    onChange={() => toggle(selectedTopics, setSelectedTopics, t.name)}
                     className={checkCls}
                   />
-                  <span className={`h-2.5 w-2.5 rounded-full ${TOPIC_DOTS[t] || "bg-forest"}`} />
-                  {t}
+                  <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: t.color }} />
+                  {t.name}
                 </label>
               ))}
             </FilterGroup>
@@ -181,49 +214,51 @@ export default function LearningMaterials() {
           {/* GRID */}
           <div>
             <p className="mb-6 text-sm font-semibold text-slate-500" data-testid="materials-result-count">
-              {filtered ? `Showing ${results.length} of 128 results` : "Showing 128 results"}
+              {loading ? "Loading…" : filtered ? `Showing ${results.length} of ${materials.length} results` : `Showing ${materials.length} results`}
             </p>
-            {results.length === 0 ? (
+            {!loading && results.length === 0 ? (
               <div className="flex flex-col items-center rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-20 text-center" data-testid="materials-empty-state">
                 <span className="flex h-14 w-14 items-center justify-center rounded-full bg-forest-light text-forest">
                   <Leaf className="h-7 w-7" />
                 </span>
-                <h3 className="mt-5 font-display text-xl font-bold text-ink">Nothing matches those filters yet.</h3>
-                <p className="mt-2 max-w-sm text-sm text-body">Try widening the duration or clearing a topic — new materials are added every month.</p>
-                <div className="mt-6">
-                  <ButtonLink onClick={reset} variant="outline" testid="materials-empty-reset-button">Clear Filters</ButtonLink>
-                </div>
+                <h3 className="mt-5 font-display text-xl font-bold text-ink">
+                  {materials.length === 0 ? "Materials are on the way." : "Nothing matches those filters yet."}
+                </h3>
+                <p className="mt-2 max-w-sm text-sm text-body">
+                  {materials.length === 0
+                    ? "Our team is adding the library through the admin — check back soon."
+                    : "Try widening the duration or clearing a topic — new materials are added every month."}
+                </p>
+                {materials.length > 0 && (
+                  <div className="mt-6">
+                    <ButtonLink onClick={reset} variant="outline" testid="materials-empty-reset-button">Clear Filters</ButtonLink>
+                  </div>
+                )}
               </div>
             ) : (
               <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
                 {results.map((m, i) => (
-                  <MaterialCard key={m.id} m={m} delay={i * 0.05} />
+                  <MaterialCard
+                    key={m.id}
+                    m={m}
+                    delay={i * 0.05}
+                    onOpen={setOpenMaterial}
+                    typeColor={typeColorMap[m.type]}
+                    topicColor={topicColorMap[m.topic]}
+                  />
                 ))}
               </div>
             )}
-
-            {/* PAGINATION */}
-            <div className="mt-12 flex items-center justify-center gap-2" data-testid="materials-pagination">
-              {[1, 2, 3].map((p) => (
-                <button
-                  key={p}
-                  type="button"
-                  data-testid={`pagination-page-${p}`}
-                  className={`h-10 w-10 rounded-full text-sm font-bold transition-all ${
-                    p === 1 ? "bg-forest text-white" : "border border-slate-200 bg-white text-slate-500 hover:border-forest hover:text-forest"
-                  }`}
-                >
-                  {p}
-                </button>
-              ))}
-              <span className="px-1 text-slate-400">…</span>
-              <button type="button" data-testid="pagination-page-12" className="h-10 w-10 rounded-full border border-slate-200 bg-white text-sm font-bold text-slate-500 transition-all hover:border-forest hover:text-forest">
-                12
-              </button>
-            </div>
           </div>
         </div>
       </section>
+
+      <MaterialDetailModal
+        material={openMaterial}
+        onClose={() => setOpenMaterial(null)}
+        typeColor={openMaterial && typeColorMap[openMaterial.type]}
+        topicColor={openMaterial && topicColorMap[openMaterial.topic]}
+      />
 
       {/* CTA BANNER — green */}
       <section className="bg-mist px-6 pb-24 lg:px-10">

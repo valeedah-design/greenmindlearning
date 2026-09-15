@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Users, UserCheck, PenTool, ShieldCheck, Palette, Plug, Headphones, TrendingUp, ClipboardCheck, GraduationCap } from "lucide-react";
 import { Reveal, MaskedLines } from "@/components/site/Motion";
@@ -21,7 +22,44 @@ const USE_CASES = [
   { icon: GraduationCap, title: "Onboarding Sustainability Hires", desc: "Get new ESG team members productive in weeks with structured, role-based learning paths." },
 ];
 
-const LOGOS = ["NORDWERK", "HELIOS ENERGY", "ATLAS GROUP", "VERDANT CO", "MERIDIAN", "OSTMANN"];
+function TrustedByLogos() {
+  const [enabled, setEnabled] = useState(false);
+  const [logos, setLogos] = useState([]);
+
+  useEffect(() => {
+    const base = process.env.REACT_APP_BACKEND_URL;
+    fetch(`${base}/api/trusted-by`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (!data) return;
+        setEnabled(!!data.enabled);
+        setLogos((data.items || []).map((l) => ({ ...l, image: `${base}${l.image}` })));
+      })
+      .catch(() => {});
+  }, []);
+
+  if (!enabled || logos.length === 0) return null;
+
+  return (
+    <section className="border-y border-slate-100 bg-white px-6 py-16 lg:px-10" data-testid="enterprise-logos-strip">
+      <div className="mx-auto max-w-[1400px]">
+        <Reveal>
+          <p className="text-center text-[11px] font-extrabold uppercase tracking-[0.24em] text-slate-400">
+            Trusted by sustainability teams at
+          </p>
+          <div className="mt-8 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
+            {logos.map((l) => (
+              <div key={l.id} className="flex flex-col items-center gap-2">
+                <img src={l.image} alt={l.company_name} className="h-10 w-full object-contain grayscale transition-all hover:grayscale-0" />
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">{l.company_name}</span>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
 
 export default function ForEnterprise() {
   return (
@@ -116,23 +154,7 @@ export default function ForEnterprise() {
         </div>
       </section>
 
-      {/* LOGOS */}
-      <section className="border-y border-slate-100 bg-white px-6 py-16 lg:px-10" data-testid="enterprise-logos-strip">
-        <div className="mx-auto max-w-[1400px]">
-          <Reveal>
-            <p className="text-center text-[11px] font-extrabold uppercase tracking-[0.24em] text-slate-400">
-              Trusted by sustainability teams at
-            </p>
-            <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-              {LOGOS.map((l) => (
-                <div key={l} className="flex h-16 items-center justify-center rounded-xl bg-mist font-display text-sm font-extrabold tracking-widest text-slate-400 transition-colors hover:text-forest">
-                  {l}
-                </div>
-              ))}
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      <TrustedByLogos />
 
       <CtaBanner
         title="Talk to our enterprise team."

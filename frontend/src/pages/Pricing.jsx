@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, Compass, Users, CreditCard, TrendingUp, Minus } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Reveal, MaskedLines } from "@/components/site/Motion";
 import { ButtonLink, ArrowLink, Tag, SectionHead } from "@/components/site/ui";
-import { TIERS, FAQS, COMPARE_ROWS } from "@/data/content";
+import { TIERS, COMPARE_ROWS } from "@/data/content";
 
 const CONNECTS = [
   { icon: Compass, label: "Home", sub: "Explore" },
@@ -21,6 +21,14 @@ function CellValue({ v }) {
 
 export default function Pricing() {
   const [yearly, setYearly] = useState(true);
+  const [faqs, setFaqs] = useState([]);
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/api/faq`)
+      .then((r) => (r.ok ? r.json() : []))
+      .then(setFaqs)
+      .catch(() => {});
+  }, []);
 
   return (
     <div data-testid="pricing-page">
@@ -205,13 +213,13 @@ export default function Pricing() {
           </Reveal>
           <Reveal delay={0.1}>
             <Accordion type="single" collapsible className="space-y-3" data-testid="pricing-faq-accordion">
-              {FAQS.map((f, i) => (
-                <AccordionItem key={f.q} value={`item-${i}`} className="rounded-2xl border border-slate-200 bg-white px-6">
+              {faqs.map((f, i) => (
+                <AccordionItem key={f.id} value={`item-${i}`} className="rounded-2xl border border-slate-200 bg-white px-6">
                   <AccordionTrigger data-testid={`faq-trigger-${i}`} className="py-5 text-left font-display text-base font-bold tracking-tight text-ink hover:no-underline">
-                    {f.q}
+                    {f.question}
                   </AccordionTrigger>
                   <AccordionContent className="pb-5 text-sm leading-relaxed text-body">
-                    {f.a}
+                    {f.answer}
                   </AccordionContent>
                 </AccordionItem>
               ))}

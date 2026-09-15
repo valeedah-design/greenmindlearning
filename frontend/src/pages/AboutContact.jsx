@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { Search, BookOpen, Users, Target, Check, Mail, MapPin, Clock, Quote } from "lucide-react";
 import { Reveal, MaskedLines, CountUp } from "@/components/site/Motion";
 import { ButtonLink, Tag, SectionHead, FormSuccess, inputCls } from "@/components/site/ui";
-import { IMAGES, TEAM } from "@/data/content";
+import { IMAGES } from "@/data/content";
 
 const ECOSYSTEM = [
   { icon: Search, title: "Identify Gaps", desc: "We map where sustainability knowledge breaks down between research and the workforce.", hot: false },
@@ -12,11 +13,22 @@ const ECOSYSTEM = [
 ];
 
 export default function AboutContact() {
+  const location = useLocation();
   const [form, setForm] = useState({ first: "", last: "", email: "", topic: "General Question", message: "" });
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
+
+  useEffect(() => {
+    if (location.state?.topic || location.state?.message) {
+      setForm((f) => ({
+        ...f,
+        topic: location.state.topic || f.topic,
+        message: location.state.message || f.message,
+      }));
+    }
+  }, [location.state]);
 
   const submitContact = async (e) => {
     e.preventDefault();
@@ -59,9 +71,7 @@ export default function AboutContact() {
                 isn't limited by technology, but by the speed at which we can share expertise.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
-                <span className="rounded-full bg-forest px-4 py-2 text-xs font-extrabold text-white" data-testid="about-stat-badge">12+ Years of Innovation</span>
                 <span className="rounded-full border border-slate-300 bg-white px-4 py-2 text-xs font-bold text-body">Global Impact</span>
-                <span className="rounded-full border border-slate-300 bg-white px-4 py-2 text-xs font-bold text-body">500K+ Learners</span>
               </div>
             </Reveal>
           </div>
@@ -105,18 +115,18 @@ export default function AboutContact() {
 
       {/* DECISIVE DECADE */}
       <section className="bg-navy px-6 py-24 lg:px-10 lg:py-32">
-        <div className="mx-auto grid max-w-[1400px] items-center gap-14 lg:grid-cols-2 lg:gap-20">
+        <div className="mx-auto max-w-[800px] text-center">
           <Reveal>
-            <Tag dark>Why Now</Tag>
+            <Tag dark className="justify-center">Why Now</Tag>
             <h2 className="mt-4 font-display text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl text-balance">
               A platform built for the <span className="text-leaf">Decisive Decade.</span>
             </h2>
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-slate-400">
+            <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-slate-400">
               The "why" is simple: we are running out of time. Traditional education cycles are too slow for
               the climate crisis. Green Mind Learning accelerates this by creating a direct link between
               research and classroom delivery.
             </p>
-            <ul className="mt-8 space-y-4">
+            <ul className="mx-auto mt-8 max-w-md space-y-4 text-left">
               {[
                 ["Decentralized Intelligence", "expertise flows trainer-to-learner, not publisher-to-market."],
                 ["Actionable Frameworks", "every module ends in something a professional can use on Monday."],
@@ -131,11 +141,6 @@ export default function AboutContact() {
                 </li>
               ))}
             </ul>
-          </Reveal>
-          <Reveal delay={0.15}>
-            <div className="clip-frame overflow-hidden">
-              <img src={IMAGES.forestCanopy} alt="Dense forest canopy from above" className="h-[440px] w-full object-cover" loading="lazy" />
-            </div>
           </Reveal>
         </div>
       </section>
@@ -161,7 +166,7 @@ export default function AboutContact() {
 
       {/* TEAM */}
       <section className="bg-mist px-6 py-24 lg:px-10 lg:py-28">
-        <div className="mx-auto max-w-[1400px]">
+        <div className="mx-auto max-w-[900px]">
           <Reveal>
             <SectionHead
               center
@@ -169,22 +174,19 @@ export default function AboutContact() {
               title={<>The people behind the <span className="text-forest">platform.</span></>}
             />
           </Reveal>
-          <div className="mt-14 grid gap-6 md:grid-cols-3">
-            {TEAM.map((t, i) => (
-              <Reveal key={t.name} delay={i * 0.1} className="h-full">
-                <div className="group h-full overflow-hidden rounded-2xl border border-slate-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_-24px_rgba(11,18,32,0.25)]" data-testid={`team-card-${i}`}>
-                  <div className="h-64 overflow-hidden">
-                    <img src={t.img} alt={t.name} loading="lazy" className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
-                  </div>
-                  <div className="p-7">
-                    <h3 className="font-display text-lg font-bold tracking-tight text-ink">{t.name}</h3>
-                    <p className="mt-1 text-xs font-bold uppercase tracking-wider text-forest">{t.role}</p>
-                    <p className="mt-3 text-sm leading-relaxed text-body">{t.bio}</p>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+          <Reveal delay={0.1}>
+            <div className="mt-14 rounded-2xl border border-slate-200 bg-white p-8 text-center md:p-12" data-testid="team-blend-card">
+              <p className="text-base leading-relaxed text-body md:text-lg">
+                Green Mind Learning is built by a small team spanning engineering, design research, and
+                learning science. One side of the team builds the platform's technical backbone — from
+                simulation architecture to accessible, performant engineering. Another brings a background in
+                urban systems and ESG design research, turning dense regulation into frameworks people can
+                actually use. The third shapes the pedagogy behind every module — measurable outcomes, real
+                practice, no filler. Together, that mix is what lets us move from research to a
+                classroom-ready module without losing rigor along the way.
+              </p>
+            </div>
+          </Reveal>
           <Reveal className="mx-auto mt-16 max-w-3xl text-center">
             <Quote className="mx-auto h-8 w-8 text-forest/40" />
             <p className="mt-4 font-display text-xl font-bold leading-relaxed tracking-tight text-ink md:text-2xl text-balance">
@@ -280,6 +282,8 @@ export default function AboutContact() {
                         <option>Enterprise &amp; Licensing</option>
                         <option>eLearning Services</option>
                         <option>Simulation Early Access</option>
+                        <option>Learning Material Request</option>
+                        <option>Industry Insight Inquiry</option>
                       </select>
                     </div>
                     <div>

@@ -5,11 +5,54 @@ import { Reveal, MaskedLines } from "@/components/site/Motion";
 import { ButtonLink, ArrowLink, Tag, SoonPill, SectionHead, FormSuccess, inputDarkCls, scrollToId } from "@/components/site/ui";
 import { IMAGES } from "@/data/content";
 
-const APPROACH = [
-  { n: "01", title: "Concrete", desc: "Every simulation will be grounded in a real regulatory framework, dataset, or industry case — not an abstract quiz." },
-  { n: "02", title: "Active", desc: "Learners will make decisions, see consequences, and retry — productive struggle beats passive reading." },
-  { n: "03", title: "Actionable", desc: "Every module will end with a real deliverable learners could use at work: a draft report, an audit checklist, a mitigation plan." },
+const NETWORK_NODES = [
+  { x: 8, y: 20 }, { x: 22, y: 55 }, { x: 15, y: 82 }, { x: 35, y: 15 },
+  { x: 40, y: 68 }, { x: 55, y: 30 }, { x: 62, y: 78 }, { x: 78, y: 18 },
+  { x: 85, y: 50 }, { x: 92, y: 78 }, { x: 50, y: 90 }, { x: 30, y: 40 },
+  { x: 65, y: 8 }, { x: 95, y: 12 },
 ];
+
+const NETWORK_LINKS = [
+  [0, 1], [1, 2], [1, 3], [3, 5], [5, 6], [5, 7], [7, 8], [8, 9],
+  [6, 10], [4, 6], [11, 1], [11, 3], [4, 11], [8, 5], [7, 12], [12, 13],
+];
+
+function NetworkBackground() {
+  return (
+    <svg
+      className="absolute inset-0 h-full w-full opacity-50"
+      viewBox="0 0 100 100"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+      data-testid="sim-hero-network-bg"
+    >
+      {NETWORK_LINKS.map(([a, b], i) => {
+        const n1 = NETWORK_NODES[a];
+        const n2 = NETWORK_NODES[b];
+        return (
+          <motion.line
+            key={`net-line-${i}`}
+            x1={n1.x} y1={n1.y} x2={n2.x} y2={n2.y}
+            stroke="rgba(156,210,75,0.4)"
+            strokeWidth="0.15"
+            vectorEffect="non-scaling-stroke"
+            animate={{ opacity: [0.12, 0.5, 0.12] }}
+            transition={{ duration: 4 + (i % 5), repeat: Infinity, ease: "easeInOut", delay: i * 0.3 }}
+          />
+        );
+      })}
+      {NETWORK_NODES.map((n, i) => (
+        <motion.circle
+          key={`net-node-${i}`}
+          cx={n.x} cy={n.y} r="0.55"
+          fill="#9CD24B"
+          animate={{ opacity: [0.35, 1, 0.35], r: [0.45, 0.85, 0.45] }}
+          transition={{ duration: 3 + (i % 4), repeat: Infinity, ease: "easeInOut", delay: i * 0.25 }}
+        />
+      ))}
+    </svg>
+  );
+}
 
 const CONCEPTS = [
   {
@@ -70,15 +113,15 @@ export default function Simulations() {
     <div data-testid="simulations-page">
       {/* HERO */}
       <section className="relative overflow-hidden bg-navy">
-        <img src={IMAGES.circuit} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover opacity-15" />
+        <NetworkBackground />
         <div className="hero-vignette absolute inset-0" />
         <div className="pointer-events-none absolute -right-32 top-1/3 h-96 w-96 rounded-full bg-forest/20 blur-[130px]" />
-        <div className="relative mx-auto max-w-[1400px] px-6 py-28 lg:px-10 lg:py-36">
-          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }}>
+        <div className="relative mx-auto max-w-[1000px] px-6 py-28 text-center lg:px-10 lg:py-36">
+          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }} className="flex justify-center">
             <Tag dark>Coming Soon — The Future of Green Mind Learning</Tag>
           </motion.div>
           <MaskedLines
-            className="mt-6 max-w-5xl font-display text-4xl font-black leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-[4.2rem]"
+            className="mx-auto mt-6 max-w-4xl font-display text-4xl font-black leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-[4.2rem]"
             lines={[
               "We're rebuilding sustainability",
               <>training around <span className="text-leaf">simulation,</span></>,
@@ -89,7 +132,7 @@ export default function Simulations() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="mt-7 max-w-2xl text-base leading-relaxed text-slate-300 md:text-lg"
+            className="mx-auto mt-7 max-w-2xl text-base leading-relaxed text-slate-300 md:text-lg"
           >
             We're building Green Mind Simulations — guided, no-code ESG scenarios your trainees can practice
             inside, not just read about. Join the waitlist to be first to try it.
@@ -98,7 +141,7 @@ export default function Simulations() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.75 }}
-            className="mt-10 flex flex-wrap items-center gap-4"
+            className="mt-10 flex flex-wrap items-center justify-center gap-4"
           >
             <ButtonLink onClick={() => scrollToId("waitlist")} variant="primary" testid="sim-hero-waitlist-button" arrow className="px-7 py-3.5">
               Join the Waitlist
@@ -111,36 +154,11 @@ export default function Simulations() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
-            className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-semibold text-slate-400"
+            className="mx-auto mt-6 inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-semibold text-slate-400"
             data-testid="sim-no-demo-note"
           >
             No live demo yet — concept previews only. Honest by design.
           </motion.p>
-        </div>
-      </section>
-
-      {/* OUR APPROACH */}
-      <section className="bg-mist px-6 py-24 lg:px-10 lg:py-28">
-        <div className="mx-auto max-w-[1400px]">
-          <Reveal>
-            <SectionHead
-              center
-              tag="Our Approach"
-              title={<>How we're designing every <span className="text-forest">simulation.</span></>}
-              sub="Three principles guide the roadmap — this is the plan we're building toward, not a shipped feature set."
-            />
-          </Reveal>
-          <div className="mt-14 grid gap-6 md:grid-cols-3">
-            {APPROACH.map((a, i) => (
-              <Reveal key={a.n} delay={i * 0.1} className="h-full">
-                <div className="h-full rounded-2xl border border-slate-200 bg-white p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_-24px_rgba(11,18,32,0.2)]">
-                  <span className="font-display text-4xl font-black text-forest/30">{a.n}</span>
-                  <h3 className="mt-4 font-display text-2xl font-extrabold tracking-tight text-ink">{a.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-body">{a.desc}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
         </div>
       </section>
 

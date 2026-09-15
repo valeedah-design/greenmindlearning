@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Search, Leaf, Cpu, FileText, BookOpen, PenLine } from "lucide-react";
 import { Reveal } from "@/components/site/Motion";
@@ -12,7 +12,7 @@ export default function SearchPage() {
   const [levels, setLevels] = useState([]);
 
   const query = q.trim().toLowerCase();
-  const match = (t) => t.toLowerCase().includes(query);
+  const match = useCallback((t) => t.toLowerCase().includes(query), [query]);
 
   const materials = useMemo(
     () =>
@@ -22,19 +22,19 @@ export default function SearchPage() {
           (topics.length === 0 || topics.includes(m.topic)) &&
           (levels.length === 0 || levels.includes(m.level))
       ),
-    [query, topics, levels]
+    [query, topics, levels, match]
   );
 
   const articles = useMemo(
     () => [...GUIDES.map((g) => ({ ...g, kind: "Guide" })), ...INSIGHTS.map((a) => ({ ...a, kind: "Insight" }))].filter(
       (a) => query === "" || match(a.title) || match(a.desc) || match(a.tag)
     ),
-    [query]
+    [query, match]
   );
 
   const posts = useMemo(
     () => BLOG_POSTS.filter((p) => query === "" || match(p.title) || match(p.desc) || match(p.author)),
-    [query]
+    [query, match]
   );
 
   const showSim = query !== "" && ("simulation".includes(query) || query.includes("simul"));

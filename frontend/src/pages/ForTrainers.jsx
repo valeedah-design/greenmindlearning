@@ -1,20 +1,15 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Clock, TrendingUp, ShieldCheck, Users, Check, Quote } from "lucide-react";
+import { TrendingUp, Quote } from "lucide-react";
 import { LineChart, Line, ResponsiveContainer } from "recharts";
 import { Reveal, MaskedLines } from "@/components/site/Motion";
 import { ButtonLink, ArrowLink, Tag, SectionHead } from "@/components/site/ui";
 import CtaBanner from "@/components/site/CtaBanner";
-import { IMAGES, TINTS } from "@/data/content";
+import { IMAGES } from "@/data/content";
 
 const CHART = [
   { x: "W1", y: 58 }, { x: "W2", y: 61 }, { x: "W3", y: 66 }, { x: "W4", y: 64 },
   { x: "W5", y: 71 }, { x: "W6", y: 75 }, { x: "W7", y: 79 }, { x: "W8", y: 84 },
-];
-
-const TESTIMONIAL_INVITES = [
-  { title: "Yours could be here.", desc: "We're just getting started — and so is our wall of trainer stories. Work with us, and we'd love to feature yours." },
-  { title: "Be one of the first.", desc: "No canned quotes here yet — just an open invitation. Tell us how Green Mind Learning changed your sessions." },
-  { title: "This spot is reserved.", desc: "For the trainer who tries us next. Share your experience and we'll showcase it right here." },
 ];
 
 const WORKFLOW = [
@@ -24,14 +19,61 @@ const WORKFLOW = [
   { n: "4", title: "Delivery", desc: "Launch your session and track student progress via Trainer Insights.", link: "Go Live", to: "/pricing", testid: "trainers-workflow-golive-link", hot: true },
 ];
 
-const FEATURES = [
-  { icon: Clock, title: "Save 40+ Hours", desc: "Per course, on average — materials arrive classroom-ready, not half-built." },
-  { icon: TrendingUp, title: "Rich Analytics", desc: "See exactly where each cohort struggles and which modules land." },
-  { icon: ShieldCheck, title: "Verified Content", desc: "Peer-reviewed by sustainability researchers and updated monthly." },
-  { icon: Users, title: "Community Access", desc: "A private network of 500+ sustainability trainers trading what works." },
-];
+function TrainerTestimonials() {
+  const [testimonials, setTestimonials] = useState([]);
+  const [enabled, setEnabled] = useState(false);
 
-const SEGMENTS = ["Independent Consultants", "Sustainability Officers", "Academic Instructors"];
+  useEffect(() => {
+    let cancelled = false;
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/api/testimonials`)
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (cancelled || !data) return;
+        setEnabled(!!data.enabled);
+        setTestimonials(data.items || []);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  if (!enabled || testimonials.length === 0) return null;
+
+  return (
+    <section className="bg-white px-6 py-24 lg:px-10 lg:py-28" data-testid="trainer-testimonials-section">
+      <div className="mx-auto max-w-[1400px]">
+        <Reveal>
+          <SectionHead
+            center
+            tag="Testimonials"
+            title={<>Trusted by the trainers who use <span className="text-forest">us daily.</span></>}
+          />
+        </Reveal>
+        <div className="mt-14 grid gap-6 md:grid-cols-3">
+          {testimonials.map((t, i) => (
+            <Reveal key={t.id || i} delay={i * 0.1} className="h-full">
+              <div className="flex h-full flex-col rounded-2xl border border-slate-200 bg-mist p-8" data-testid={`testimonial-card-${i}`}>
+                <Quote className="h-7 w-7 text-forest/40" />
+                <p className="mt-4 flex-1 text-sm leading-relaxed text-body">{t.quote}</p>
+                <div className="mt-5">
+                  <p className="font-display text-sm font-bold tracking-tight text-ink">{t.name}</p>
+                  {t.linkedin_url ? (
+                    <a href={t.linkedin_url} target="_blank" rel="noreferrer" className="text-xs font-semibold text-forest hover:underline">
+                      {t.role}
+                    </a>
+                  ) : (
+                    <p className="text-xs text-slate-500">{t.role}</p>
+                  )}
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export default function ForTrainers() {
   return (
@@ -133,77 +175,7 @@ export default function ForTrainers() {
         </div>
       </section>
 
-      {/* BUILT FOR EVERY EDUCATOR */}
-      <section className="bg-mist px-6 py-24 lg:px-10 lg:py-28">
-        <div className="mx-auto grid max-w-[1400px] gap-14 lg:grid-cols-2 lg:gap-20">
-          <div>
-            <Reveal>
-              <SectionHead
-                tag="Built for Every Type of Educator"
-                title={<>Serious tools, zero <span className="text-forest">busywork.</span></>}
-              />
-            </Reveal>
-            <div className="mt-10 grid gap-6 sm:grid-cols-2">
-              {FEATURES.map((f, i) => (
-                <Reveal key={f.title} delay={i * 0.08}>
-                  <div className="rounded-2xl border border-slate-200 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
-                    <span className={`flex h-11 w-11 items-center justify-center rounded-xl ${TINTS[i % TINTS.length].soft} ${TINTS[i % TINTS.length].text}`}>
-                      <f.icon className="h-5 w-5" />
-                    </span>
-                    <h3 className="mt-4 font-display text-base font-bold tracking-tight text-ink">{f.title}</h3>
-                    <p className="mt-1.5 text-sm leading-relaxed text-body">{f.desc}</p>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-          <Reveal delay={0.15} className="flex items-center">
-            <div className="w-full rounded-[2rem] bg-navy p-9 md:p-12">
-              <Tag dark>Who Can Train With Us</Tag>
-              <h3 className="mt-4 font-display text-2xl font-extrabold tracking-tight text-white md:text-3xl">
-                From solo consultants to university faculties.
-              </h3>
-              <ul className="mt-8 space-y-4">
-                {SEGMENTS.map((s) => (
-                  <li key={s} className="flex items-center gap-4 rounded-xl border border-navy-line bg-navy-card px-5 py-4">
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-forest/15 text-leaf">
-                      <Check className="h-4 w-4" />
-                    </span>
-                    <span className="text-sm font-bold text-white">{s}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* TESTIMONIALS */}
-      <section className="bg-white px-6 py-24 lg:px-10 lg:py-28">
-        <div className="mx-auto max-w-[1400px]">
-          <Reveal>
-            <SectionHead
-              center
-              tag="Testimonials"
-              title={<>Your story could be <span className="text-forest">next.</span></>}
-            />
-          </Reveal>
-          <div className="mt-14 grid gap-6 md:grid-cols-3">
-            {TESTIMONIAL_INVITES.map((c, i) => (
-              <Reveal key={c.title} delay={i * 0.1} className="h-full">
-                <div className="flex h-full flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-mist p-8 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg" data-testid={`testimonial-invite-card-${i}`}>
-                  <Quote className="h-7 w-7 text-forest/40" />
-                  <h3 className="mt-4 font-display text-base font-bold tracking-tight text-ink">{c.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-body">{c.desc}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-          <Reveal className="mt-10 text-center">
-            <ArrowLink to="/about-contact" testid="testimonials-share-story-link">Share your story with us</ArrowLink>
-          </Reveal>
-        </div>
-      </section>
+      <TrainerTestimonials />
 
       <CtaBanner
         title="Ready to transform your sustainability training?"

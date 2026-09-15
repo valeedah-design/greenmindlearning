@@ -3,7 +3,7 @@ import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion"
 import {
   FlaskConical, MousePointerClick, Blocks, TrendingUp, Presentation, FileText,
   ClipboardCheck, BookOpen, Video, Cpu, Users, GraduationCap, Building2,
-  Plug, Wrench, Quote, ChevronDown, ChevronLeft, ChevronRight, Search, Radio,
+  Plug, Wrench, ChevronDown, ChevronLeft, ChevronRight,
 } from "lucide-react";
 import { EASE, Reveal, MaskedLines } from "@/components/site/Motion";
 import { ButtonLink, ArrowLink, Tag, SoonPill, SectionHead } from "@/components/site/ui";
@@ -41,70 +41,6 @@ const FORMATS = [
   { icon: Video, label: "Video Guides" },
   { icon: Cpu, label: "Interactive Simulations", soon: true },
 ];
-
-const HUB_TILES = [
-  { title: "Climate & Energy", sub: "Net Zero, Renewables, Carbon Accounting", img: IMAGES.windTurbines },
-  { title: "Circular Economy", sub: "Waste Reduction, Life Cycle Assessment", img: IMAGES.greenAerial },
-  { title: "ESG Governance", sub: "Ethics, Reporting, Policy, Disclosure", img: IMAGES.paperwork },
-  { title: "Biodiversity", sub: "Ecosystem Services, Nature Positive", img: IMAGES.forestSun },
-];
-
-const STEPS = [
-  { n: "1", title: "Explore Hub", desc: "Discover topics and materials in our library.", icon: Search, color: "sky", fx: "radar", pos: "" },
-  { n: "2", title: "Preview & Select", desc: "Review materials before choosing.", icon: MousePointerClick, color: "amber", fx: "tilt", pos: "" },
-  { n: "3", title: "Trainer Prep", desc: "Use guides and templates to customize delivery.", icon: Wrench, color: "violet", fx: "wiggle", pos: "lg:col-start-2 lg:row-start-2" },
-  { n: "4", title: "Deliver & Impact", desc: "Train your audience and track engagement.", icon: Radio, color: "forest", fx: "ripple", pos: "lg:col-start-1 lg:row-start-2" },
-];
-
-const STEP_COLORS = {
-  sky: { chip: "bg-sky-100 text-sky-600", num: "text-sky-200", bar: "bg-sky-500" },
-  amber: { chip: "bg-amber-100 text-amber-600", num: "text-amber-200", bar: "bg-amber-500" },
-  violet: { chip: "bg-violet-100 text-violet-600", num: "text-violet-200", bar: "bg-violet-500" },
-  forest: { chip: "bg-forest-light text-forest", num: "text-forest/15", bar: "bg-forest" },
-};
-
-const JUNCTIONS = [
-  { x: 50, y: 23, color: "#F59E0B" },
-  { x: 77, y: 50, color: "#8B5CF6" },
-  { x: 50, y: 77, color: "#177A3B" },
-  { x: 23, y: 50, color: "#0EA5E9" },
-];
-
-function StepCard({ s, i }) {
-  const c = STEP_COLORS[s.color];
-  return (
-    <Reveal delay={i * 0.08} className={`relative z-10 h-full ${s.pos}`}>
-      <motion.div
-        whileHover={s.fx === "tilt" ? { rotateX: 6, rotateY: -7, y: -6 } : { y: -8, scale: 1.015 }}
-        transition={{ type: "spring", stiffness: 280, damping: 22 }}
-        style={{ transformPerspective: 900 }}
-        className="group relative h-full overflow-hidden rounded-2xl border border-slate-200 bg-white p-7 transition-shadow duration-300 hover:shadow-2xl"
-        data-testid={`connect-step-${s.n}`}
-      >
-        <span className={`pointer-events-none absolute -right-1 -top-5 select-none font-display text-8xl font-black ${c.num}`}>
-          {s.n}
-        </span>
-        <div className={`relative flex h-14 w-14 items-center justify-center overflow-hidden rounded-2xl ${c.chip}`}>
-          {s.fx === "radar" && (
-            <span
-              className="fx-radar absolute inset-0 opacity-30 transition-opacity duration-300 group-hover:opacity-100"
-              style={{ background: "conic-gradient(from 0deg, transparent 65%, rgba(14,165,233,0.55))" }}
-            />
-          )}
-          {s.fx === "ripple" && <span className="fx-ripple absolute inset-0 rounded-2xl border-2 border-forest" />}
-          <s.icon
-            className={`relative h-7 w-7 ${s.fx === "wiggle" ? "fx-wiggle-target" : ""} ${
-              s.fx === "tilt" ? "transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-125" : ""
-            } ${s.fx === "radar" ? "transition-transform duration-300 group-hover:scale-110" : ""}`}
-          />
-        </div>
-        <h3 className="mt-5 font-display text-lg font-bold tracking-tight text-ink">{s.title}</h3>
-        <p className="mt-2 text-sm leading-relaxed text-body">{s.desc}</p>
-        <span className={`fx-bar absolute bottom-0 left-0 h-1 rounded-r-full ${c.bar}`} />
-      </motion.div>
-    </Reveal>
-  );
-}
 
 const SERVICES = [
   { icon: Presentation, title: "PPT to eLearning", desc: "Turn your slide decks into interactive, trackable courses.", to: "/solutions/services#ppt", testid: "home-service-ppt-link" },
@@ -498,55 +434,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* HOW IT ALL CONNECTS */}
-      <section className="bg-white px-6 py-24 lg:px-10 lg:py-28" data-testid="connect-section">
-        <div className="mx-auto max-w-[1100px]">
-          <Reveal>
-            <SectionHead
-              center
-              tag="How It All Connects"
-              title={<>From discovery to delivery in <span className="text-forest">four steps.</span></>}
-            />
-          </Reveal>
-          <div className="relative mt-16 grid gap-6 lg:grid-cols-2 lg:gap-x-28 lg:gap-y-16">
-            <svg className="pointer-events-none absolute inset-0 z-0 hidden h-full w-full lg:block" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-              <path
-                d="M 23 23 L 77 23 L 77 77 L 23 77"
-                fill="none" stroke="#E2E8F0" strokeWidth="2" strokeLinejoin="round" vectorEffect="non-scaling-stroke"
-              />
-              <motion.path
-                d="M 23 23 L 77 23 L 77 77 L 23 77"
-                fill="none" stroke="#177A3B" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
-                vectorEffect="non-scaling-stroke" strokeDasharray="10 152"
-                animate={{ strokeDashoffset: [0, -162] }}
-                transition={{ duration: 2.8, repeat: Infinity, ease: "linear" }}
-                style={{ filter: "drop-shadow(0 0 5px rgba(23,122,59,0.7))" }}
-              />
-              <motion.path
-                d="M 23 23 L 77 23 L 77 77 L 23 77"
-                fill="none" stroke="#9CD24B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-                vectorEffect="non-scaling-stroke" strokeDasharray="5 157"
-                animate={{ strokeDashoffset: [81, -81] }}
-                transition={{ duration: 2.8, repeat: Infinity, ease: "linear" }}
-                style={{ filter: "drop-shadow(0 0 4px rgba(156,210,75,0.8))" }}
-              />
-            </svg>
-            {JUNCTIONS.map((j, idx) => (
-              <span key={idx} className="pointer-events-none absolute z-0 hidden lg:block" style={{ left: `${j.x}%`, top: `${j.y}%` }}>
-                <span className="block h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full" style={{ background: j.color }} />
-                <span
-                  className="fx-junction absolute left-0 top-0 block h-3 w-3 rounded-full"
-                  style={{ background: j.color, animationDelay: `${idx * 0.7}s` }}
-                />
-              </span>
-            ))}
-            {STEPS.map((s, i) => (
-              <StepCard key={s.n} s={s} i={i} />
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* DESIGNED FOR THOSE WHO LEAD CHANGE */}
       <section className="bg-white px-6 py-24 lg:px-10 lg:py-32">
         <div className="mx-auto max-w-[1400px]">
@@ -575,19 +462,8 @@ export default function Home() {
               </div>
             </div>
             <Reveal delay={0.15}>
-              <div className="relative">
-                <div className="clip-frame overflow-hidden">
-                  <img src={IMAGES.workshop} alt="Sustainability workshop in progress" className="h-[520px] w-full object-cover" loading="lazy" />
-                </div>
-                <div className="absolute -bottom-8 left-4 max-w-[85%] rounded-2xl bg-navy p-7 shadow-2xl md:-left-10 md:max-w-md">
-                  <Quote className="h-6 w-6 text-leaf" />
-                  <p className="mt-3 text-sm leading-relaxed text-slate-200">
-                    "Green Mind Learning cut our curriculum development time by 70%. The quality of the case
-                    studies is unparalleled."
-                  </p>
-                  <p className="mt-4 text-xs font-bold uppercase tracking-wider text-white">Marcus Thorne</p>
-                  <p className="text-xs text-slate-400">Director of Sustainability, Global Corp</p>
-                </div>
+              <div className="clip-frame overflow-hidden">
+                <img src={IMAGES.workshop} alt="Sustainability workshop in progress" className="h-[520px] w-full object-cover" loading="lazy" />
               </div>
             </Reveal>
           </div>
@@ -673,43 +549,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* KNOWLEDGE HUB */}
-      <section className="bg-navy px-6 py-24 lg:px-10 lg:py-32">
-        <div className="mx-auto max-w-[1400px]">
-          <div className="grid gap-12 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
-            <div className="flex flex-col justify-center">
-              <Reveal>
-                <SectionHead
-                  dark
-                  tag="Explore the Knowledge Hub"
-                  title={<>Four domains. One <span className="text-leaf">growing</span> library.</>}
-                  sub="Deep, expert-built coverage across the topics that define modern sustainability work — from carbon accounting to nature-positive strategy."
-                />
-                <div className="mt-8">
-                  <ButtonLink to="/learning-materials" variant="glass" testid="hub-topic-explorer-button" arrow>
-                    Topic Explorer
-                  </ButtonLink>
-                </div>
-              </Reveal>
-            </div>
-            <div className="grid gap-5 sm:grid-cols-2">
-              {HUB_TILES.map((t, i) => (
-                <Reveal key={t.title} delay={i * 0.08}>
-                  <div className="group relative h-52 overflow-hidden rounded-2xl" data-testid={`hub-tile-${i}`}>
-                    <img src={t.img} alt={t.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/30 to-transparent" />
-                    <div className="absolute bottom-0 p-5">
-                      <h3 className="font-display text-lg font-bold tracking-tight text-white">{t.title}</h3>
-                      <p className="mt-1 text-xs font-medium text-slate-300">{t.sub}</p>
-                    </div>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* SERVICES TEASER */}
       <section className="bg-mist px-6 py-24 lg:px-10 lg:py-28" data-testid="services-teaser-section">
         <div className="mx-auto max-w-[1400px]">
@@ -737,8 +576,8 @@ export default function Home() {
             ))}
           </div>
           <Reveal className="mt-10">
-            <ButtonLink to="/solutions/services" variant="outline" testid="services-teaser-cta" arrow>
-              Explore eLearning Services
+            <ButtonLink to="/about-contact#contact" variant="outline" testid="services-teaser-cta" arrow>
+              Get Help With Your Content
             </ButtonLink>
           </Reveal>
         </div>

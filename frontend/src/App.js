@@ -16,6 +16,7 @@ import Pricing from "@/pages/Pricing";
 import AboutContact from "@/pages/AboutContact";
 import SearchPage from "@/pages/SearchPage";
 import NotFound from "@/pages/NotFound";
+import AdminApp from "@/admin/AdminApp";
 
 function ScrollManager() {
   const { pathname, hash } = useLocation();
@@ -33,6 +34,42 @@ function ScrollManager() {
     else window.scrollTo(0, 0);
   }, [pathname, hash]);
   return null;
+}
+
+function SiteChrome() {
+  const { pathname } = useLocation();
+  const isAdmin = pathname.startsWith("/admin");
+
+  if (isAdmin) {
+    return (
+      <Routes>
+        <Route path="/admin/*" element={<AdminApp />} />
+      </Routes>
+    );
+  }
+
+  return (
+    <>
+      <Navbar />
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/simulations" element={<Simulations />} />
+          <Route path="/simulations/preview" element={<ConceptPreview />} />
+          <Route path="/learning-materials" element={<LearningMaterials />} />
+          <Route path="/resources" element={<ResourcesHub />} />
+          <Route path="/solutions/trainers" element={<ForTrainers />} />
+          <Route path="/solutions/enterprise" element={<ForEnterprise />} />
+          <Route path="/solutions/services" element={<Services />} />
+          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/about-contact" element={<AboutContact />} />
+          <Route path="/search" element={<SearchPage />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </main>
+      <Footer />
+    </>
+  );
 }
 
 function App() {
@@ -56,24 +93,7 @@ function App() {
     <div className="App bg-white">
       <BrowserRouter>
         <ScrollManager />
-        <Navbar />
-        <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/simulations" element={<Simulations />} />
-            <Route path="/simulations/preview" element={<ConceptPreview />} />
-            <Route path="/learning-materials" element={<LearningMaterials />} />
-            <Route path="/resources" element={<ResourcesHub />} />
-            <Route path="/solutions/trainers" element={<ForTrainers />} />
-            <Route path="/solutions/enterprise" element={<ForEnterprise />} />
-            <Route path="/solutions/services" element={<Services />} />
-            <Route path="/pricing" element={<Pricing />} />
-            <Route path="/about-contact" element={<AboutContact />} />
-            <Route path="/search" element={<SearchPage />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </main>
-        <Footer />
+        <SiteChrome />
       </BrowserRouter>
     </div>
   );

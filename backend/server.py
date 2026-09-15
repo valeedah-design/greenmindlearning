@@ -1,7 +1,6 @@
 from fastapi import FastAPI, APIRouter
-from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
-from motor.motor_asyncio import AsyncIOMotorClient
+from starlette.staticfiles import StaticFiles
 import os
 import logging
 from pathlib import Path
@@ -11,14 +10,11 @@ import uuid
 import re
 from datetime import datetime, timezone
 
-
-ROOT_DIR = Path(__file__).parent
-load_dotenv(ROOT_DIR / '.env')
-
-# MongoDB connection
-mongo_url = os.environ['MONGO_URL']
-client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
+from db import ROOT_DIR, UPLOAD_DIR, client, db
+from auth import seed_admins
+from routers.materials import seed_taxonomy
+from routers.faq import seed_faqs
+from routers import auth_router, materials, insights, testimonials, logos, faq, uploads
 
 # Create the main app without a prefix
 app = FastAPI()
@@ -145,6 +141,19 @@ async def send_contact_message(input: ContactCreate):
 # Include the router in the main app
 app.include_router(api_router)
 
+# Admin CMS routers
+app.include_router(auth_router.router)
+app.include_router(materials.router)
+app.include_router(materials.taxonomy_router)
+app.include_router(insights.router)
+app.include_router(testimonials.router)
+app.include_router(logos.router)
+app.include_router(faq.router)
+app.include_router(uploads.router)
+
+# Serve uploaded admin images
+app.mount("/uploads", StaticFiles(directory=str(UPLOAD_DIR)), name="uploads")
+
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
@@ -159,6 +168,14 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
+
+
+@app.on_event("startup")
+async def seed_initial_data():
+    await seed_admins()
+    await seed_taxonomy()
+    await seed_faqs()
+
 
 @app.on_event("shutdown")
 async def shutdown_db_client():
