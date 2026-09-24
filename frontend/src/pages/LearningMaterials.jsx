@@ -33,6 +33,12 @@ export default function LearningMaterials() {
 
   useEffect(() => {
     const base = process.env.REACT_APP_BACKEND_URL;
+    // Uploaded images are stored in Vercel Blob and already come back as full
+    // https:// URLs — only prepend the backend's own origin for older/relative
+    // paths (e.g. "/uploads/xxx.png"). Without this check, an already-absolute
+    // Blob URL gets `base` glued onto the front, producing a broken URL like
+    // "https://backend.vercel.apphttps://...blob.vercel-storage.com/...".
+    const withBase = (u) => (!u ? null : /^https?:\/\//i.test(u) ? u : `${base}${u}`);
     Promise.all([
       fetch(`${base}/api/materials`).then((r) => (r.ok ? r.json() : [])),
       fetch(`${base}/api/materials/taxonomy/types`).then((r) => (r.ok ? r.json() : [])),
@@ -42,8 +48,8 @@ export default function LearningMaterials() {
         setMaterials(
           m.map((item) => ({
             ...item,
-            thumbnail: item.thumbnail ? `${base}${item.thumbnail}` : null,
-            images: (item.images || []).map((u) => `${base}${u}`),
+            thumbnail: withBase(item.thumbnail),
+            images: (item.images || []).map(withBase),
           }))
         );
         setMaterialTypes(t);

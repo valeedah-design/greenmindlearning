@@ -28,12 +28,18 @@ function TrustedByLogos() {
 
   useEffect(() => {
     const base = process.env.REACT_APP_BACKEND_URL;
+    // Logo images uploaded via the admin panel are stored in Vercel Blob and
+    // already come back as full https:// URLs — only prepend the backend's
+    // own origin for older/relative paths. Without this check, an
+    // already-absolute Blob URL gets `base` glued onto the front, producing
+    // a broken URL (see the same fix in LearningMaterials.jsx).
+    const withBase = (u) => (!u ? null : /^https?:\/\//i.test(u) ? u : `${base}${u}`);
     fetch(`${base}/api/trusted-by`)
       .then((r) => (r.ok ? r.json() : null))
       .then((data) => {
         if (!data) return;
         setEnabled(!!data.enabled);
-        setLogos((data.items || []).map((l) => ({ ...l, image: `${base}${l.image}` })));
+        setLogos((data.items || []).map((l) => ({ ...l, image: withBase(l.image) })));
       })
       .catch(() => {});
   }, []);
