@@ -72,8 +72,10 @@ export default function Layout({ children }) {
 
   return (
     <div className="min-h-screen bg-mist lg:flex">
-      {/* Desktop sidebar */}
-      <aside className="hidden lg:flex lg:flex-col w-72 shrink-0 bg-navy min-h-screen sticky top-0 self-start">
+      {/* Desktop sidebar — pinned to the viewport so the logo and "Dashboard"
+          link at the top are always visible, instead of scrolling away with
+          the page content (which "sticky" wasn't reliably doing here). */}
+      <aside className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-30 lg:flex lg:flex-col w-72 shrink-0 bg-navy">
         <SidebarContent />
       </aside>
 
@@ -99,7 +101,7 @@ export default function Layout({ children }) {
         </div>
       )}
 
-      <div className="flex-1 min-w-0 pt-14 lg:pt-0">
+      <div className="flex-1 min-w-0 pt-14 lg:pt-0 lg:ml-72">
         <main className="p-4 sm:p-6 lg:p-10 max-w-6xl mx-auto">{children}</main>
       </div>
     </div>
