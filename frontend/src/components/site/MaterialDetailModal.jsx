@@ -24,7 +24,10 @@ export default function MaterialDetailModal({ material, onClose, typeColor, topi
 
   return (
     <Dialog open={!!material} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-2xl overflow-hidden p-0" data-testid="material-detail-modal">
+      <DialogContent
+        className="flex max-h-[88vh] w-full max-w-2xl flex-col overflow-hidden p-0 sm:max-h-[85vh]"
+        data-testid="material-detail-modal"
+      >
         <button
           type="button"
           onClick={onClose}
@@ -35,7 +38,7 @@ export default function MaterialDetailModal({ material, onClose, typeColor, topi
         </button>
 
         {images.length > 0 && (
-          <div className="relative h-56 w-full bg-mist sm:h-72">
+          <div className="relative h-56 w-full shrink-0 bg-mist sm:h-72">
             <img src={images[imgIndex]} alt={material.title} className="h-full w-full object-cover" />
             {images.length > 1 && (
               <>
@@ -65,7 +68,7 @@ export default function MaterialDetailModal({ material, onClose, typeColor, topi
           </div>
         )}
 
-        <div className="p-7 sm:p-9">
+        <div className="flex-1 overflow-y-auto overscroll-contain p-6 sm:p-7">
           <div className="flex flex-wrap items-center gap-2">
             <span className="rounded-full px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-white" style={{ backgroundColor: typeColor || "#0B1220" }}>
               {material.type}
