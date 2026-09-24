@@ -5,7 +5,7 @@ import { Home, BookOpen, Newspaper, Quote, HelpCircle } from "lucide-react";
 // core UX principle: staff should never wonder "where do I go to change X".
 export const NAV_SECTIONS = [
   {
-    to: "trusted-by",
+    to: "/admin/trusted-by",
     navLabel: "Trusted-by logos",
     publicPage: "Home",
     cardTitle: "Home — Trusted-by logos strip",
@@ -13,7 +13,7 @@ export const NAV_SECTIONS = [
     icon: Home,
   },
   {
-    to: "materials",
+    to: "/admin/materials",
     navLabel: "Learning Materials",
     publicPage: "Learning Materials",
     cardTitle: "Learning Materials — courses & categories",
@@ -21,7 +21,7 @@ export const NAV_SECTIONS = [
     icon: BookOpen,
   },
   {
-    to: "insights",
+    to: "/admin/insights",
     navLabel: "Industry Insights",
     publicPage: "Resources Hub",
     cardTitle: "Resources Hub — Industry Insights",
@@ -29,7 +29,7 @@ export const NAV_SECTIONS = [
     icon: Newspaper,
   },
   {
-    to: "testimonials",
+    to: "/admin/testimonials",
     navLabel: "Testimonials",
     publicPage: "For Trainers",
     cardTitle: "For Trainers — Testimonials",
@@ -37,7 +37,7 @@ export const NAV_SECTIONS = [
     icon: Quote,
   },
   {
-    to: "faq",
+    to: "/admin/faq",
     navLabel: "Pricing FAQ",
     publicPage: "Pricing",
     cardTitle: "Pricing — FAQ",

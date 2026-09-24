@@ -28,7 +28,7 @@ export default function AdminApp() {
           <Route path="account" element={<Account />} />
         </Route>
 
-        <Route path="*" element={<Navigate to="" replace />} />
+        <Route path="*" element={<Navigate to="/admin" replace />} />
       </Routes>
     </AuthProvider>
   );

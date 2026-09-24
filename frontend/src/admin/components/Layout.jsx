@@ -27,7 +27,7 @@ export default function Layout({ children }) {
       </div>
 
       <nav className="flex-1 px-3 space-y-1 overflow-y-auto pb-4">
-        <NavLink to="" end className={navLinkCls} onClick={() => setMobileOpen(false)}>
+        <NavLink to="/admin" end className={navLinkCls} onClick={() => setMobileOpen(false)}>
           <LayoutDashboard className="h-4 w-4 shrink-0" />
           Dashboard
         </NavLink>
@@ -51,7 +51,7 @@ export default function Layout({ children }) {
         <div className="text-xs text-slate-400 mb-1">Signed in as</div>
         <div className="text-sm font-semibold text-white mb-3 truncate">{name || "Admin"}</div>
         <NavLink
-          to="account"
+          to="/admin/account"
           className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-white/5 text-slate-200 hover:bg-white/10 transition-colors mb-2"
           onClick={() => setMobileOpen(false)}
         >
