@@ -1,10 +1,11 @@
+import mimetypes
 import uuid
 from pathlib import Path
 
 from fastapi import APIRouter, Depends, HTTPException, UploadFile
+from vercel.blob import AsyncBlobClient
 
 from auth import get_current_admin
-from db import UPLOAD_DIR
 
 router = APIRouter(prefix="/api/uploads", tags=["uploads"])
 
@@ -23,7 +24,21 @@ async def upload_image(file: UploadFile, admin=Depends(get_current_admin)):
         raise HTTPException(status_code=400, detail="File too large (8MB max)")
 
     filename = f"{uuid.uuid4()}{ext}"
-    dest = UPLOAD_DIR / filename
-    dest.write_bytes(contents)
+    content_type = mimetypes.guess_type(filename)[0] or "application/octet-stream"
 
-    return {"url": f"/uploads/{filename}"}
+    # Stored in Vercel Blob (persistent object storage) instead of the
+    # serverless function's local disk — Vercel wipes each function's /tmp
+    # between invocations, so a file saved there could disappear before a
+    # visitor's browser ever requested it (this is why uploaded images were
+    # showing as broken). Blob storage is a separate, permanent service, so
+    # the URL it returns keeps working across every future request.
+    client = AsyncBlobClient()
+    blob = await client.put(
+        f"uploads/{filename}",
+        contents,
+        access="public",
+        content_type=content_type,
+        add_random_suffix=False,
+    )
+
+    return {"url": blob.url}

@@ -1,6 +1,5 @@
 from fastapi import FastAPI, APIRouter
 from starlette.middleware.cors import CORSMiddleware
-from starlette.staticfiles import StaticFiles
 import os
 import logging
 from pathlib import Path
@@ -10,7 +9,7 @@ import uuid
 import re
 from datetime import datetime, timezone
 
-from db import ROOT_DIR, UPLOAD_DIR, client, db
+from db import ROOT_DIR, client, db
 from auth import seed_admins
 from routers.materials import seed_taxonomy
 from routers.faq import seed_faqs
@@ -151,8 +150,6 @@ app.include_router(logos.router)
 app.include_router(faq.router)
 app.include_router(uploads.router)
 
-# Serve uploaded admin images
-app.mount("/uploads", StaticFiles(directory=str(UPLOAD_DIR)), name="uploads")
 
 # Origins that must always be allowed, regardless of what (if anything) is set
 # in the CORS_ORIGINS env var on Vercel — this way the live site keeps working
