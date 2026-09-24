@@ -39,7 +39,7 @@ export default function MaterialDetailModal({ material, onClose, typeColor, topi
 
         {images.length > 0 && (
           <div className="relative h-56 w-full shrink-0 bg-mist sm:h-72">
-            <img src={images[imgIndex]} alt={material.title} className="h-full w-full object-cover" />
+            <img src={images[imgIndex]} alt={material.title} className="h-full w-full object-contain" />
             {images.length > 1 && (
               <>
                 <button
