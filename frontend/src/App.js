@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import "@/App.css";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
 import Lenis from "lenis";
 import Navbar from "@/components/site/Navbar";
 import Footer from "@/components/site/Footer";
@@ -98,6 +99,7 @@ function App() {
         <ScrollManager />
         <SiteChrome />
       </BrowserRouter>
+      <Analytics />
     </div>
   );
 }
